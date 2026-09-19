@@ -76,10 +76,10 @@
   <div class="invoice-workspace-grid">
     <form id="invoiceManagementForm" class="invoice-editor" novalidate>
       <section class="editor-card">
-        <header class="editor-card-head"><span>1</span><div><h2>Customer & order</h2><p>Choose an existing customer and optionally connect an order.</p></div></header>
+        <header class="editor-card-head"><span>1</span><div><h2>Customer / prospect & order</h2><p>Choose any customer or prospect and optionally connect an order.</p></div></header>
         <div class="editor-grid">
-          <label class="full">Customer
-            <select id="clientId" required><option value="">Select a customer</option></select>
+          <label class="full">Customer / prospect
+            <select id="clientId" required><option value="">Select a customer or prospect</option></select>
           </label>
           <label>Billing email<input id="clientEmail" type="email" required></label>
           <label>Related order<select id="orderId"><option value="">No related order</option></select></label>
@@ -153,7 +153,7 @@
           <div><strong>INVOICE</strong><span id="previewInvoiceNumber">New invoice</span></div>
         </div>
         <div class="preview-billing">
-          <div><small>BILL TO</small><strong id="previewCustomerName">Select a customer</strong><span id="previewCustomerEmail">—</span><span id="previewCustomerAddress">—</span></div>
+          <div><small>BILL TO</small><strong id="previewCustomerName">Select a customer or prospect</strong><span id="previewCustomerEmail">—</span><span id="previewCustomerAddress">—</span></div>
           <div><small>DUE DATE</small><strong id="previewDueDate">—</strong><span id="previewTerms">—</span></div>
         </div>
         <div class="preview-line-head"><span>Description</span><span>Qty</span><span>Amount</span></div>

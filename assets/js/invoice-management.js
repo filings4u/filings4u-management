@@ -8,7 +8,7 @@ const fmtDate=v=>v?new Date(v+(String(v).length===10?"T12:00:00":"")).toLocaleDa
 const fmtDateTime=v=>v?new Date(v).toLocaleString("en-US",{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit"}):"—";
 
 let db,user,profile;
-let clients=[],orders=[],lines=[],payments=[];
+let clients=[],contacts=[],orders=[],people=[],lines=[],payments=[];
 let invoiceId=null,currentInvoice=null,dirty=false;
 
 function toast(msg){
@@ -25,7 +25,7 @@ async function invokeEdge(name,body){
   return data;
 }
 function setDirty(v=true){dirty=v;$("modeSubtext").textContent=v?(invoiceId?"Unsaved changes":"Unsaved invoice"):(invoiceId?"All changes saved":"Ready")}
-function currentClient(){return clients.find(c=>String(c.id)===String($("clientId").value))}
+function currentClient(){return people.find(c=>c._key===$("clientId").value)||null}
 function currentOrder(){return orders.find(o=>String(o.id)===String($("orderId").value))}
 function clientName(c){return c?.company_name&&c.company_name!=="Not Specified"?c.company_name:[c?.first_name,c?.last_name].filter(Boolean).join(" ")||c?.email_address||"Customer"}
 function address(c){return [c?.street_address,[c?.city,c?.state,c?.zip_code].filter(Boolean).join(", ")].filter(Boolean).join(" · ")||"—"}
@@ -50,17 +50,37 @@ async function boot(){
   else{
     resetNew();
     if(p.get("order")) prefillOrder(p.get("order"));
+    else prefillPersonFromParams(p);
   }
 }
 
 async function loadReferenceData(){
-  const [c,o]=await Promise.all([
+  const [c,r,o]=await Promise.all([
     db.from("client_profiles").select("id,first_name,last_name,email_address,company_name,phone_number,street_address,city,state,zip_code,stripe_customer_id").order("company_name",{ascending:true}),
-    db.from("orders").select("id,user_id,tracking_number,company_name,email_address,selected_service,service_key,plan_tier,total_amount,total_paid_amount,service_fee,government_fee,addons_total,order_status,payment_status,stripe_customer_id").order("created_at",{ascending:false})
+    db.from("crm_contacts").select("id,contact_type,lifecycle_stage,status,client_profile_id,first_name,last_name,email_address,company_name,phone_number,street_address,city,state,zip_code").eq("status","active").order("company_name",{ascending:true}),
+    db.from("orders").select("id,user_id,tracking_number,first_name,last_name,phone_number,company_name,email_address,selected_service,service_key,plan_tier,total_amount,total_paid_amount,service_fee,government_fee,addons_total,order_status,payment_status,stripe_customer_id,paid_at").order("created_at",{ascending:false})
   ]);
   if(c.error)toast(c.error.message); else clients=c.data||[];
+  if(r.error)toast(r.error.message); else contacts=r.data||[];
   if(o.error)toast(o.error.message); else orders=o.data||[];
-  $("clientId").innerHTML='<option value="">Select a customer</option>'+clients.map(c=>`<option value="${esc(c.id)}">${esc(clientName(c))} — ${esc(c.email_address||"")}</option>`).join("");
+  buildPeople();
+}
+
+
+function norm(v){return String(v||"").trim().toLowerCase()}
+function isPaidOrder(o){return norm(o.payment_status)==="paid"||Number(o.total_paid_amount)>0||!!o.paid_at}
+function buildPeople(){
+  const map=new Map(),seenEmails=new Set();
+  const paidEmails=new Set(orders.filter(isPaidOrder).map(o=>norm(o.email_address)).filter(Boolean));
+  clients.forEach(c=>{const e=norm(c.email_address);map.set(`profile:${c.id}`,{...c,_key:`profile:${c.id}`,_kind:"Customer",_client_profile_id:c.id});if(e)seenEmails.add(e)});
+  contacts.forEach(c=>{const e=norm(c.email_address),kind=(c.client_profile_id||paidEmails.has(e)||norm(c.lifecycle_stage)==="customer"||norm(c.contact_type)==="customer")?"Customer":"Prospect";if(c.client_profile_id&&clients.some(x=>x.id===c.client_profile_id))return;map.set(`crm:${c.id}`,{...c,_key:`crm:${c.id}`,_kind:kind,_client_profile_id:c.client_profile_id||null});if(e)seenEmails.add(e)});
+  orders.filter(isPaidOrder).forEach(o=>{const e=norm(o.email_address);if(!e||seenEmails.has(e))return;map.set(`order:${e}`,{...o,_key:`order:${e}`,_kind:"Customer",_client_profile_id:o.user_id||null});seenEmails.add(e)});
+  people=[...map.values()].sort((a,b)=>a._kind===b._kind?clientName(a).localeCompare(clientName(b)):a._kind.localeCompare(b._kind));
+  $("clientId").innerHTML='<option value="">Select a customer or prospect</option>'+people.map(c=>`<option value="${esc(c._key)}">${esc(c._kind)} — ${esc(clientName(c))}${c.email_address?` (${esc(c.email_address)})`:""}</option>`).join("");
+}
+function findPersonForInvoice(x){
+  if(x.client_profile_id){const p=people.find(c=>c._client_profile_id===x.client_profile_id);if(p)return p}
+  const e=norm(x.client_email);return people.find(c=>norm(c.email_address)===e)||null;
 }
 
 function resetNew(){
@@ -87,7 +107,7 @@ async function loadInvoice(id){
   $("modeLabel").textContent=x.invoice_number||"Invoice";
   $("previewInvoiceNumber").textContent=x.invoice_number||"Invoice";
   $("recordActions").hidden=false;$("paymentsCard").hidden=false;
-  $("clientId").value=x.client_profile_id||"";syncClient(false);
+  const invoicePerson=findPersonForInvoice(x);$("clientId").value=invoicePerson?invoicePerson._key:"";syncClient(false);
   $("clientEmail").value=x.client_email||"";
   $("orderId").value=x.order_id||"";$("trackingNumber").value=x.tracking_number||"";
   $("dueDate").value=x.due_date||"";$("invoiceStatus").value=x.status||"draft";$("paymentStatus").value=x.payment_status||"unpaid";
@@ -102,7 +122,7 @@ async function loadInvoice(id){
 
 function syncOrderOptions(){
   const c=currentClient();
-  const matched=c?orders.filter(o=>String(o.user_id||"")===String(c.id)||(o.email_address&&c.email_address&&o.email_address.toLowerCase()===c.email_address.toLowerCase())):orders;
+  const matched=c?orders.filter(o=>(c._client_profile_id&&String(o.user_id||"")===String(c._client_profile_id))||(o.email_address&&c.email_address&&norm(o.email_address)===norm(c.email_address))):orders;
   const selected=$("orderId").value;
   $("orderId").innerHTML='<option value="">No related order</option>'+matched.map(o=>`<option value="${esc(o.id)}">${esc(o.tracking_number||o.selected_service||o.id)} — ${esc(o.selected_service||"Service")}</option>`).join("");
   if(matched.some(o=>String(o.id)===String(selected)))$("orderId").value=selected;
@@ -117,10 +137,20 @@ function syncOrder(mark=true){
   const o=currentOrder();if(o)$("trackingNumber").value=o.tracking_number||"";
   if(mark)setDirty();calculate();
 }
+
+function prefillPersonFromParams(p){
+  let person=null;
+  if(p.get("client"))person=people.find(x=>x._key===`profile:${p.get("client")}`||x._client_profile_id===p.get("client"));
+  else if(p.get("contact"))person=people.find(x=>x._key===`crm:${p.get("contact")}`);
+  else if(p.get("email")){const e=norm(p.get("email"));person=people.find(x=>norm(x.email_address)===e)}
+  if(!person)return;
+  $("clientId").value=person._key;syncClient(false);$("clientEmail").value=person.email_address||"";calculate();
+}
+
 function prefillOrder(id){
   const o=orders.find(x=>String(x.id)===String(id));if(!o)return toast("The requested order could not be found.");
-  const c=clients.find(x=>String(x.id)===String(o.user_id||"")||(x.email_address&&o.email_address&&x.email_address.toLowerCase()===o.email_address.toLowerCase()));
-  if(c){$("clientId").value=c.id;syncClient(false)}
+  const c=people.find(x=>(x._client_profile_id&&String(x._client_profile_id)===String(o.user_id||""))||(x.email_address&&o.email_address&&norm(x.email_address)===norm(o.email_address)));
+  if(c){$("clientId").value=c._key;syncClient(false)}
   $("orderId").value=o.id;syncOrder(false);$("clientEmail").value=o.email_address||c?.email_address||"";
   lines=[];
   const service=o.selected_service||o.service_key||"filings4u service";
@@ -169,7 +199,7 @@ function renderPreview(){
   $("previewLines").innerHTML=lines.length?lines.map(l=>`<div class="preview-line"><span>${esc(l.description||"Untitled line item")}</span><span>${l.quantity}</span><span>${money(l.quantity*l.unit_price)}</span></div>`).join(""):'<div class="preview-empty">No line items.</div>';
 }
 function validate(){
-  if(!$("clientId").value)return "Select a customer.";
+  if(!$("clientId").value)return "Select a customer or prospect.";
   if(!$("clientEmail").value.trim())return "Billing email is required.";
   if(!$("dueDate").value)return "Due date is required.";
   if(!lines.length||lines.some(l=>!String(l.description).trim()||Number(l.quantity)<=0||!Number.isFinite(Number(l.unit_price))))return "Complete every invoice line item.";
@@ -181,7 +211,7 @@ async function saveInvoice(forceDraft=false){
   const t=totals(),status=forceDraft?"draft":$("invoiceStatus").value;
   const c=currentClient(),o=currentOrder();
   const payload={
-    document_type:"invoice",client_email:$("clientEmail").value.trim().toLowerCase(),client_profile_id:$("clientId").value,
+    document_type:"invoice",client_email:$("clientEmail").value.trim().toLowerCase(),client_profile_id:c?._client_profile_id||null,
     order_id:$("orderId").value||null,tracking_number:$("trackingNumber").value.trim()||null,
     line_item_description:lines[0].description.trim(),due_date:$("dueDate").value,status,currency:$("currency").value,
     subtotal_amount:t.subtotal,discount_amount:t.discount,discount_type:t.discountType,discount_value:t.discountValue,tax_rate:t.rate,tax_amount:t.tax,

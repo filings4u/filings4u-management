@@ -108,6 +108,16 @@ function buildActivity(r){const a=[];r.orders.forEach(x=>a.push(["▤",`Order ${
 const activityHtml=x=>`<div class="activity-item"><span>${x[0]}</span><div><strong>${esc(x[1])}</strong><p>${esc(x[2])}</p></div><time>${fmtTime(x[3])}</time></div>`;
 function setTab(t){$$("[data-tab]").forEach(b=>b.classList.toggle("is-active",b.dataset.tab===t));$$("[data-panel]").forEach(p=>p.classList.toggle("is-active",p.dataset.panel===t))}
 $$("[data-tab]").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));$("#customerBackButton")?.addEventListener("click",()=>{$("#customerRecordView").hidden=true;$("#customerListView").hidden=false;history.replaceState(null,"","admin-customers.html")});$("#customerPortalButton")?.addEventListener("click",()=>{if(st.current?._source!=="profile")return toast("This customer does not have a linked portal profile.",true);open("https://portal.filings4u.com/client-dashboard.html","_blank","noopener")});
+
+function customerTarget(c){
+ if(!c)return "";
+ if(c._source==="profile"&&c._record_id)return `client=${encodeURIComponent(c._record_id)}`;
+ if(c._source==="crm"&&c._record_id)return `contact=${encodeURIComponent(c._record_id)}`;
+ if(c.email_address)return `email=${encodeURIComponent(c.email_address)}`;
+ return "";
+}
+$("#customerCreateOrder")?.addEventListener("click",()=>{const q=customerTarget(st.current);if(!q)return toast("This customer needs an email address before creating an order.",true);location.href=`admin-orders.html?${q}`});
+$("#customerCreateInvoice")?.addEventListener("click",()=>{const q=customerTarget(st.current);if(!q)return toast("This customer needs an email address before creating an invoice.",true);location.href=`admin-invoice-management.html?${q}`});
 function openEdit(){const c=st.current;if(!c)return;if(c._source==="order")return toast("This customer comes from an unlinked order. Link the order to a customer account before editing the profile.",true);const f=$("#customerEditForm");["first_name","last_name","company_name","email_address","phone_number","street_address","city","state","zip_code","tracking_number"].forEach(k=>f.elements[k].value=c[k]||"");$("#customerEditModal").hidden=false}
 $("#editCustomerButton")?.addEventListener("click",openEdit);$$("[data-edit-customer]").forEach(x=>x.addEventListener("click",openEdit));$$("[data-close-edit]").forEach(x=>x.addEventListener("click",()=>$("#customerEditModal").hidden=true));
 $("#customerEditForm")?.addEventListener("submit",async e=>{e.preventDefault();if(!st.current)return;const raw=Object.fromEntries(new FormData(e.currentTarget));raw.email_address=norm(raw.email_address);raw.state=String(raw.state||"").toUpperCase();let table="client_profiles",id=st.current._record_id,payload=raw;if(st.current._source==="crm"){table="crm_contacts";payload={first_name:raw.first_name,last_name:raw.last_name,company_name:raw.company_name,email_address:raw.email_address,phone_number:raw.phone_number}}else payload.updated_at=new Date().toISOString();const {data,error}=await st.db.from(table).update(payload).eq("id",id).select("*").single();if(error)return toast(error.message,true);Object.assign(st.current,data,{id:st.current.id,_record_id:id,_source:st.current._source});renderIdentity(st.current);$("#customerEditModal").hidden=true;toast("Customer updated.");await load()});
