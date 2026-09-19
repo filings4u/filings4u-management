@@ -50,3 +50,52 @@
   .prospect-horizontal-modal .customer-form-grid{grid-template-columns:1fr}
   .prospect-horizontal-modal .customer-form-grid .full{grid-column:auto}
 }
+
+/* Prospect record view: corrected spacing and detail density */
+#prospectRecordView:not([hidden]){
+  display:grid;
+  gap:16px;
+}
+#prospectRecordView .customer-record-toolbar{
+  align-items:center;
+  margin-bottom:0;
+  min-height:44px;
+}
+#prospectRecordView .customer-record-hero{
+  margin:0;
+  padding:22px 24px;
+}
+#prospectRecordView .customer-detail-card{
+  margin:0;
+  padding:22px 24px 24px;
+}
+#prospectRecordView .customer-detail-card .card-head{
+  padding-bottom:14px;
+}
+#prospectRecordView .customer-detail-card dl{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  column-gap:36px;
+  row-gap:20px;
+  margin-top:18px;
+}
+#prospectRecordView .customer-detail-card dl>div{
+  min-width:0;
+}
+#prospectRecordView .customer-detail-card dd{
+  line-height:1.45;
+}
+@media(max-width:1180px){
+  #prospectRecordView .customer-detail-card dl{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    column-gap:28px;
+  }
+}
+@media(max-width:620px){
+  #prospectRecordView:not([hidden]){gap:12px}
+  #prospectRecordView .customer-record-hero,
+  #prospectRecordView .customer-detail-card{padding:18px}
+  #prospectRecordView .customer-detail-card dl{
+    grid-template-columns:1fr;
+    row-gap:16px;
+  }
+}

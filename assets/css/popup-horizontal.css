@@ -1,0 +1,192 @@
+/* ============================================================
+   FILINGS4U MANAGEMENT — HORIZONTAL POPUP FORMS
+   Desktop popup forms use a wide, landscape layout.
+   Tablet collapses to two columns; mobile collapses to one.
+   This file is intentionally loaded after each page stylesheet.
+   ============================================================ */
+
+/* Keep every management form modal comfortably inside the viewport. */
+[class*="-modal__card"] {
+  max-height: calc(100vh - 40px) !important;
+  overflow: auto !important;
+}
+
+/* Shared form controls inside popup forms. */
+[class*="-modal__card"] > form label,
+[class*="-modal__card"] > form input,
+[class*="-modal__card"] > form select,
+[class*="-modal__card"] > form textarea {
+  min-width: 0;
+}
+
+[class*="-modal__card"] > form input,
+[class*="-modal__card"] > form select,
+[class*="-modal__card"] > form textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Footer/actions always stay on their own row. */
+[class*="-modal__card"] > form > footer {
+  grid-column: 1 / -1 !important;
+}
+
+@media (min-width: 1000px) {
+  /* Wide landscape modal instead of the old narrow/tall cards. */
+  [class*="-modal__card"] {
+    width: min(1180px, calc(100vw - 56px)) !important;
+  }
+
+  /* Forms that place labels directly inside the modal form. */
+  [class*="-modal__card"] > form {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    column-gap: 16px !important;
+    row-gap: 14px !important;
+  }
+
+  /* Structural blocks should span the complete landscape form. */
+  [class*="-modal__card"] > form > div,
+  [class*="-modal__card"] > form > p,
+  [class*="-modal__card"] > form > section,
+  [class*="-modal__card"] > form > article,
+  [class*="-modal__card"] > form > aside,
+  [class*="-modal__card"] > form > fieldset,
+  [class*="-modal__card"] > form > footer {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* Long free-text fields get room without forcing the whole form vertical. */
+  [class*="-modal__card"] > form > label:has(textarea) {
+    grid-column: span 2;
+  }
+
+  /* All known field grids used by management popup forms. */
+  [class*="-modal__card"] form :is(
+    .form-grid,
+    .application-form-grid,
+    .compliance-form-grid,
+    .customer-form-grid,
+    .design-form-grid,
+    .order-form-grid,
+    .pages-form-grid,
+    .portal-message-form-grid,
+    .service-form-grid,
+    .support-form-grid,
+    .task-form-grid
+  ) {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 14px 16px !important;
+    align-items: start;
+  }
+
+  /* Keep intentionally long fields useful while still preserving landscape flow. */
+  [class*="-modal__card"] form :is(
+    .application-form-grid,
+    .compliance-form-grid,
+    .customer-form-grid,
+    .design-form-grid,
+    .order-form-grid,
+    .pages-form-grid,
+    .service-form-grid,
+    .support-form-grid,
+    .task-form-grid
+  ) > .full {
+    grid-column: span 2 !important;
+  }
+
+  /* A full-width note/status/action element remains a complete row. */
+  [class*="-modal__card"] form :is(
+    .form-note,
+    .customer-form-note,
+    .order-form-note,
+    .proof-upload-note,
+    .security-note,
+    .access-note,
+    .automation-flow,
+    .upload-progress,
+    .form-status,
+    .portal-message-form-status
+  ) {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* Accounting journal rows have their own multi-column line-item layout. */
+  .accounting-modal__card--wide {
+    width: min(1240px, calc(100vw - 56px)) !important;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 999px) {
+  [class*="-modal__card"] {
+    width: min(880px, calc(100vw - 36px)) !important;
+  }
+
+  [class*="-modal__card"] > form {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+  }
+
+  [class*="-modal__card"] > form > div,
+  [class*="-modal__card"] > form > p,
+  [class*="-modal__card"] > form > section,
+  [class*="-modal__card"] > form > article,
+  [class*="-modal__card"] > form > aside,
+  [class*="-modal__card"] > form > fieldset,
+  [class*="-modal__card"] > form > footer {
+    grid-column: 1 / -1 !important;
+  }
+
+  [class*="-modal__card"] form :is(
+    .form-grid,
+    .application-form-grid,
+    .compliance-form-grid,
+    .customer-form-grid,
+    .design-form-grid,
+    .order-form-grid,
+    .pages-form-grid,
+    .portal-message-form-grid,
+    .service-form-grid,
+    .support-form-grid,
+    .task-form-grid
+  ) {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  [class*="-modal__card"] {
+    width: min(100%, calc(100vw - 24px)) !important;
+    max-height: calc(100vh - 24px) !important;
+  }
+
+  [class*="-modal__card"] > form {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  [class*="-modal__card"] form :is(
+    .form-grid,
+    .application-form-grid,
+    .compliance-form-grid,
+    .customer-form-grid,
+    .design-form-grid,
+    .order-form-grid,
+    .pages-form-grid,
+    .portal-message-form-grid,
+    .service-form-grid,
+    .support-form-grid,
+    .task-form-grid
+  ) {
+    grid-template-columns: 1fr !important;
+  }
+
+  [class*="-modal__card"] form .full,
+  [class*="-modal__card"] > form > label:has(textarea) {
+    grid-column: 1 / -1 !important;
+  }
+}
