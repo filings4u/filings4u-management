@@ -13,7 +13,6 @@ const fmtTime=v=>v?new Intl.DateTimeFormat("en-US",{month:"short",day:"numeric",
 function toast(m,e=false){const x=document.createElement("div");x.className="toast"+(e?" error":"");x.textContent=m;document.body.appendChild(x);setTimeout(()=>x.remove(),3000)}
 try{const a=await window.filings4uRequireAdmin?.();if(window.filings4uRequireAdmin&&!a)return;const u=a?.user||a?.session?.user;if(u){const e=u.email||"Admin account",m=u.app_metadata||{},n=m.display_name||m.name||e.split("@")[0];$$("[data-admin-name]").forEach(x=>x.textContent=n);$$("[data-admin-email]").forEach(x=>x.textContent=e);$$("[data-admin-initials]").forEach(x=>x.textContent=n.split(/\s+/).slice(0,2).map(v=>v[0]).join("").toUpperCase())}}catch(e){console.error(e)}
 st.db=db();if(!st.db){toast("Supabase client is not available.",true);return}
-$$(".management-nav-group__toggle").forEach(b=>b.addEventListener("click",()=>{const g=b.closest(".management-nav-group"),p=g.querySelector(".management-nav-group__panel"),o=!g.classList.contains("is-open");g.classList.toggle("is-open",o);p.hidden=!o;b.setAttribute("aria-expanded",o)}));
 $("#managementMobileToggle")?.addEventListener("click",()=>document.body.classList.toggle("mobile-nav-open"));$("#managementSidebarBackdrop")?.addEventListener("click",()=>document.body.classList.remove("mobile-nav-open"));
 $("#managementDesktopToggle")?.addEventListener("click",()=>document.body.classList.toggle("sidebar-collapsed"));
 const pb=$("#managementProfileButton"),pm=$("#managementProfileMenu");pb?.addEventListener("click",e=>{e.stopPropagation();pm.hidden=!pm.hidden});document.addEventListener("click",()=>{if(pm)pm.hidden=true});
@@ -26,13 +25,16 @@ async function load(){
   q("orders",x=>x.order("created_at",{ascending:false}).limit(2000))
  ]);
  const customers=[],seenEmails=new Set();
+ const isPurchase=o=>norm(o.payment_status)==="paid"||Number(o.total_paid_amount)>0||!!o.paid_at;
+ const paidOrders=orders.filter(isPurchase),paidEmails=new Set(paidOrders.map(o=>norm(o.email_address)).filter(Boolean)),paidUsers=new Set(paidOrders.map(o=>o.user_id).filter(Boolean));
+ // Existing portal profiles remain customer records. CRM-only contacts become customers only after a purchase.
  profiles.forEach(p=>{const e=norm(p.email_address);customers.push({...p,_source:"profile",_record_id:p.id});if(e)seenEmails.add(e)});
- contacts.filter(c=>norm(c.contact_type)==="customer"||norm(c.lifecycle_stage)==="customer").forEach(c=>{
+ contacts.filter(c=>paidEmails.has(norm(c.email_address))||(c.client_profile_id&&paidUsers.has(c.client_profile_id))).forEach(c=>{
   const e=norm(c.email_address);if(e&&seenEmails.has(e))return;
   customers.push({...c,id:`crm:${c.id}`,_record_id:c.id,_source:"crm",updated_at:c.updated_at||c.created_at});if(e)seenEmails.add(e);
  });
  const orderByEmail=new Map();
- orders.forEach(o=>{const e=norm(o.email_address);if(!e||seenEmails.has(e)||orderByEmail.has(e))return;orderByEmail.set(e,o)});
+ paidOrders.forEach(o=>{const e=norm(o.email_address);if(!e||seenEmails.has(e)||orderByEmail.has(e))return;orderByEmail.set(e,o)});
  orderByEmail.forEach((o,e)=>{customers.push({
   id:`order:${e}`,_record_id:null,_source:"order",first_name:o.first_name||"",last_name:o.last_name||"",email_address:e,
   phone_number:o.phone_number||"",company_name:o.company_name||"",state:o.jurisdiction_state||"",tracking_number:o.tracking_number||"",
@@ -110,6 +112,6 @@ function openEdit(){const c=st.current;if(!c)return;if(c._source==="order")retur
 $("#editCustomerButton")?.addEventListener("click",openEdit);$$("[data-edit-customer]").forEach(x=>x.addEventListener("click",openEdit));$$("[data-close-edit]").forEach(x=>x.addEventListener("click",()=>$("#customerEditModal").hidden=true));
 $("#customerEditForm")?.addEventListener("submit",async e=>{e.preventDefault();if(!st.current)return;const raw=Object.fromEntries(new FormData(e.currentTarget));raw.email_address=norm(raw.email_address);raw.state=String(raw.state||"").toUpperCase();let table="client_profiles",id=st.current._record_id,payload=raw;if(st.current._source==="crm"){table="crm_contacts";payload={first_name:raw.first_name,last_name:raw.last_name,company_name:raw.company_name,email_address:raw.email_address,phone_number:raw.phone_number}}else payload.updated_at=new Date().toISOString();const {data,error}=await st.db.from(table).update(payload).eq("id",id).select("*").single();if(error)return toast(error.message,true);Object.assign(st.current,data,{id:st.current.id,_record_id:id,_source:st.current._source});renderIdentity(st.current);$("#customerEditModal").hidden=true;toast("Customer updated.");await load()});
 function openContact(){$("#contactForm").reset();$("#contactModal").hidden=false}$("#addContactTop")?.addEventListener("click",openContact);$("#addContactButton")?.addEventListener("click",openContact);$$("[data-close-contact]").forEach(x=>x.addEventListener("click",()=>$("#contactModal").hidden=true));
-$("#contactForm")?.addEventListener("submit",async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget));d.email_address=norm(d.email_address);d.contact_type=d.lifecycle_stage==="customer"?"customer":"contact";d.status="active";const {error}=await st.db.from("crm_contacts").insert(d);if(error)return toast(error.message,true);$("#contactModal").hidden=true;await load();toast(d.contact_type==="customer"?"Customer created and added to the customer list.":"CRM contact created.")});
-await load();const initial=new URLSearchParams(location.search).get("client");if(initial)openCustomer(initial);
+$("#contactForm")?.addEventListener("submit",async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget));d.email_address=norm(d.email_address);d.contact_type="lead";if(d.lifecycle_stage==="customer")d.lifecycle_stage="new";d.status="active";const {data,error}=await st.db.from("crm_contacts").insert(d).select("*").single();if(error)return toast(error.message,true);$("#contactModal").hidden=true;location.href=`admin-prospects.html?prospect=${encodeURIComponent(data.id)}`});
+await load();const params=new URLSearchParams(location.search),initial=params.get("client"),email=norm(params.get("email"));if(initial)openCustomer(initial);else if(email){const c=st.customers.find(x=>norm(x.email_address)===email);if(c)openCustomer(c.id)}
 })();
