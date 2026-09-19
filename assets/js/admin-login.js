@@ -87,6 +87,7 @@ $('loginForm')?.addEventListener('submit',async event=>{
   if($('message'))$('message').hidden=true;
 
   try{
+    await window.F4UTurnstile.verify();
     if(!db)throw new Error('The secure sign-in service is unavailable.');
 
     const email=$('email').value.trim();

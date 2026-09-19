@@ -95,6 +95,7 @@ $('resetForm').addEventListener('submit',async event=>{
   $('submit').textContent='Saving…';
 
   try{
+    await window.F4UTurnstile.verify();
     const {error}=await db.auth.updateUser({password});
     if(error)throw error;
 

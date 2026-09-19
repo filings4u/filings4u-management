@@ -24,7 +24,7 @@ $('forgotForm').addEventListener('submit',async event=>{
   $('submit').textContent='Sending…';
   $('message').hidden=true;
 
-  try{
+  try{await window.F4UTurnstile.verify();
     if(!db)throw new Error('Secure account service failed to load.');
 
     const {error}=await db.auth.resetPasswordForEmail(email,{
