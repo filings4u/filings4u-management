@@ -14,3 +14,39 @@
 .business-page-head p{margin:0;color:#64748b;font-size:.88rem;line-height:1.55}
 @media(max-width:920px){.business-page-head{align-items:flex-start}.customer-main{padding:96px 16px 45px}}
 @media(max-width:640px){.business-page-head{display:block}.business-page-head .management-page-actions{margin-top:16px;flex-wrap:wrap}}
+
+
+/* Prospect popup: landscape/horizontal layout */
+.prospect-horizontal-modal .customer-modal__card{
+  width:min(1180px,calc(100vw - 48px));
+  max-height:calc(100vh - 48px);
+  overflow:hidden;
+}
+.prospect-horizontal-modal .customer-modal__card form{
+  padding:18px 22px 20px;
+}
+.prospect-horizontal-modal .customer-form-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  column-gap:14px;
+  row-gap:12px;
+  align-items:end;
+}
+.prospect-horizontal-modal .customer-form-grid .full{
+  grid-column:span 2;
+}
+.prospect-horizontal-modal .customer-modal footer{
+  margin-top:16px;
+}
+@media(max-width:1050px){
+  .prospect-horizontal-modal .customer-form-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .prospect-horizontal-modal .customer-form-grid .full{grid-column:span 2}
+}
+@media(max-width:780px){
+  .prospect-horizontal-modal .customer-modal__card{width:min(720px,calc(100vw - 28px));max-height:calc(100vh - 28px);overflow:auto}
+  .prospect-horizontal-modal .customer-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .prospect-horizontal-modal .customer-form-grid .full{grid-column:1/-1}
+}
+@media(max-width:560px){
+  .prospect-horizontal-modal .customer-form-grid{grid-template-columns:1fr}
+  .prospect-horizontal-modal .customer-form-grid .full{grid-column:auto}
+}
