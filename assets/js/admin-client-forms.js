@@ -385,11 +385,6 @@
         <div style="margin-top:9px;color:#64748b;font-size:12px;line-height:1.7;"><strong>Completed:</strong> ${esc(fmtDate(d.completed_at))}<br><strong>Customer:</strong> ${esc(d.client_name || 'Not provided')}<br><strong>Email:</strong> ${esc(d.client_email || 'Not provided')}${d.business_name ? `<br><strong>Business:</strong> ${esc(d.business_name)}` : ''}</div>
         <div style="height:1px;background:#dfe5ec;margin:22px 0;"></div>
         ${fields.map(previewField).join('')}
-        ${(() => {
-          const files = allSubmissionAssets(d);
-          if (!files.length) return '';
-          return `<section style="margin-top:28px;padding-top:4px;"><h3 style="margin:0 0 10px;padding-bottom:7px;border-bottom:1px solid #dfe7f0;color:#0a1f44;font:800 15px/1.25 Manrope,Arial,sans-serif;">Documents &amp; uploads</h3>${assetMarkup(files)}</section>`;
-        })()}
         ${String(d.form_key).toLowerCase() === 'poa' ? poaPreview(d) : ''}
       </div>
       <footer style="padding:16px 28px;border-top:1px solid #e6ebf1;color:#8290a3;font-size:10px;display:flex;justify-content:space-between;gap:16px;"><span>Filings4u, LLC · Secure customer record</span><span>Completed ${esc(fmtDate(d.completed_at))}</span></footer>
