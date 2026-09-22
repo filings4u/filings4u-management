@@ -1,5 +1,5 @@
 const db=window.filings4uClientSupabase,$=id=>document.getElementById(id),TIMEOUT_MS=10*60*1000;
-function msg(t,type='error'){if(!$('message'))return;$('message').textContent=t;$('message').className=`message ${type}`;$('message').hidden=false}
+function msg(t,type='error'){window.filings4uNotify?.[type==='ok'||type==='success'?'success':'error']?.(t);if(!$('message'))return;$('message').textContent=t;$('message').className=`message ${type}`;$('message').hidden=false}
 function activityKey(id){return 'f4u:session:last_activity:'+id}
 function resetActivityForUser(id){if(!id)return;try{localStorage.setItem(activityKey(id),String(Date.now()))}catch(_){}}
 function clearActivity(id){if(!id)return;try{localStorage.removeItem(activityKey(id))}catch(_){}}

@@ -5,7 +5,7 @@ const db=window.filings4uAdminSupabase||window.filings4uSupabase||window.supabas
 const $=id=>document.getElementById(id);
 const TIMEOUT_MS=10*60*1000;
 
-function msg(text,type='error'){
+function msg(text,type='error'){window.filings4uNotify?.[type==='ok'||type==='success'?'success':'error']?.(text);
   const el=$('message');
   if(!el)return;
   el.textContent=text;

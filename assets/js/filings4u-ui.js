@@ -14,5 +14,50 @@ function dialog(message,opts={}){const r=ensureDialog(),type=opts.type||'alert',
 if(!window.filings4uDialog)window.filings4uDialog={alert:(m,o={})=>dialog(m,{...o,type:'alert'}),confirm:(m,o={})=>dialog(m,{...o,type:'confirm'}),prompt:(m,o={})=>dialog(m,{...o,type:'prompt'})};
 window.alert=function(m){window.filings4uDialog.alert(String(m??''),{title:'filings4u notice'});};
 window.filings4uAuditEvent=async function(event,extra={}){try{const db=window.filings4uSupabase||window.filings4uClientSupabase||window.supabaseClient||window.filings4uDb;if(!db?.auth||!db?.functions)return false;const {data:{session}}=await db.auth.getSession();if(!session?.access_token)return false;const {error}=await db.functions.invoke('portal-audit-event',{body:{event,source:extra.source||'portal',path:extra.path||location.pathname},headers:{Authorization:'Bearer '+session.access_token}});if(error)throw error;return true}catch(e){console.warn('[filings4u audit event]',e);return false}};
+
+// Convert legacy page toasts into the shared branded notification surface.
+// This lets older managers keep their local toast() calls while users see one consistent UI.
+const legacyToastState=new WeakMap();
+function legacyToastType(el,message){
+  const cls=String(el?.className||'').toLowerCase(),m=String(message||'').toLowerCase();
+  if(/error|danger|failed|failure/.test(cls)||/(could not|unable to|failed|error|expired|invalid|blocked|not authorized|permission denied)/.test(m))return 'error';
+  if(/warning|warn/.test(cls)||/(attention|required|already|temporarily|unavailable)/.test(m))return 'warning';
+  if(/success|ok/.test(cls)||/(saved|sent|submitted|uploaded|updated|created|deleted|removed|completed|paid|published|approved|restored|copied|downloaded)/.test(m))return 'success';
+  return 'info';
+}
+function surfaceLegacyToast(el){
+  if(!el||el.classList?.contains('f4u-toast'))return;
+  const message=String(el.textContent||'').trim();
+  if(!message||el.hidden)return;
+  const prev=legacyToastState.get(el),now=Date.now();
+  if(prev&&prev.message===message&&now-prev.time<1800)return;
+  legacyToastState.set(el,{message,time:now});
+  notify(message,legacyToastType(el,message));
+  try{el.hidden=true}catch(_){ }
+}
+const legacyToastObserver=new MutationObserver(records=>{
+  for(const r of records){
+    if(r.type==='childList'){
+      if(r.target?.matches?.('.toast'))surfaceLegacyToast(r.target);
+      r.addedNodes?.forEach(n=>{
+        if(n.nodeType!==1)return;
+        if(n.matches?.('.toast'))surfaceLegacyToast(n);
+        n.querySelectorAll?.('.toast').forEach(surfaceLegacyToast);
+      });
+    }else if(r.type==='attributes'&&r.target?.matches?.('.toast'))surfaceLegacyToast(r.target);
+    else if(r.type==='characterData')surfaceLegacyToast(r.target?.parentElement?.closest?.('.toast'));
+  }
+});
+legacyToastObserver.observe(document.documentElement,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['hidden','class','style']});
+document.querySelectorAll('.toast').forEach(surfaceLegacyToast);
+
+// One audited sign-out path for every admin page, including older manager pages.
+if(!window.filings4uSignOut)window.filings4uSignOut=async function(){
+  const db=window.filings4uSupabase||window.filings4uAdminSupabase||window.supabaseClient||window.filings4uDb;
+  try{await window.filings4uAuditEvent?.('logout',{source:'admin',path:location.pathname})}catch(_){ }
+  try{await db?.auth?.signOut?.({scope:'local'})}catch(e){console.warn('[filings4u sign out]',e)}
+  location.href='admin-login.html';
+};
+
 window.addEventListener('unhandledrejection',e=>{const m=e?.reason?.message||String(e?.reason||'Unexpected request failure.');if(m&&!/AbortError/i.test(m))window.filings4uNotify.error(m)});
 })();

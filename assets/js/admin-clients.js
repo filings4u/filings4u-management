@@ -72,10 +72,12 @@ function render(){
       <td><b>${money(c.total_spend)}</b>${Number(c.open_invoices||0)?`<small class="warn">${c.open_invoices} open invoice${c.open_invoices===1?'':'s'}</small>`:''}</td>
       <td>${Number(c.applications||0)}<small>${Number(c.entities||0)} entities</small></td>
       <td>${dt(c.last_activity)}</td>
-      <td><button class="open" data-id="${esc(c.id||'')}" data-email="${esc(c.email_address||'')}">Open profile</button></td>
+      <td><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="open" data-id="${esc(c.id||'')}" data-email="${esc(c.email_address||'')}">View</button><button class="edit-client" data-id="${esc(c.id||'')}" data-email="${esc(c.email_address||'')}" ${c.id?'':'disabled'}>Edit</button><button class="delete-client" data-id="${esc(c.id||'')}" data-email="${esc(c.email_address||'')}" ${c.id?'':'disabled'}>Delete</button></div></td>
     </tr>`;
   }).join(''):'<tr><td colspan="8" class="empty">No customers match these filters.</td></tr>';
   document.querySelectorAll('.open').forEach(b=>b.onclick=()=>openClient(b.dataset.id,b.dataset.email));
+  document.querySelectorAll('.edit-client').forEach(b=>b.onclick=()=>editClient(b.dataset.id,b.dataset.email));
+  document.querySelectorAll('.delete-client').forEach(b=>b.onclick=()=>deleteClient(b.dataset.id,b.dataset.email));
 }
 function section(title,body,count=''){
   return `<section class="box crm-section"><div class="section-title"><h3>${esc(title)}</h3>${count!==''?`<span>${count}</span>`:''}</div>${body}</section>`;
@@ -146,6 +148,31 @@ async function openClient(id,email){
     `;
   }catch(e){$('detail').innerHTML=`<div class="empty error">${esc(e.message||'Unable to load customer record.')}</div>`;}
 }
+
+async function editClient(id,email){
+  if(!id)return toast('This customer does not have an editable client profile yet.');
+  try{
+    const data=await invoke({action:'detail',user_id:id,email_address:email||null});
+    const p=data.customer?.profile||{};
+    const first=await window.filings4uDialog.prompt('Update the customer first name.',{title:'Edit customer',label:'First name',value:p.first_name||''});if(first===null)return;
+    const last=await window.filings4uDialog.prompt('Update the customer last name.',{title:'Edit customer',label:'Last name',value:p.last_name||''});if(last===null)return;
+    const phone=await window.filings4uDialog.prompt('Update the customer phone number.',{title:'Edit customer',label:'Phone',value:p.phone_number||''});if(phone===null)return;
+    const company=await window.filings4uDialog.prompt('Update the company name.',{title:'Edit customer',label:'Company',value:p.company_name||''});if(company===null)return;
+    const {customer}=await invoke({action:'update',user_id:id,first_name:first,last_name:last,phone_number:phone,company_name:company});
+    toast('Customer profile updated.');await load();if(current?.id===id)await openClient(id,email||customer?.email_address);
+  }catch(e){window.filings4uNotify?.error(e.message||'Unable to update customer.');}
+}
+async function deleteClient(id,email){
+  if(!id)return toast('This record does not have a deletable client profile.');
+  const ok=await window.filings4uDialog.confirm(`Delete the customer account for ${email||'this client'}? The profile will be archived before deletion.`,{title:'Delete customer account',confirmText:'Archive & delete'});if(!ok)return;
+  try{
+    const {data:{session}}=await db.auth.getSession();if(!session)throw new Error('Administrator session expired.');
+    const {data,error}=await db.functions.invoke('delete-client-profile',{body:{profile_id:id,email_address:email||null},headers:{Authorization:'Bearer '+session.access_token}});
+    if(error)throw error;if(data?.error)throw new Error(data.error);
+    close();await load();window.filings4uNotify?.success(data?.message||'Customer account archived and deleted.');
+  }catch(e){window.filings4uNotify?.error(e.message||'Unable to delete customer.');}
+}
+
 function close(){ $('drawer').classList.remove('open');$('shade').hidden=true;document.body.classList.remove('drawer-open');current=null}
 function toast(x){$('toast').textContent=x;$('toast').hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>$('toast').hidden=true,3500)}
 $('q').oninput=filter;$('account').onchange=filter;$('clear').onclick=()=>{$('q').value='';$('account').value='';filter()};$('refresh').onclick=load;$('close').onclick=close;$('shade').onclick=close;document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('drawer').classList.contains('open'))close()});boot();

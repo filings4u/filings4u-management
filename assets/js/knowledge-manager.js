@@ -31,7 +31,7 @@ $("#managementDesktopToggle")?.addEventListener("click",()=>document.body.classL
 const pb=$("#managementProfileButton"),pm=$("#managementProfileMenu");
 pb?.addEventListener("click",e=>{e.stopPropagation();pm.hidden=!pm.hidden});
 document.addEventListener("click",()=>{if(pm)pm.hidden=true});
-$("#managementSignOut")?.addEventListener("click",async()=>{await st.db.auth.signOut();location.href="admin-login.html"});
+$("#managementSignOut")?.addEventListener("click",async()=>{await window.filings4uSignOut?.()});
 
 async function load(){
  const r=await st.db.from("filings4u_knowledge").select("*").order("sort_order",{ascending:true}).order("updated_at",{ascending:false});

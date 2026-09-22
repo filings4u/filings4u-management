@@ -186,11 +186,5 @@
     if(profileMenu && !profileMenu.hidden && !e.target.closest('.management-account'))closeProfile();
   });
 
-  $('#managementSignOut')?.addEventListener('click',async()=>{
-    try{
-      const client=window.filings4uSupabase || window.supabaseClient || window.supabase;
-      if(client?.auth?.signOut)await client.auth.signOut();
-    }catch(error){console.error('[filings4u management shell] sign out failed',error)}
-    location.href='admin-login.html';
-  });
+  $('#managementSignOut')?.addEventListener('click',async()=>{await window.filings4uSignOut?.()});
 })();

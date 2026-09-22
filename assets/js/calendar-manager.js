@@ -59,10 +59,12 @@ function render(){
  $$(".calendar-item,.agenda-item").forEach(el=>el.onclick=()=>openExisting(el.dataset.source,el.dataset.id));
  $$(".calendar-day").forEach(el=>el.ondblclick=()=>openNew(el.dataset.date));
 }
-function openNew(date=""){
+function setDeleteEvent(id,source){const b=$("#deleteEventButton");if(!b)return;b.hidden=!(id&&source==="calendar_events");b.onclick=(id&&source==="calendar_events")?()=>deleteEvent(id):null;}
+async function deleteEvent(id){const x=st.events.find(e=>String(e.id)===String(id));if(!x)return;const ok=await window.filings4uDialog.confirm(`Delete event “${x.title}”?`,{title:"Delete calendar event",confirmText:"Delete event"});if(!ok)return;const r=await st.db.from("calendar_events").delete().eq("id",id);if(r.error)return toast(r.error.message,true);$("#eventModal").hidden=true;await load();toast("Calendar event deleted.")}
+function openNew(date=""){setDeleteEvent(null,null);
  $("#eventModalTitle").textContent="New event";$("#eventId").value="";$("#eventSource").value="calendar_events";$("#eventTitle").value="";$("#eventDate").value=date||iso(new Date());$("#eventTime").value="09:00";$("#eventDescription").value="";$("#eventPriority").value="standard";$("#eventEmail").value="";$("#eventModal").hidden=false;
 }
-function openExisting(source,id){
+function openExisting(source,id){setDeleteEvent(id,source);
  if(source==="platform_operational_calendar"){toast("Operational deadlines are read-only here. Edit the originating compliance workflow.");return}
  const x=st.events.find(e=>String(e.id)===String(id));if(!x)return;
  $("#eventModalTitle").textContent="Edit event";$("#eventId").value=x.id;$("#eventSource").value=source;$("#eventTitle").value=x.title||"";$("#eventDate").value=x.event_date||"";$("#eventTime").value=String(x.event_time||"09:00").slice(0,5);$("#eventDescription").value=x.description||"";$("#eventPriority").value=x.priority_level||"standard";$("#eventEmail").value=x.email_address||"";$("#eventModal").hidden=false;

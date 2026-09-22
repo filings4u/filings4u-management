@@ -4,7 +4,7 @@ const MIN_PASSWORD=8;
 let ready=false;
 let saving=false;
 
-function showMessage(text,type='error'){
+function showMessage(text,type='error'){window.filings4uNotify?.[type==='success'||type==='ok'?'success':'error']?.(text);
   $('message').textContent=text;
   $('message').className=`message ${type}`;
   $('message').hidden=false;

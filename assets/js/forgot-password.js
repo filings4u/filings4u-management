@@ -2,7 +2,7 @@ const db=window.filings4uSupabase;
 const $=id=>document.getElementById(id);
 let submitting=false;
 
-function showMessage(text,type='error'){
+function showMessage(text,type='error'){window.filings4uNotify?.[type==='success'||type==='ok'?'success':'error']?.(text);
   $('message').textContent=text;
   $('message').className=`message ${type}`;
   $('message').hidden=false;

@@ -43,7 +43,7 @@ function render(){
    <div class="notification-copy"><strong>${esc(x.title)}</strong><p>${esc(x.message)}</p><small>${esc(x.recipient||"No recipient")}</small></div>
    <span class="source-pill ${x.source==="portal_notifications"?"portal":""}">${x.source==="portal_notifications"?"Portal":x.source==="system_notifications"?"System":"General"}</span>
    <span class="state-pill ${x.isRead?"":"unread"}">${x.isRead?"Read":"Unread"}</span>
-   <time title="${esc(date(x.created_at))}">›</time>
+   <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">${x.action_url?`<button type="button" data-open-notification="${esc(x.id)}" data-source="${esc(x.source)}">View</button>`:''}<button type="button" data-read-notification="${esc(x.id)}" data-source="${esc(x.source)}">${x.isRead?'Read':'Mark read'}</button><button type="button" data-delete-notification="${esc(x.id)}" data-source="${esc(x.source)}">Delete</button></div><time title="${esc(date(x.created_at))}">${esc(date(x.created_at))}</time>
  </article>`).join(""):'<div class="notification-empty">No notifications match these filters.</div>';
  $$(".notification-row").forEach(r=>r.onclick=()=>markRead(r.dataset.source,r.dataset.id));
 }
@@ -55,6 +55,14 @@ async function markRead(source,id){
  else res=await st.db.from(source).update({is_read:true}).eq("id",id);
  if(res.error)return toast(res.error.message,true);row.isRead=true;renderStats();apply();
 }
+
+async function deleteNotification(source,id){
+ const row=st.rows.find(x=>x.source===source&&String(x.id)===String(id));if(!row)return;
+ const ok=await window.filings4uDialog.confirm('Delete this notification record from the admin notification center?',{title:'Delete notification',confirmText:'Delete notification'});if(!ok)return;
+ const res=await st.db.from(source).delete().eq('id',id);if(res.error)return toast(res.error.message,true);
+ st.rows=st.rows.filter(x=>!(x.source===source&&String(x.id)===String(id)));renderStats();apply();toast('Notification deleted.');
+}
+
 function openNew(){ $("#notificationForm").reset();$("#notificationModal").hidden=false }
 $("#newNotificationTop").onclick=openNew;$("#newNotificationButton").onclick=openNew;
 $$("[data-close-notification]").forEach(x=>x.onclick=()=>$("#notificationModal").hidden=true);

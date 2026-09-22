@@ -16,7 +16,7 @@ st.db=db();if(!st.db){toast("Supabase client is not available.",true);return}
 $("#managementMobileToggle")?.addEventListener("click",()=>document.body.classList.toggle("mobile-nav-open"));$("#managementSidebarBackdrop")?.addEventListener("click",()=>document.body.classList.remove("mobile-nav-open"));
 $("#managementDesktopToggle")?.addEventListener("click",()=>document.body.classList.toggle("sidebar-collapsed"));
 const pb=$("#managementProfileButton"),pm=$("#managementProfileMenu");pb?.addEventListener("click",e=>{e.stopPropagation();pm.hidden=!pm.hidden});document.addEventListener("click",()=>{if(pm)pm.hidden=true});
-$("#managementSignOut")?.addEventListener("click",async()=>{await st.db.auth.signOut();location.href="admin-login.html"});
+$("#managementSignOut")?.addEventListener("click",async()=>{await window.filings4uSignOut?.()});
 async function q(table,fn){try{let x=st.db.from(table).select("*");if(fn)x=fn(x);const {data,error}=await x;if(error){console.warn(table,error);return[]}return data||[]}catch(e){console.warn(table,e);return[]}}
 async function load(){
  const [profiles,contacts,orders]=await Promise.all([

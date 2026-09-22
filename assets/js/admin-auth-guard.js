@@ -33,6 +33,7 @@ async function staleSession(client,userId){
   const stale=security?.isExpired ? security.isExpired(userId,TIMEOUT_MS) : true;
   if(!stale)return false;
   security?.clearForUser?.(userId);
+  try{await window.filings4uAuditEvent?.('session_timeout',{source:'admin',path:location.pathname});}catch(_){}
   try{await client.auth.signOut({scope:'local'});}catch(_){}
   return true;
 }
