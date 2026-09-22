@@ -132,6 +132,74 @@
     return FORM_TITLES[String(row?.form_key || '').toLowerCase()] || row?.form_title || labelize(row?.form_key) || 'Client Form';
   }
 
+  function isStoredAsset(value) {
+    return !!(value && typeof value === 'object' && !Array.isArray(value) && value.path && (value.bucket || value.name || value.mime_type));
+  }
+
+  function storedAssets(value) {
+    if (isStoredAsset(value)) return [value];
+    if (Array.isArray(value)) return value.filter(isStoredAsset);
+    return [];
+  }
+
+  function collectStoredAssets(value, out = [], seen = new Set()) {
+    if (!value || typeof value !== 'object') return out;
+    if (isStoredAsset(value)) {
+      const key = `${value.bucket || ''}:${value.path || ''}`;
+      if (!seen.has(key)) { seen.add(key); out.push(value); }
+      return out;
+    }
+    if (Array.isArray(value)) {
+      value.forEach(item => collectStoredAssets(item, out, seen));
+      return out;
+    }
+    Object.values(value).forEach(item => collectStoredAssets(item, out, seen));
+    return out;
+  }
+
+  function allSubmissionAssets(d) {
+    const assets = collectStoredAssets(d?.answers || {});
+    for (const doc of (d?.related_documents || [])) {
+      if (!doc?.path) continue;
+      const normalized = {
+        name: doc.name || doc.title || 'Document',
+        path: doc.path,
+        bucket: doc.bucket || 'customer-documents',
+        mime_type: doc.mime_type || 'application/octet-stream',
+        size: doc.size || 0,
+        category: doc.category || doc.source || 'Document',
+        created_at: doc.created_at || null
+      };
+      const key = `${normalized.bucket}:${normalized.path}`;
+      if (!assets.some(a => `${a.bucket || ''}:${a.path || ''}` === key)) assets.push(normalized);
+    }
+    return assets;
+  }
+
+  async function openStoredAsset(bucket, path, downloadName) {
+    const db = window.filings4uSupabase;
+    if (!db) return toast('Supabase client unavailable.');
+    try {
+      const options = downloadName ? { download: downloadName } : undefined;
+      const { data, error } = await db.storage.from(bucket).createSignedUrl(path, 300, options);
+      if (error) throw error;
+      window.open(data.signedUrl, '_blank', 'noopener,noreferrer');
+    } catch (error) {
+      toast(error?.message || 'Unable to open this uploaded file.');
+    }
+  }
+
+  function assetMarkup(value) {
+    const assets = storedAssets(value);
+    if (!assets.length) return '';
+    return `<div style="display:grid;gap:8px;margin-top:7px;">${assets.map((asset, index) => {
+      const name = asset.name || `Uploaded file ${index + 1}`;
+      const size = Number(asset.size || 0);
+      const sizeText = size ? ` · ${(size / 1024 / 1024).toFixed(size > 1024 * 1024 ? 2 : 3)} MB` : '';
+      return `<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid #dfe7f0;border-radius:9px;background:#f8fafc;"><div style="min-width:0;"><strong style="display:block;color:#0a1f44;font-size:12px;overflow-wrap:anywhere;">${esc(name)}</strong><small style="color:#64748b;">${esc(asset.mime_type || asset.type || 'Uploaded file')}${esc(sizeText)}</small></div><div style="display:flex;gap:7px;flex-shrink:0;"><button type="button" data-form-asset-view data-bucket="${esc(asset.bucket || 'design_intake_assets')}" data-path="${esc(asset.path)}" style="border:0;border-radius:8px;padding:8px 11px;background:#0a1f44;color:white;font-weight:800;cursor:pointer;">View</button><button type="button" data-form-asset-download data-bucket="${esc(asset.bucket || 'design_intake_assets')}" data-path="${esc(asset.path)}" data-name="${esc(name)}" style="border:1px solid #cbd5e1;border-radius:8px;padding:8px 11px;background:white;color:#0a1f44;font-weight:800;cursor:pointer;">Download</button></div></div>`;
+    }).join('')}</div>`;
+  }
+
   function friendlyValue(value) {
     if (value === null || value === undefined || value === '') return 'Not provided';
     if (typeof value === 'boolean') return value ? 'Yes' : 'No';
@@ -254,14 +322,27 @@
   async function detail(source, id) {
     const db = window.filings4uSupabase;
     if (!db) throw Error('Supabase client unavailable');
-    const { data, error } = await db.rpc('admin_client_completed_form_detail', { p_source_type: source, p_submission_id: id });
-    if (error) throw error;
-    return data;
+    const [formResult, documentResult] = await Promise.all([
+      db.rpc('admin_client_completed_form_detail', { p_source_type: source, p_submission_id: id }),
+      db.rpc('admin_client_completed_form_documents', { p_source_type: source, p_submission_id: id })
+    ]);
+    if (formResult.error) throw formResult.error;
+    if (documentResult.error) throw documentResult.error;
+    return { ...formResult.data, related_documents: documentResult.data || [] };
   }
 
   function previewField(field) {
     if (field.type === 'section') {
       return `<h3 style="margin:24px 0 10px;padding-bottom:7px;border-bottom:1px solid #dfe7f0;color:#0a1f44;font:800 15px/1.25 Manrope,Arial,sans-serif;">${esc(field.label)}</h3>`;
+    }
+    const attachments = assetMarkup(field.value);
+    if (attachments) {
+      return `<div style="padding:10px 0;border-bottom:1px solid #edf1f5;break-inside:avoid;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.055em;color:#64748b;">${esc(field.label)}</div>${attachments}</div>`;
+    }
+    const raw = String(field.value ?? '').trim();
+    const isUrl = /^https?:\/\//i.test(raw) && /(url|link|asset|website|inspiration)/i.test(field.key || field.label || '');
+    if (isUrl) {
+      return `<div style="padding:10px 0;border-bottom:1px solid #edf1f5;break-inside:avoid;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.055em;color:#64748b;">${esc(field.label)}</div><div style="margin-top:7px;"><a href="${esc(raw)}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;border-radius:8px;padding:8px 11px;background:#0a1f44;color:#fff;text-decoration:none;font-size:12px;font-weight:800;">Open link</a></div></div>`;
     }
     const value = friendlyValue(field.value);
     if (field.options?.signature) {
@@ -304,6 +385,11 @@
         <div style="margin-top:9px;color:#64748b;font-size:12px;line-height:1.7;"><strong>Completed:</strong> ${esc(fmtDate(d.completed_at))}<br><strong>Customer:</strong> ${esc(d.client_name || 'Not provided')}<br><strong>Email:</strong> ${esc(d.client_email || 'Not provided')}${d.business_name ? `<br><strong>Business:</strong> ${esc(d.business_name)}` : ''}</div>
         <div style="height:1px;background:#dfe5ec;margin:22px 0;"></div>
         ${fields.map(previewField).join('')}
+        ${(() => {
+          const files = allSubmissionAssets(d);
+          if (!files.length) return '';
+          return `<section style="margin-top:28px;padding-top:4px;"><h3 style="margin:0 0 10px;padding-bottom:7px;border-bottom:1px solid #dfe7f0;color:#0a1f44;font:800 15px/1.25 Manrope,Arial,sans-serif;">Documents &amp; uploads</h3>${assetMarkup(files)}</section>`;
+        })()}
         ${String(d.form_key).toLowerCase() === 'poa' ? poaPreview(d) : ''}
       </div>
       <footer style="padding:16px 28px;border-top:1px solid #e6ebf1;color:#8290a3;font-size:10px;display:flex;justify-content:space-between;gap:16px;"><span>Filings4u, LLC · Secure customer record</span><span>Completed ${esc(fmtDate(d.completed_at))}</span></footer>
@@ -514,6 +600,20 @@
     const file = `${safeName(formTitle(d))}-${safeName(d.client_name || d.client_email)}-${new Date(d.completed_at).toISOString().slice(0, 10)}.pdf`;
     doc.save(file);
   }
+
+  document.addEventListener('click', event => {
+    const view = event.target.closest('[data-form-asset-view]');
+    if (view) {
+      event.preventDefault();
+      openStoredAsset(view.dataset.bucket, view.dataset.path, '');
+      return;
+    }
+    const download = event.target.closest('[data-form-asset-download]');
+    if (download) {
+      event.preventDefault();
+      openStoredAsset(download.dataset.bucket, download.dataset.path, download.dataset.name || 'download');
+    }
+  });
 
   async function load() {
     const gate = $('formsGate');
