@@ -10,3 +10,5 @@
 .business-page-head p{margin:0;color:#64748b;font-size:.88rem;line-height:1.55}
 @media(max-width:920px){.business-page-head{align-items:flex-start}.support-main{padding:96px 16px 45px}}
 @media(max-width:640px){.business-page-head{display:block}.business-page-head .management-page-actions{margin-top:16px;flex-wrap:wrap}}
+
+.support-reply-form input[type=file]{width:100%;margin-top:7px}.support-reply-form label small{display:block;margin-top:5px;color:#64748b;font-size:.75rem}.support-attachments{display:grid;gap:8px;margin:10px 0}.support-attachment{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 11px;border:1px solid #e2e8f0;border-radius:10px;background:#f8fafc}.support-attachment span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.82rem;font-weight:700}.support-attachment>div{display:flex;gap:6px}.support-attachment button{border:1px solid #cbd5e1;background:#fff;border-radius:8px;padding:6px 9px;font:inherit;font-size:.75rem;font-weight:800;cursor:pointer}

@@ -4,6 +4,38 @@ const dt=v=>v?new Date(v).toLocaleString(undefined,{month:'short',day:'numeric',
 
 let db,user,profile,tickets=[],orders=[],threadMessages=[],filtered=[];
 let toastTimer;
+const SUPPORT_BUCKET='support-attachments';
+const SUPPORT_ALLOWED=new Set(['image/jpeg','image/png','image/webp','image/gif','application/pdf','text/plain','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document']);
+function safeSupportFileName(name){return String(name||'file').replace(/[^a-zA-Z0-9._-]+/g,'_').slice(-180)}
+async function uploadSupportFiles(fileList,ticketId){
+  const files=[...(fileList||[])]; if(!files.length)return [];
+  if(files.length>5)throw new Error('You can attach up to 5 files at a time.');
+  const out=[];
+  for(const file of files){
+    if(file.size>50*1024*1024)throw new Error(`${file.name} is larger than 50 MB.`);
+    if(file.type&&!SUPPORT_ALLOWED.has(file.type))throw new Error(`${file.name} is not an allowed support file type.`);
+    const path=`${user.id}/${ticketId}/${crypto.randomUUID()}-${safeSupportFileName(file.name)}`;
+    const {error}=await db.storage.from(SUPPORT_BUCKET).upload(path,file,{contentType:file.type||'application/octet-stream',upsert:false});
+    if(error)throw error;
+    out.push({name:file.name,bucket:SUPPORT_BUCKET,path,mime_type:file.type||'',size:file.size});
+  }
+  return out;
+}
+function supportAttachmentsHtml(items){
+  const list=Array.isArray(items)?items:[]; if(!list.length)return '';
+  return `<div class="support-attachments">${list.map(a=>`<div class="support-attachment"><span>${esc(a.name||'Attachment')}</span><div><button type="button" data-support-view="${esc(a.path)}" data-support-bucket="${esc(a.bucket||SUPPORT_BUCKET)}">View</button><button type="button" data-support-download="${esc(a.path)}" data-support-bucket="${esc(a.bucket||SUPPORT_BUCKET)}" data-support-name="${esc(a.name||'download')}">Download</button></div></div>`).join('')}</div>`;
+}
+function wireSupportAttachmentButtons(root=document){
+  root.querySelectorAll('[data-support-view]').forEach(btn=>btn.onclick=async()=>{
+    const {data,error}=await db.storage.from(btn.dataset.supportBucket||SUPPORT_BUCKET).createSignedUrl(btn.dataset.supportView,300);
+    if(error)return toast(error.message); window.open(data.signedUrl,'_blank','noopener');
+  });
+  root.querySelectorAll('[data-support-download]').forEach(btn=>btn.onclick=async()=>{
+    const {data,error}=await db.storage.from(btn.dataset.supportBucket||SUPPORT_BUCKET).download(btn.dataset.supportDownload);
+    if(error)return toast(error.message); const url=URL.createObjectURL(data),a=document.createElement('a');
+    a.href=url;a.download=btn.dataset.supportName||'download';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+}
 
 async function boot(){
   const auth=await window.filings4uRequireClient();
@@ -14,7 +46,7 @@ async function boot(){
 
   const [ticketResult,orderResult,threadResult]=await Promise.all([
     db.from('support_tickets')
-      .select('id,ticket_id,client_id,company_name,subject,description,priority,status,assigned_agent,created_at,updated_at,tracking_number,is_after_hours')
+      .select('id,ticket_id,client_id,company_name,subject,description,priority,status,assigned_agent,created_at,updated_at,tracking_number,is_after_hours,attachments')
       .eq('client_id',user.id)
       .order('updated_at',{ascending:false}),
 
@@ -24,7 +56,7 @@ async function boot(){
       .order('created_at',{ascending:false}),
 
     db.from('admin_tickets')
-      .select('id,ticket_id,client_email,admin_responder,reply_content,created_at,sender_type')
+      .select('id,ticket_id,client_email,admin_responder,reply_content,created_at,sender_type,attachments')
       .eq('client_email',String(user.email||'').toLowerCase())
       .order('created_at',{ascending:true})
   ]);
@@ -132,7 +164,7 @@ function openTicket(id){
   $('drawerTitle').textContent=t.ticket_id||'Support request';
 
   const history=[
-    {sender_type:'client',reply_content:t.description,created_at:t.created_at,admin_responder:'You'},
+    {sender_type:'client',reply_content:t.description,created_at:t.created_at,admin_responder:'You',attachments:t.attachments||[]},
     ...thread
   ];
 
@@ -155,6 +187,7 @@ function openTicket(id){
               <small>${dt(m.created_at)}</small>
             </div>
             <p>${esc(m.reply_content||'')}</p>
+            ${supportAttachmentsHtml(m.attachments)}
           </article>`).join('')}
       </div>
     </section>
@@ -164,6 +197,7 @@ function openTicket(id){
       <label class="ticket-reply-label">Message
         <textarea id="clientTicketReply" rows="5" maxlength="4000" placeholder="Write your reply..."></textarea>
       </label>
+      <label class="ticket-reply-label">Attachments<input id="clientTicketReplyFiles" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,application/pdf,text/plain,.doc,.docx"><small>Optional · up to 5 files · 50 MB each.</small></label>
       <div class="ticket-reply-actions">
         <button id="sendClientTicketReply" class="button button--primary" type="button">Send reply</button>
       </div>
@@ -171,6 +205,7 @@ function openTicket(id){
 
   const send=$('sendClientTicketReply');
   if(send)send.onclick=()=>sendTicketReply(t);
+  wireSupportAttachmentButtons($('drawerBody'));
 
   $('ticketDrawer').classList.add('is-open');
   $('ticketDrawer').setAttribute('aria-hidden','false');
@@ -179,19 +214,25 @@ function openTicket(id){
 
 async function sendTicketReply(ticket){
   const input=$('clientTicketReply');
-  const message=input?.value.trim();
-  if(!message)return toast('Write a reply before sending.');
+  const message=input?.value.trim()||'';
+  const fileInput=$('clientTicketReplyFiles');
+  if(!message&&!fileInput?.files?.length)return toast('Write a reply or attach a file before sending.');
 
   const button=$('sendClientTicketReply');
   if(button)button.disabled=true;
+
+  let attachments=[];
+  try{attachments=await uploadSupportFiles(fileInput?.files,ticket.ticket_id)}
+  catch(error){if(button)button.disabled=false;window.filings4uNotify?.error(error.message,'Attachment upload failed');return toast(error.message)}
 
   const {error}=await db.from('admin_tickets').insert({
     ticket_id:ticket.ticket_id,
     client_email:String(user.email||profile.email_address||'').toLowerCase(),
     admin_responder:'Client',
-    reply_content:message,
+    reply_content:message||(attachments.length?'[Attachment]':''),
     internal_notes:null,
-    sender_type:'client'
+    sender_type:'client',
+    attachments
   });
 
   if(error){
@@ -209,11 +250,11 @@ async function sendTicketReply(ticket){
 async function refreshSupportData(){
   const [tr,mr]=await Promise.all([
     db.from('support_tickets')
-      .select('id,ticket_id,client_id,company_name,subject,description,priority,status,assigned_agent,created_at,updated_at,tracking_number,is_after_hours')
+      .select('id,ticket_id,client_id,company_name,subject,description,priority,status,assigned_agent,created_at,updated_at,tracking_number,is_after_hours,attachments')
       .eq('client_id',user.id)
       .order('updated_at',{ascending:false}),
     db.from('admin_tickets')
-      .select('id,ticket_id,client_email,admin_responder,reply_content,created_at,sender_type')
+      .select('id,ticket_id,client_email,admin_responder,reply_content,created_at,sender_type,attachments')
       .eq('client_email',String(user.email||'').toLowerCase())
       .order('created_at',{ascending:true})
   ]);
@@ -251,6 +292,7 @@ function syncOverlayLock(){
 
 async function submitTicket(event){
   event.preventDefault();
+  const form=event.currentTarget;
 
   const btn=$('submitTicket');
   btn.disabled=true;
@@ -264,8 +306,11 @@ async function submitTicket(event){
 
     if(!subject||!description)throw new Error('Please complete the subject and description.');
 
+    const ticketId='F4U-'+crypto.randomUUID().replace(/-/g,'').slice(0,10).toUpperCase();
+    const attachments=await uploadSupportFiles($('ticketAttachments')?.files,ticketId);
+
     const payload={
-      ticket_id:'F4U-'+crypto.randomUUID().replace(/-/g,'').slice(0,10).toUpperCase(),
+      ticket_id:ticketId,
       client_id:user.id,
       company_name:profile.company_name||order?.company_name||'Not Specified',
       subject,
@@ -276,18 +321,19 @@ async function submitTicket(event){
       email_address:(profile.email_address||user.email||'').trim().toLowerCase()||null,
       first_name:profile.first_name||null,
       last_name:profile.last_name||null,
-      tracking_number:order?.tracking_number||null
+      tracking_number:order?.tracking_number||null,
+      attachments
     };
 
     const {data,error}=await db.from('support_tickets')
       .insert(payload)
-      .select('id,ticket_id,client_id,company_name,subject,description,priority,status,assigned_agent,created_at,updated_at,tracking_number')
+      .select('id,ticket_id,client_id,company_name,subject,description,priority,status,assigned_agent,created_at,updated_at,tracking_number,attachments')
       .single();
 
     if(error)throw error;
 
     tickets.unshift(data);
-    $('ticketForm').reset();
+    form?.reset();
     closeModal();
     buildStatuses();
     stats();

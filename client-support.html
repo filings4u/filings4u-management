@@ -133,6 +133,7 @@
        <label>Related order<select id="orderSelect"><option value="">Not order-specific</option></select></label>
      </div>
      <label>Description<textarea id="description" required rows="7" maxlength="4000" placeholder="Tell us what happened and what you need help with."></textarea></label>
+     <label>Attachments<input id="ticketAttachments" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,application/pdf,text/plain,.doc,.docx"><small class="support-file-help">Images, PDF, TXT, DOC or DOCX · up to 50 MB each</small></label>
      <div class="form-actions">
        <button type="button" class="button button--secondary" data-close-modal>Cancel</button>
        <button class="button button--primary" id="submitTicket" type="submit">Submit request</button>
@@ -144,7 +145,7 @@
 <div id="toast" class="toast" hidden></div>
 <!-- CUSTOMER PROTECTED PAGE -->
 <script src="assets/js/client-navigation.js"></script>
-<script src="assets/js/client-support.js"></script>
+<script src="assets/js/client-support.js?v=20260922-supportfix"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body>
 </html>

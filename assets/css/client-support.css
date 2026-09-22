@@ -508,3 +508,5 @@ body.support-overlay-open{overflow:hidden}
     width:100%;
   }
 }
+
+.support-file-help{display:block;margin-top:5px;color:#64748b;font-size:.72rem}.support-attachments{display:grid;gap:8px;margin-top:10px}.support-attachment{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 11px;border:1px solid #e2e8f0;border-radius:10px;background:#f8fafc}.support-attachment span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.82rem;font-weight:700}.support-attachment div{display:flex;gap:6px}.support-attachment button{border:1px solid #cbd5e1;background:#fff;border-radius:8px;padding:6px 9px;font:inherit;font-size:.75rem;font-weight:800;cursor:pointer}.ticket-reply-label input[type=file]{width:100%;margin-top:7px}.ticket-reply-label small{display:block;margin-top:5px;color:#64748b;font-size:.72rem}

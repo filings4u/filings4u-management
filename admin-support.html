@@ -97,7 +97,7 @@
           <article class="support-conversation-card">
             <div class="support-conversation-head"><div><span class="management-kicker">Ticket thread</span><h2 id="conversationSubject">Conversation</h2></div></div>
             <div class="support-thread" id="supportThread"></div>
-            <form id="supportReplyForm" class="support-reply-form"><label>Reply to customer<textarea name="reply_content" rows="5" placeholder="Write a response..." required></textarea></label><div><button class="management-primary-button" type="submit">Send reply</button></div></form>
+            <form id="supportReplyForm" class="support-reply-form"><label>Reply to customer<textarea name="reply_content" rows="5" placeholder="Write a response..."></textarea></label><label>Attachments<input name="attachments" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,application/pdf,text/plain,.doc,.docx"><small>Images, PDF, TXT, DOC or DOCX · up to 50 MB each</small></label><div><button class="management-primary-button" type="submit">Send reply</button></div></form>
           </article>
           <aside class="support-side-card"><span class="management-kicker">Ticket controls</span><h2>Assignment</h2><form id="quickTicketForm" class="support-form-grid single"><label>Status<input name="status"></label><label>Priority<select name="priority"><option>Low</option><option>Medium</option><option>High</option><option>Urgent</option></select></label><label>Assigned agent<input name="assigned_agent"></label><button class="management-primary-button" type="submit">Save controls</button></form></aside>
         </div>
@@ -133,6 +133,6 @@
 <div class="support-modal" id="newTicketModal" hidden><div class="support-modal__backdrop" data-close-new></div><section class="support-modal__card"><header><div><span class="management-kicker">Support</span><h2>New ticket</h2></div><button data-close-new type="button">×</button></header><form id="newTicketForm"><div class="support-form-grid"><label>First name<input name="first_name"></label><label>Last name<input name="last_name"></label><label>Email<input name="email_address" type="email" required></label><label>Phone<input name="phone_number"></label><label>Company<input name="company_name"></label><label>Tracking number<input name="tracking_number"></label><label class="full">Subject<input name="subject" required></label><label>Priority<select name="priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></label><label>Assigned agent<input name="assigned_agent" value="Unassigned"></label><label class="full">Description<textarea name="description" rows="5" required></textarea></label></div><footer><button class="management-secondary-button" data-close-new type="button">Cancel</button><button class="management-primary-button" type="submit">Create ticket</button></footer></form></section></div>
 
 <script src="assets/js/navigation.js"></script>
-<script src="assets/js/support-manager.js"></script>
+<script src="assets/js/support-manager.js?v=20260922-supportfix"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body></html>
