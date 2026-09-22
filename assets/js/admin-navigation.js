@@ -309,6 +309,7 @@ function init(){
   if(signOut){
     signOut.addEventListener('click',async()=>{
       if(window.filings4uSignOut) return window.filings4uSignOut();
+      await window.filings4uAuditEvent?.('logout',{source:'admin'});
       if(window.filings4uSupabase) await window.filings4uSupabase.auth.signOut({ scope: 'local' });
       location.href='admin-login.html';
     });

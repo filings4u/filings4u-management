@@ -141,6 +141,7 @@
 
   async function performSignOut(reason) {
     try {
+      await window.filings4uAuditEvent?.('session_timeout',{source:'portal'});
       if (state.db?.auth?.signOut) await state.db.auth.signOut({ scope: 'local' });
     } catch (error) {
       console.warn('[filings4u session] sign out returned an error', error);

@@ -308,7 +308,7 @@ async function markPaid(inv){
   }catch(e){toast(e.message||'Unable to update payment status.')}
 }
 async function deleteDraft(inv){
-  if(!confirm(`Delete draft ${inv.invoice_number||'invoice'}?`))return;
+  if(!(await window.filings4uDialog.confirm(`Delete draft ${inv.invoice_number||'invoice'}?`,{title:'Delete invoice draft',confirmText:'Delete draft'})))return;
   const {error}=await db.from('invoices').delete().eq('id',inv.id).eq('status','draft');if(error)return toast(error.message);
   toast('Draft deleted.');closeAll();await loadInvoices();
 }

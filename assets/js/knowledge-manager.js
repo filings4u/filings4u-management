@@ -131,11 +131,11 @@ let slugTouched=false;
 $("#knowledgeSlug")?.addEventListener("input",()=>{slugTouched=true;$("#knowledgeSlug").value=slugify($("#knowledgeSlug").value)});
 $("#knowledgeTitle")?.addEventListener("input",()=>{if(!slugTouched&&st.current&&(!st.current.slug||$("#knowledgeSlug").value===st.current.slug))$("#knowledgeSlug").value=slugify($("#knowledgeTitle").value);syncSeo()});
 
-$("#richToolbar")?.addEventListener("click",e=>{
+$("#richToolbar")?.addEventListener("click",async e=>{
  const b=e.target.closest("button");if(!b)return;
  e.preventDefault();$("#knowledgeContent").focus();
  if(b.dataset.block){document.execCommand("formatBlock",false,b.dataset.block);return}
- if(b.dataset.cmd==="createLink"){const url=window.prompt("Paste the link URL");if(url)document.execCommand("createLink",false,url);return}
+ if(b.dataset.cmd==="createLink"){const url=await window.filings4uDialog.prompt("Enter the link URL.",{title:"Add knowledge link",label:"URL",placeholder:"https://"});if(url)document.execCommand("createLink",false,url);return}
  document.execCommand(b.dataset.cmd,false,null);
 });
 

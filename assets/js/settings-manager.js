@@ -117,6 +117,6 @@ async function savePool(){
   toast("Random pool settings saved.");await loadPools();
 }
 async function loadAll(){await Promise.all([loadGlobal(),loadScheduling(),loadPools()])}
-$("#saveSettings").onclick=saveGlobal;$("#saveSettingsTop").onclick=saveGlobal;$("#refreshSettings").onclick=loadAll;$("#saveScheduling").onclick=saveScheduling;$("#saveRandomPool").onclick=savePool;$("#refreshRandomPool").onclick=loadPools;$("#settingsSearchTrigger").onclick=()=>{const q=prompt("Search settings");if(!q)return;const term=q.toLowerCase();const btn=$$("[data-settings-tab]").find(b=>b.textContent.toLowerCase().includes(term));if(btn)btn.click();else toast("No matching settings section found.")};
+$("#saveSettings").onclick=saveGlobal;$("#saveSettingsTop").onclick=saveGlobal;$("#refreshSettings").onclick=loadAll;$("#saveScheduling").onclick=saveScheduling;$("#saveRandomPool").onclick=savePool;$("#refreshRandomPool").onclick=loadPools;$("#settingsSearchTrigger").onclick=async()=>{const q=await window.filings4uDialog.prompt("Search settings",{title:"Find settings",label:"Search",placeholder:"Billing, security, scheduling…"});if(!q)return;const term=q.toLowerCase();const btn=$$("[data-settings-tab]").find(b=>b.textContent.toLowerCase().includes(term));if(btn)btn.click();else toast("No matching settings section found.")};
 await loadAll();
 })();

@@ -170,7 +170,7 @@ function openTicket(id){
       <h3>Response history</h3>
       <div class="history">
         ${rs.length?rs.map(r=>`<div class="response">
-          <div class="response-head"><b>${esc(r.admin_responder||'Admin')}</b><small>${dt(r.created_at)}</small></div>
+          <div class="response-head"><b>${esc(r.sender_type==='client'?'Client':(r.admin_responder||'filings4u Support'))}</b><small>${dt(r.created_at)}</small></div>
           ${r.reply_content?`<div>${esc(r.reply_content)}</div>`:''}
           ${r.internal_notes?`<div class="internal-note"><b>Internal note</b>${esc(r.internal_notes)}</div>`:''}
         </div>`).join(''):'<div class="empty">No responses yet.</div>'}
@@ -222,7 +222,7 @@ async function saveCase(){
     .select()
     .single();
 
-  if(error)return toast(error.message);
+  if(error){window.filings4uNotify?.error(error.message,'Support update failed');return toast(error.message);}
 
   const i=tickets.findIndex(x=>x.id===data.id);
   if(i>=0)tickets[i]=data;
@@ -230,6 +230,7 @@ async function saveCase(){
 
   render();
   openTicket(data.id);
+  window.filings4uNotify?.success('Support case updated.');
   toast('Support case updated.');
 }
 
@@ -254,8 +255,9 @@ async function saveReply(){
       ticket_id:active.ticket_id,
       client_email:active.email_address,
       admin_responder:currentAdminUser.email,
-      reply_content:reply_content||null,
-      internal_notes:internal_notes||null
+      reply_content:reply_content||'',
+      internal_notes:internal_notes||null,
+      sender_type:'admin'
     })
     .select()
     .single();
@@ -266,7 +268,8 @@ async function saveReply(){
 
   replies.unshift(data);
   openTicket(active.id);
-  toast('Response saved.');
+  window.filings4uNotify?.success(reply_content?'Reply sent to the client.':'Internal note saved.');
+  toast(reply_content?'Reply sent to client.':'Internal note saved.');
 }
 
 function close(){

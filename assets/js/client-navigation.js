@@ -123,6 +123,7 @@
         }
 
         if (window.filings4uSupabase) {
+          await window.filings4uAuditEvent?.('logout',{source:'client'});
           await window.filings4uSupabase.auth.signOut({ scope: 'local' });
         }
 

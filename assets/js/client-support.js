@@ -196,10 +196,12 @@ async function sendTicketReply(ticket){
 
   if(error){
     if(button)button.disabled=false;
+    window.filings4uNotify?.error(error.message,'Support message failed');
     return toast(error.message);
   }
 
   await refreshSupportData();
+  window.filings4uNotify?.success('Your reply was sent to filings4u Support.');
   toast('Your reply was sent.');
   openTicket(ticket.id);
 }
@@ -265,12 +267,12 @@ async function submitTicket(event){
     const payload={
       ticket_id:'F4U-'+crypto.randomUUID().replace(/-/g,'').slice(0,10).toUpperCase(),
       client_id:user.id,
-      company_name:profile.company_name||order?.company_name||null,
+      company_name:profile.company_name||order?.company_name||'Not Specified',
       subject,
       description,
       priority:$('priority').value,
       status:'open',
-      assigned_agent:null,
+      assigned_agent:'Unassigned',
       email_address:(profile.email_address||user.email||'').trim().toLowerCase()||null,
       first_name:profile.first_name||null,
       last_name:profile.last_name||null,
@@ -290,8 +292,10 @@ async function submitTicket(event){
     buildStatuses();
     stats();
     filter();
+    window.filings4uNotify?.success('Your support request was submitted. A confirmation will be sent to you.');
     toast('Support request submitted.');
   }catch(error){
+    window.filings4uNotify?.error(error.message||'Unable to submit support request.','Support request failed');
     toast(error.message||'Unable to submit support request.');
   }finally{
     btn.disabled=false;

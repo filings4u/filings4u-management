@@ -110,6 +110,7 @@ $('loginForm')?.addEventListener('submit',async event=>{
     }
 
     resetActivityForUser(data.user?.id || data.session?.user?.id);
+    await window.filings4uAuditEvent?.('login',{source:'admin'});
     msg('Sign in successful. Opening management…','ok');
     location.replace(nextPage());
   }catch(error){
@@ -130,6 +131,7 @@ $('signOutExisting')?.addEventListener('click',async()=>{
   if(db){
     const {data:{session}}=await db.auth.getSession().catch(()=>({data:{session:null}}));
     clearActivity(session?.user?.id);
+    await window.filings4uAuditEvent?.('logout',{source:'admin'});
     await db.auth.signOut({scope:'local'});
   }
   msg('Admin session signed out.','ok');

@@ -8,5 +8,5 @@ if(!window.filings4uClientSupabase){
   }});
 }
 window.filings4uSupabase=window.filings4uClientSupabase;
-window.filings4uClientSignOut=async()=>{await window.filings4uClientSupabase.auth.signOut({scope:'local'});location.href='customer-login.html';};
+window.filings4uClientSignOut=async()=>{await window.filings4uAuditEvent?.('logout',{source:'client'});await window.filings4uClientSupabase.auth.signOut({scope:'local'});location.href='customer-login.html';};
 })();

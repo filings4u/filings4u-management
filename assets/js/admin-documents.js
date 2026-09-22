@@ -201,7 +201,7 @@ async function toggleVisibility(id,button){
 
 async function deleteDocument(id,button){
   const d=documents.find(x=>x.id===id);if(!d)return;
-  if(!confirm(`Delete “${d.title}”? This removes the PDF from the customer portal and storage.`))return;
+  if(!(await window.filings4uDialog.confirm(`Delete “${d.title}”? This removes the PDF from the customer portal and storage.`,{title:'Delete document',confirmText:'Delete document'})))return;
   setBusy(button,true,'Deleting…');
   try{
     const rm=await db.storage.from(d.bucket_id||BUCKET).remove([d.storage_path]);
