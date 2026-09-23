@@ -1,675 +1,640 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#10b981">
-  <title>filings4u Admin | Management System</title>
-  <link href="images/fav.png" rel="icon" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/admin-management.css">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
+<title>filings4u Admin | Management System</title>
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
-<body class="management-body" data-portal="admin" data-page="management-home">
-  <a class="skip-link" href="#managementMain">Skip to management content</a>
-
-  <header class="management-topbar">
-    <div class="management-topbar__left">
-      <button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button" aria-label="Open management navigation" aria-expanded="false">☰</button>
-      <button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button" aria-label="Collapse management navigation" aria-expanded="true">☰</button>
-      <a class="management-brand" href="#home" aria-label="filings4u Management home">
-        <img src="images/logo.png" alt="filings4u" class="management-logo">
-        <span class="management-brand-divider" aria-hidden="true"></span>
-        <span class="management-brand-copy">
-          <strong>Management</strong>
-          <small>Website & Operations</small>
-        </span>
-      </a>
-    </div>
-
-    <div class="management-topbar__center">
-      <button class="global-search-trigger" id="globalSearchTrigger" type="button" aria-haspopup="dialog">
-        <span aria-hidden="true">⌕</span>
-        <span>Search filings4u...</span>
-        <kbd>Ctrl K</kbd>
-      </button>
-    </div>
-
-    <div class="management-topbar__right">
-      <button class="management-create-button" id="createMenuTrigger" type="button" aria-expanded="false" aria-controls="createMenu">+ Create</button>
-      <div class="management-account">
-        <button class="management-profile-button" id="managementProfileButton" type="button" aria-expanded="false" aria-controls="managementProfileMenu">
-          <span class="management-avatar" data-admin-initials>AD</span>
-          <span class="management-profile-copy">
-            <strong data-admin-name>Administrator</strong>
-            <small data-admin-email>Admin account</small>
-          </span>
-          <span aria-hidden="true">⌄</span>
-        </button>
-        <div class="management-profile-menu" id="managementProfileMenu" hidden>
-          <div class="management-profile-menu__identity">
-            <span class="management-avatar" data-admin-initials>AD</span>
-            <div><strong data-admin-name>Administrator</strong><small data-admin-email>Admin account</small></div>
-          </div>
-          <a href="admin-settings.html">My profile</a>
-          <a href="#users">Users & roles</a>
-          <a href="#settings">Management settings</a>
-          <button id="managementSignOut" type="button">Sign out</button>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <div class="management-shell">
-    <aside class="management-sidebar" id="managementSidebar" aria-label="Management navigation">
-      <div class="management-sidebar__intro">
-        <span><i aria-hidden="true"></i> filings4u</span>
-        <strong>Management System</strong>
-        <small>Control the website, portals and business operations.</small>
-      </div>
-
-<nav
-  class="management-nav"
-  id="managementNavigation"
-  data-management-navigation
-  aria-label="Management navigation">
+<body class="management-body" data-page="management-home" data-portal="admin">
+<a class="skip-link" href="#managementMain">Skip to management content</a>
+<header class="management-topbar">
+<div class="management-topbar__left">
+<button aria-expanded="false" aria-label="Open management navigation" class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
+<button aria-expanded="true" aria-label="Collapse management navigation" class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
+<a aria-label="filings4u Management home" class="management-brand" href="#home">
+<img alt="filings4u" class="management-logo" src="images/logo.png"/>
+<span aria-hidden="true" class="management-brand-divider"></span>
+<span class="management-brand-copy">
+<strong>Management</strong>
+<small>Website &amp; Operations</small>
+</span>
+</a>
+</div>
+<div class="management-topbar__center">
+<button aria-haspopup="dialog" class="global-search-trigger" id="globalSearchTrigger" type="button">
+<span aria-hidden="true">⌕</span>
+<span>Search filings4u...</span>
+<kbd>Ctrl K</kbd>
+</button>
+</div>
+<div class="management-topbar__right">
+<button aria-controls="createMenu" aria-expanded="false" class="management-create-button" id="createMenuTrigger" type="button">+ Create</button>
+<div class="management-account">
+<button aria-controls="managementProfileMenu" aria-expanded="false" class="management-profile-button" id="managementProfileButton" type="button">
+<span class="management-avatar" data-admin-initials="">AD</span>
+<span class="management-profile-copy">
+<strong data-admin-name="">Administrator</strong>
+<small data-admin-email="">Admin account</small>
+</span>
+<span aria-hidden="true">⌄</span>
+</button>
+<div class="management-profile-menu" hidden="" id="managementProfileMenu">
+<div class="management-profile-menu__identity">
+<span class="management-avatar" data-admin-initials="">AD</span>
+<div><strong data-admin-name="">Administrator</strong><small data-admin-email="">Admin account</small></div>
+</div>
+<a href="admin-settings.html">My profile</a>
+<a href="#users">Users &amp; roles</a>
+<a href="#settings">Management settings</a>
+<button id="managementSignOut" type="button">Sign out</button>
+</div>
+</div>
+</div>
+</header>
+<div class="management-shell">
+<aside aria-label="Management navigation" class="management-sidebar" id="managementSidebar">
+<div class="management-sidebar__intro">
+<span><i aria-hidden="true"></i> filings4u</span>
+<strong>Management System</strong>
+<small>Control the website, portals and business operations.</small>
+</div>
+<nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation">
 </nav>
-      <div class="management-sidebar__footer">
-        <span class="management-status-dot"></span>
-        <div><strong>System connected</strong><small>filings4u administration</small></div>
-      </div>
-    </aside>
-
-    <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button" aria-label="Close management navigation"></button>
-
-    <main class="management-main" id="managementMain" tabindex="-1">
-      <section class="management-view is-active" data-view="home">
-        <div class="management-page-head">
-          <div>
-            <span class="management-kicker">Management home</span>
-            <h1>What would you like to manage?</h1>
-            <p>Manage the filings4u website, portals, customers and operations from one workspace.</p>
-          </div>
-          <div class="management-page-actions">
-            <a class="management-secondary-button" href="https://filings4u.com" target="_blank" rel="noopener">View live website ↗</a>
-            <button class="management-primary-button" type="button" data-open-create>+ Create</button>
-          </div>
-        </div>
-
-        <div class="workspace-grid" aria-label="Primary workspaces">
-          <button class="workspace-card workspace-card--feature" type="button" data-route-button="website">
-            <span class="workspace-card__icon">▣</span>
-            <span class="workspace-card__body"><strong>Main Website</strong><small>Pages, navigation, content, SEO and publishing.</small></span>
-            <span class="workspace-card__arrow">→</span>
-          </button>
-          <button class="workspace-card" type="button" data-route-button="client-portal">
-            <span class="workspace-card__icon">◫</span>
-            <span class="workspace-card__body"><strong>Client Portal</strong><small>Manage client modules, navigation and portal content.</small></span>
-            <span class="workspace-card__arrow">→</span>
-          </button>
-          <button class="workspace-card" type="button" data-route-button="admin-portal">
-            <span class="workspace-card__icon">⚙</span>
-            <span class="workspace-card__body"><strong>Admin Portal</strong><small>Configure administration pages, access and navigation.</small></span>
-            <span class="workspace-card__arrow">→</span>
-          </button>
-          <button class="workspace-card" type="button" data-route-button="wizard">
-            <span class="workspace-card__icon">◇</span>
-            <span class="workspace-card__body"><strong>Wizard</strong><small>Services, plans, forms, steps, add-ons and handoffs.</small></span>
-            <span class="workspace-card__arrow">→</span>
-          </button>
-        </div>
-
-        <div class="management-home-grid">
-          <section class="management-panel">
-            <div class="management-panel__head">
-              <div><span class="management-kicker">Business</span><h2>Manage operations</h2></div>
-            </div>
-            <div class="operation-grid">
-              <a href="admin-customers.html"><span>◎</span><strong>Customers</strong><small>CRM and client records</small></a>
-              <a href="admin-orders.html"><span>▤</span><strong>Orders</strong><small>Sales and fulfillment</small></a>
-              <a href="admin-applications.html"><span>▧</span><strong>Applications</strong><small>Filing workflows</small></a>
-              <a href="admin-invoices.html"><span>$</span><strong>Billing</strong><small>Invoices and payments</small></a>
-              <a href="admin-support.html"><span>◌</span><strong>Support</strong><small>Customer assistance</small></a>
-              <a href="admin-design.html"><span>✦</span><strong>Projects</strong><small>Design and web work</small></a>
-            </div>
-          </section>
-
-          <section class="management-panel quick-panel">
-            <div class="management-panel__head">
-              <div><span class="management-kicker">Quick access</span><h2>Platform controls</h2></div>
-            </div>
-            <div class="quick-link-list">
-              <button type="button" data-route-button="services"><span>Service catalog</span><b>→</b></button>
-              <button type="button" data-route-button="users"><span>Users & roles</span><b>→</b></button>
-              <button type="button" data-route-button="activity"><span>Activity history</span><b>→</b></button>
-              <button type="button" data-route-button="settings"><span>System settings</span><b>→</b></button>
-            </div>
-          </section>
-        </div>
-      </section>
-
-      <section class="management-view website-manager-view" data-view="website">
-        <div class="management-page-head website-manager-head">
-          <div>
-            <div class="website-manager-titleline"><span class="management-kicker">Website manager</span><span class="website-live-pill"><i></i> Live</span></div>
-            <h1>Main Website</h1>
-            <p>Manage pages, navigation, global sections, services, content, SEO and publishing for filings4u.com.</p>
-          </div>
-          <div class="management-page-actions">
-            <a class="management-secondary-button" href="https://filings4u.com" target="_blank" rel="noopener">View live site ↗</a>
-            <button class="management-secondary-button" type="button" data-website-action="preview">Preview</button>
-            <button class="management-primary-button" type="button" data-website-panel="publishing">Publish</button>
-          </div>
-        </div>
-
-        <div class="website-manager-shell">
-          <aside class="website-manager-nav" aria-label="Main website manager sections">
-            <div class="website-manager-nav__site">
-              <span class="website-manager-nav__site-icon">F4</span>
-              <div><strong>filings4u.com</strong><small>Primary website</small></div>
-            </div>
-            <button class="is-active" type="button" data-website-panel="pages"><span>▱</span><div><strong>Pages</strong><small>Website structure</small></div></button>
-            <button type="button" data-website-panel="navigation"><span>☷</span><div><strong>Navigation</strong><small>Menus & links</small></div></button>
-            <button type="button" data-website-panel="globals"><span>▤</span><div><strong>Header & Footer</strong><small>Global sections</small></div></button>
-            <button type="button" data-website-panel="services"><span>▦</span><div><strong>Services</strong><small>Catalog content</small></div></button>
-            <button type="button" data-website-panel="content"><span>¶</span><div><strong>Content</strong><small>Blog, FAQs & KB</small></div></button>
-            <button type="button" data-website-panel="seo"><span>⌕</span><div><strong>SEO</strong><small>Search visibility</small></div></button>
-            <button type="button" data-website-panel="publishing"><span>↑</span><div><strong>Publishing</strong><small>Preview & production</small></div></button>
-          </aside>
-
-          <div class="website-manager-stage">
-            <section class="website-panel is-active" data-website-view="pages">
-              <div class="website-panel-head">
-                <div><span class="management-kicker">Site structure</span><h2>Pages</h2><p>Manage the pages that make up the public filings4u website.</p></div>
-                <button class="management-primary-button" type="button" data-new-website-page>+ New page</button>
-              </div>
-              <div class="website-summary-grid">
-                <article><span>Managed pages</span><strong id="websitePageCount">—</strong><small>Pages in website CMS</small></article>
-                <article><span>Services</span><strong id="websiteServiceCount">—</strong><small>Active service records</small></article>
-                <article><span>Content items</span><strong id="websiteContentCount">—</strong><small>Blog posts, FAQs & knowledge</small></article>
-                <article><span>Environment</span><strong id="websiteMode">Live</strong><small id="websiteUpdatedAt">Production</small></article>
-              </div>
-              <div class="website-table-card">
-                <div class="website-table-toolbar">
-                  <label class="website-search-field"><span>⌕</span><input id="websitePageSearch" type="search" placeholder="Search pages..."></label>
-                  <select id="websitePageFilter" aria-label="Filter pages"><option value="all">All pages</option><option value="landing">Landing pages</option></select>
-                </div>
-                <div class="website-table-wrap">
-                  <table class="website-table">
-                    <thead><tr><th>Page</th><th>URL</th><th>Type</th><th>Status</th><th></th></tr></thead>
-                    <tbody id="websitePagesTable"><tr><td colspan="5" class="website-loading">Loading website pages…</td></tr></tbody>
-                  </table>
-                </div>
-              </div>
-            </section>
-
-            <section class="website-panel" data-website-view="navigation">
-              <div class="website-panel-head"><div><span class="management-kicker">Menus</span><h2>Navigation</h2><p>Organize the primary website navigation and portal entry points.</p></div><button class="management-primary-button" type="button" data-add-nav-item>+ Add item</button></div>
-              <div class="website-editor-grid">
-                <div class="website-config-card">
-                  <div class="website-config-card__head"><div><strong>Main navigation</strong><small>Desktop and mobile menu</small></div><span class="website-status-tag">Global</span></div>
-                  <div class="nav-builder" id="websiteNavBuilder">
-                    <div class="nav-builder-row"><span class="nav-drag">⋮⋮</span><div><strong>Services</strong><small>Dropdown menu</small></div><button type="button">Edit</button></div>
-                    <div class="nav-builder-row"><span class="nav-drag">⋮⋮</span><div><strong>Business Formation</strong><small>Service category</small></div><button type="button">Edit</button></div>
-                    <div class="nav-builder-row"><span class="nav-drag">⋮⋮</span><div><strong>DOT & Fleet</strong><small>Service category</small></div><button type="button">Edit</button></div>
-                    <div class="nav-builder-row"><span class="nav-drag">⋮⋮</span><div><strong>Resources</strong><small>Dropdown menu</small></div><button type="button">Edit</button></div>
-                    <div class="nav-builder-row"><span class="nav-drag">⋮⋮</span><div><strong>Client Portal</strong><small>Button / portal link</small></div><button type="button">Edit</button></div>
-                  </div>
-                </div>
-                <aside class="website-inspector-card"><span class="management-kicker">Navigation settings</span><h3>Menu behavior</h3><label><span>Desktop menu</span><select><option>Horizontal navigation</option></select></label><label><span>Mobile menu</span><select><option>Slide-out drawer</option></select></label><label class="website-toggle-row"><span><strong>Client Portal button</strong><small>Show in primary navigation</small></span><input type="checkbox" checked></label><div class="website-note">Navigation items are stored in the website CMS and can be added or edited here. Publish website changes when you are ready to release them.</div></aside>
-              </div>
-            </section>
-
-            <section class="website-panel" data-website-view="globals">
-              <div class="website-panel-head"><div><span class="management-kicker">Global sections</span><h2>Header & Footer</h2><p>Control reusable website sections that appear across public pages.</p></div></div>
-              <div class="global-section-grid">
-                <article class="global-section-card"><div class="global-section-preview global-section-preview--header"><span class="preview-brand">filings4u</span><span></span><span></span><b>Client Portal</b></div><div class="global-section-card__body"><span class="website-status-tag">Global</span><h3>Website header</h3><p>Logo, navigation, dropdowns, mobile toggle and Client Portal action.</p><div><button type="button" class="management-secondary-button" data-global-editor="header">Edit header</button><button type="button" class="text-action" data-global-preview>Preview ↗</button></div></div></article>
-                <article class="global-section-card"><div class="global-section-preview global-section-preview--footer"><div></div><div></div><div></div><div></div></div><div class="global-section-card__body"><span class="website-status-tag">Global</span><h3>Website footer</h3><p>Business links, DOT & Fleet, resources, copyright and legal links.</p><div><button type="button" class="management-secondary-button" data-global-editor="footer">Edit footer</button><button type="button" class="text-action" data-global-preview>Preview ↗</button></div></div></article>
-              </div>
-            </section>
-
-            <section class="website-panel" data-website-view="services">
-              <div class="website-panel-head"><div><span class="management-kicker">Catalog</span><h2>Services</h2><p>Public service records connected to pricing and wizard configuration.</p></div><button class="management-primary-button" type="button" data-route-button="services">Open full catalog</button></div>
-              <div class="website-table-card"><div class="website-table-toolbar"><label class="website-search-field"><span>⌕</span><input id="websiteServiceSearch" type="search" placeholder="Search services..."></label><span class="website-toolbar-meta" id="websiteServicesMeta">Loading services…</span></div><div class="website-table-wrap"><table class="website-table"><thead><tr><th>Service</th><th>Category</th><th>Type</th><th>Status</th><th></th></tr></thead><tbody id="websiteServicesTable"><tr><td colspan="5" class="website-loading">Loading service catalog…</td></tr></tbody></table></div></div>
-            </section>
-
-            <section class="website-panel" data-website-view="content">
-              <div class="website-panel-head"><div><span class="management-kicker">Content</span><h2>Content collections</h2><p>Manage customer-facing articles, help content and reusable information.</p></div></div>
-              <div class="content-collection-grid">
-                <button type="button" data-route-button="blog"><span>¶</span><div><strong>Blog</strong><small id="websiteBlogCount">— items</small></div><b>→</b></button>
-                <button type="button" data-route-button="faqs"><span>?</span><div><strong>FAQs</strong><small id="websiteFaqCount">— items</small></div><b>→</b></button>
-                <button type="button" data-route-button="knowledge"><span>☷</span><div><strong>Knowledge Base</strong><small id="websiteKnowledgeCount">— items</small></div><b>→</b></button>
-                <button type="button" data-route-button="media"><span>▨</span><div><strong>Media Library</strong><small>Images & documents</small></div><b>→</b></button>
-                <button type="button" data-website-content="landing"><span>▱</span><div><strong>Landing Pages</strong><small id="websiteLandingCount">— pages</small></div><b>→</b></button>
-                <button type="button" data-website-content="announcement"><span>!</span><div><strong>Announcement</strong><small id="websiteAnnouncementState">No active announcement</small></div><b>→</b></button>
-              </div>
-            </section>
-
-            <section class="website-panel" data-website-view="seo">
-              <div class="website-panel-head"><div><span class="management-kicker">Search visibility</span><h2>SEO</h2><p>Review site-wide metadata, indexing and page-level search settings.</p></div><button class="management-secondary-button" type="button" data-website-seo-settings>SEO settings</button></div>
-              <div class="seo-layout"><div class="seo-score-card"><div class="seo-ring"><strong>82</strong><span>/100</span></div><div><span class="management-kicker">Site health</span><h3>Strong foundation</h3><p>Page-specific metadata is the next layer to connect as the page manager expands.</p></div></div><div class="seo-checklist"><div><span class="seo-check is-good">✓</span><div><strong>Mobile responsive shell</strong><small>Viewport and responsive layout enabled.</small></div></div><div><span class="seo-check is-good">✓</span><div><strong>HTTPS production site</strong><small>Expected for public deployment.</small></div></div><div><span class="seo-check">!</span><div><strong>Page metadata manager</strong><small>Connect titles, descriptions, canonical URLs and social previews.</small></div><button type="button" data-website-panel="pages">Review pages</button></div><div><span class="seo-check">!</span><div><strong>Redirect manager</strong><small>Add permanent redirects and retired URL handling.</small></div><button type="button">Configure</button></div></div></div>
-            </section>
-
-            <section class="website-panel" data-website-view="publishing">
-              <div class="website-panel-head"><div><span class="management-kicker">Deployment</span><h2>Publishing</h2><p>Review the current website environment before pushing public changes.</p></div></div>
-              <div class="publishing-layout">
-                <div class="publish-card publish-card--live"><div><span class="publish-environment"><i></i> Production</span><h3>filings4u.com</h3><p>The public site is currently configured for production mode.</p></div><div class="publish-card__actions"><a class="management-secondary-button" href="https://filings4u.com" target="_blank" rel="noopener">Open site ↗</a><button class="management-primary-button" type="button" id="websitePublishButton">Publish changes</button></div></div>
-                <div class="publish-settings-card"><h3>Publishing controls</h3><label class="website-toggle-row"><span><strong>Production mode</strong><small>Website operating environment</small></span><input id="websiteProductionToggle" type="checkbox" checked></label><label><span>Website announcement</span><textarea id="websiteAnnouncementInput" rows="4" placeholder="Optional site-wide announcement"></textarea></label><button class="management-secondary-button" type="button" id="saveWebsiteSettings">Save website settings</button><p class="website-save-state" id="websiteSaveState"></p></div>
-              </div>
-            </section>
-          </div>
-        </div>
-      </section>
-
-      <section class="management-view portal-manager-view" data-view="client-portal">
-        <div class="management-page-head">
-          <div><span class="management-kicker">Portal manager</span><h1>Client Portal</h1><p>Manage the customer experience on portal.filings4u.com, including dashboard modules, navigation, messages and portal settings.</p></div>
-          <div class="management-page-actions"><a class="management-secondary-button" href="https://portal.filings4u.com/client-dashboard.html" target="_blank" rel="noopener">Open client portal ↗</a><button class="management-primary-button" type="button" data-client-panel="preview">Preview portal</button></div>
-        </div>
-        <div class="portal-manager-shell" data-portal-manager="client">
-          <aside class="portal-manager-nav">
-            <div class="portal-manager-nav__site"><span>CP</span><div><strong>Client Portal</strong><small>portal.filings4u.com</small></div></div>
-            <button class="is-active" type="button" data-client-panel="overview"><span>⌂</span><div><strong>Overview</strong><small>Portal health & usage</small></div></button>
-            <button type="button" data-client-panel="structure"><span>▱</span><div><strong>Structure</strong><small>Customer modules</small></div></button>
-            <button type="button" data-client-panel="navigation"><span>☷</span><div><strong>Navigation</strong><small>Portal menu</small></div></button>
-            <button type="button" data-client-panel="dashboard"><span>▦</span><div><strong>Dashboard</strong><small>Home modules</small></div></button>
-            <button type="button" data-client-panel="messages"><span>!</span><div><strong>Messages</strong><small>Announcements</small></div></button>
-            <button type="button" data-client-panel="notifications"><span>◉</span><div><strong>Notifications</strong><small>Customer alerts</small></div></button>
-            <button type="button" data-client-panel="settings"><span>⚙</span><div><strong>Settings</strong><small>Portal behavior</small></div></button>
-          </aside>
-          <div class="portal-manager-stage">
-            <section class="portal-panel is-active" data-client-view="overview">
-              <div class="portal-panel-head"><div><span class="management-kicker">Customer experience</span><h2>Portal overview</h2><p>Live operational counts from the customer-facing system.</p></div></div>
-              <div class="portal-stat-grid">
-                <article><span>Customers</span><strong id="clientPortalCustomerCount">—</strong><small>Client profiles</small></article>
-                <article><span>Orders</span><strong id="clientPortalOrderCount">—</strong><small>Client orders</small></article>
-                <article><span>Applications</span><strong id="clientPortalApplicationCount">—</strong><small>Filing records</small></article>
-                <article><span>Notifications</span><strong id="clientPortalNotificationCount">—</strong><small>Portal notifications</small></article>
-              </div>
-              <div class="portal-card-grid">
-                <article class="portal-feature-card"><span class="portal-feature-icon">◫</span><div><small>Primary entry point</small><h3>client-dashboard.html</h3><p>The client dashboard remains the authenticated home for client orders, applications, documents and account activity.</p><a href="https://portal.filings4u.com/client-dashboard.html" target="_blank" rel="noopener">Open live dashboard ↗</a></div></article>
-                <article class="portal-feature-card"><span class="portal-feature-icon">✓</span><div><small>Management model</small><h3>Portal modules</h3><p>Control which customer modules are visible without changing the public filings4u.com website manager.</p><button type="button" data-client-panel="structure">Manage modules →</button></div></article>
-              </div>
-            </section>
-            <section class="portal-panel" data-client-view="structure">
-              <div class="portal-panel-head"><div><span class="management-kicker">Portal structure</span><h2>Customer modules</h2><p>Define the sections customers can access after signing in.</p></div></div>
-              <div class="portal-module-grid" id="clientPortalModuleGrid">
-                <article><span>⌂</span><div><strong>Home</strong><small>Dashboard and account summary</small></div><em>Core</em></article>
-                <article><span>▤</span><div><strong>Orders</strong><small>Purchases, fulfillment and receipts</small></div><em>Enabled</em></article>
-                <article><span>▧</span><div><strong>Applications</strong><small>Filing status and milestones</small></div><em>Enabled</em></article>
-                <article><span>▨</span><div><strong>Documents</strong><small>Customer files and vault access</small></div><em>Enabled</em></article>
-                <article><span>◇</span><div><strong>Entities</strong><small>Companies and registered entities</small></div><em>Enabled</em></article>
-                <article><span>✓</span><div><strong>Compliance</strong><small>Deadlines and compliance records</small></div><em>Enabled</em></article>
-                <article><span>$</span><div><strong>Invoices</strong><small>Billing and payment history</small></div><em>Enabled</em></article>
-                <article><span>✦</span><div><strong>Projects</strong><small>Design and website projects</small></div><em>Enabled</em></article>
-                <article><span>◌</span><div><strong>Support</strong><small>Tickets and customer assistance</small></div><em>Enabled</em></article>
-                <article><span>⚙</span><div><strong>Account</strong><small>Profile, login and password controls</small></div><em>Core</em></article>
-              </div>
-            </section>
-            <section class="portal-panel" data-client-view="navigation">
-              <div class="portal-panel-head"><div><span class="management-kicker">Portal navigation</span><h2>Customer menu</h2><p>Organize the signed-in customer navigation independently from filings4u.com.</p></div><button class="management-secondary-button" type="button">+ Add menu item</button></div>
-              <div class="portal-list-card"><div class="portal-list-row"><span>⋮⋮</span><div><strong>Dashboard</strong><small>Customer home</small></div><b>Core</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Orders & Applications</strong><small>Primary customer work</small></div><b>Visible</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Documents & Entities</strong><small>Records and files</small></div><b>Visible</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Compliance & Billing</strong><small>Deadlines and payments</small></div><b>Visible</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Support & Account</strong><small>Help and settings</small></div><b>Visible</b></div></div>
-            </section>
-            <section class="portal-panel" data-client-view="dashboard">
-              <div class="portal-panel-head"><div><span class="management-kicker">Dashboard builder</span><h2>Customer home modules</h2><p>Choose what customers see first after login.</p></div></div>
-              <div class="portal-module-grid"><article><span>▤</span><div><strong>Recent orders</strong><small>Latest customer purchases</small></div><em>On</em></article><article><span>▧</span><div><strong>Active applications</strong><small>Current filing progress</small></div><em>On</em></article><article><span>✓</span><div><strong>Compliance deadlines</strong><small>Upcoming required actions</small></div><em>On</em></article><article><span>◉</span><div><strong>Notifications</strong><small>Important portal updates</small></div><em>On</em></article><article><span>▨</span><div><strong>Recent documents</strong><small>Latest uploaded files</small></div><em>On</em></article><article><span>◌</span><div><strong>Support status</strong><small>Open support conversations</small></div><em>On</em></article></div>
-            </section>
-            <section class="portal-panel" data-client-view="messages">
-              <div class="portal-panel-head">
-                <div><span class="management-kicker">Client communication</span><h2>Portal messages</h2><p>Create client portal announcements without changing the main website announcement.</p></div>
-                <button class="management-primary-button" id="clientPortalNewMessage" type="button">+ New message</button>
-              </div>
-              <div class="portal-message-summary">
-                <article><span>Campaigns</span><strong id="clientPortalMessageCampaignCount">—</strong><small>Announcement groups</small></article>
-                <article><span>Active deliveries</span><strong id="clientPortalMessageDeliveryCount">—</strong><small>Customer notification rows</small></article>
-                <article><span>Unread</span><strong id="clientPortalMessageUnreadCount">—</strong><small>Still unread by customers</small></article>
-              </div>
-              <div class="portal-message-card">
-                <div class="portal-message-toolbar"><div><strong>Announcement history</strong><small>Messages are delivered through portal_notifications.</small></div><button class="management-secondary-button" id="clientPortalRefreshMessages" type="button">Refresh</button></div>
-                <div id="clientPortalMessageList" class="portal-message-list"><div class="portal-empty-state"><span>…</span><h3>Loading announcements</h3><p>Retrieving portal message history.</p></div></div>
-              </div>
-            </section>
-            <section class="portal-panel" data-client-view="notifications"><div class="portal-panel-head"><div><span class="management-kicker">Delivery</span><h2>Client notifications</h2><p>Review notification volume and define client-facing notification categories.</p></div></div><div class="portal-stat-grid"><article><span>Stored notifications</span><strong id="clientPortalNotificationCount2">—</strong><small>portal_notifications</small></article><article><span>Delivery</span><strong>Portal</strong><small>Authenticated customer UI</small></article><article><span>Email events</span><strong id="clientPortalEmailEventCount">—</strong><small>portal_email_events</small></article><article><span>Mode</span><strong>Live</strong><small>Production portal</small></article></div></section>
-            <section class="portal-panel" data-client-view="settings"><div class="portal-panel-head"><div><span class="management-kicker">Configuration</span><h2>Client Portal settings</h2><p>Portal identity, login flow and client experience controls.</p></div></div><div class="portal-settings-grid"><article><h3>Portal domain</h3><strong>portal.filings4u.com</strong><small>Client and admin authentication environment.</small></article><article><h3>Client home</h3><strong>client-dashboard.html</strong><small>Default destination after successful client login.</small></article><article><h3>Authentication</h3><strong>Supabase Auth</strong><small>Protected client sessions and account access.</small></article><article><h3>Public website</h3><strong>filings4u.com</strong><small>Managed separately in Main Website.</small></article></div></section>
-            <section class="portal-panel" data-client-view="preview"><div class="portal-preview-frame"><div><span class="management-kicker">Preview target</span><h2>Client Portal</h2><p>Open the real authenticated client experience in a separate tab.</p><a class="management-primary-button" href="https://portal.filings4u.com/client-dashboard.html" target="_blank" rel="noopener">Open client-dashboard.html ↗</a></div></div></section>
-          </div>
-        </div>
-      </section>
-
-      <section class="management-view portal-manager-view" data-view="admin-portal">
-        <div class="management-page-head">
-          <div><span class="management-kicker">Portal manager</span><h1>Admin Portal</h1><p>Configure the internal filings4u administration environment, navigation, access and management tools.</p></div>
-          <div class="management-page-actions"><a class="management-secondary-button" href="https://portal.filings4u.com/admin-management.html" target="_blank" rel="noopener">Open admin portal ↗</a><button class="management-primary-button" type="button" data-admin-panel="pages">Manage pages</button></div>
-        </div>
-        <div class="portal-manager-shell" data-portal-manager="admin">
-          <aside class="portal-manager-nav">
-            <div class="portal-manager-nav__site"><span>AP</span><div><strong>Admin Portal</strong><small>portal.filings4u.com</small></div></div>
-            <button class="is-active" type="button" data-admin-panel="overview"><span>⌂</span><div><strong>Overview</strong><small>Admin environment</small></div></button>
-            <button type="button" data-admin-panel="pages"><span>▱</span><div><strong>Pages</strong><small>Management tools</small></div></button>
-            <button type="button" data-admin-panel="navigation"><span>☷</span><div><strong>Navigation</strong><small>Admin menu</small></div></button>
-            <button type="button" data-admin-panel="roles"><span>♙</span><div><strong>Roles & Permissions</strong><small>Access control</small></div></button>
-            <button type="button" data-admin-panel="actions"><span>+</span><div><strong>Quick Actions</strong><small>Create menu</small></div></button>
-            <button type="button" data-admin-panel="notifications"><span>◉</span><div><strong>Notifications</strong><small>Admin alerts</small></div></button>
-            <button type="button" data-admin-panel="workflows"><span>⚡</span><div><strong>Workflow Rules</strong><small>Operational behavior</small></div></button>
-            <button type="button" data-admin-panel="accounts"><span>◎</span><div><strong>Admin Accounts</strong><small>Team access</small></div></button>
-          </aside>
-          <div class="portal-manager-stage">
-            <section class="portal-panel is-active" data-admin-view="overview"><div class="portal-panel-head"><div><span class="management-kicker">Administration</span><h2>Admin Portal overview</h2><p>Internal management environment for filings4u operations.</p></div></div><div class="portal-stat-grid"><article><span>Admin accounts</span><strong id="adminPortalAccountCount">—</strong><small>admin_profiles</small></article><article><span>Support tickets</span><strong id="adminPortalSupportCount">—</strong><small>Operational queue</small></article><article><span>Applications</span><strong id="adminPortalApplicationCount">—</strong><small>Filing records</small></article><article><span>Orders</span><strong id="adminPortalOrderCount">—</strong><small>Commerce records</small></article></div><div class="portal-card-grid"><article class="portal-feature-card"><span class="portal-feature-icon">⚙</span><div><small>Primary administration</small><h3>admin-management.html</h3><p>This management shell is the top-level administration workspace for website, portal and business operations.</p></div></article><article class="portal-feature-card"><span class="portal-feature-icon">♙</span><div><small>Authorization</small><h3>Role-based management</h3><p>Admin permissions should continue to rely on protected authorization data and database policies rather than editable client metadata.</p><button type="button" data-admin-panel="roles">Review roles →</button></div></article></div></section>
-            <section class="portal-panel" data-admin-view="pages"><div class="portal-panel-head"><div><span class="management-kicker">Admin tools</span><h2>Administration pages</h2><p>Core management destinations already used across the filings4u portal.</p></div></div><div class="admin-page-grid"><a href="admin-customers.html"><span>◎</span><strong>Customers</strong><small>CRM & client records</small></a><a href="admin-orders.html"><span>▤</span><strong>Orders</strong><small>Sales & fulfillment</small></a><a href="admin-applications.html"><span>▧</span><strong>Applications</strong><small>Filing workflows</small></a><a href="admin-invoices.html"><span>$</span><strong>Invoices</strong><small>Billing & payments</small></a><a href="admin-support.html"><span>◌</span><strong>Support</strong><small>Customer assistance</small></a><a href="admin-compliance.html"><span>✓</span><strong>Compliance</strong><small>Deadline management</small></a><a href="admin-design.html"><span>✦</span><strong>Design Projects</strong><small>Creative projects</small></a><button type="button" data-route-button="website"><span>▣</span><strong>Website Manager</strong><small>filings4u.com CMS</small></button></div></section>
-            <section class="portal-panel" data-admin-view="navigation"><div class="portal-panel-head"><div><span class="management-kicker">Admin navigation</span><h2>Management menu</h2><p>Organize the internal management workspace by Websites, Business, Content, Operations and Platform.</p></div></div><div class="portal-list-card"><div class="portal-list-row"><span>⋮⋮</span><div><strong>Websites</strong><small>Main Website, Client Portal, Admin Portal, Wizard</small></div><b>Open</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Business</strong><small>Customers, Orders, Applications, Billing, Support</small></div><b>Open</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Content</strong><small>Pages, Services, Blog, FAQs, Knowledge, Media</small></div><b>Group</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Operations</strong><small>Tasks, Calendar, Notifications, Activity</small></div><b>Group</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Platform</strong><small>Users, Automations, Integrations, Security, Logs, Settings</small></div><b>Group</b></div></div></section>
-            <section class="portal-panel" data-admin-view="roles"><div class="portal-panel-head"><div><span class="management-kicker">Access control</span><h2>Roles & Permissions</h2><p>Role design for the management system. Database enforcement remains the source of truth.</p></div><button class="management-primary-button" type="button" data-route-button="users">Open Users & Roles</button></div><div class="role-card-grid"><article><strong>Owner</strong><small>Full platform control</small><span>All permissions</span></article><article><strong>Super Admin</strong><small>Full operational administration</small><span>Broad access</span></article><article><strong>Operations Manager</strong><small>Orders, applications and operations</small><span>Operations</span></article><article><strong>Filing Specialist</strong><small>Applications and filing workflows</small><span>Filings</span></article><article><strong>Billing Manager</strong><small>Invoices, payments and refunds</small><span>Billing</span></article><article><strong>Support Agent</strong><small>Customer support and communications</small><span>Support</span></article><article><strong>Website Manager</strong><small>Website pages and publishing</small><span>Website</span></article><article><strong>Read Only</strong><small>View access without changes</small><span>View</span></article></div></section>
-            <section class="portal-panel" data-admin-view="actions"><div class="portal-panel-head"><div><span class="management-kicker">Create menu</span><h2>Quick Actions</h2><p>Manage the global + Create destinations available to administrators.</p></div></div><div class="admin-page-grid"><a href="admin-customers.html?new=1"><span>◎</span><strong>Customer</strong><small>New CRM record</small></a><a href="admin-orders.html?new=1"><span>▤</span><strong>Order</strong><small>New order</small></a><a href="admin-invoices.html?new=1"><span>$</span><strong>Invoice</strong><small>Create invoice</small></a><a href="admin-applications.html?new=1"><span>▧</span><strong>Application</strong><small>Create application</small></a><a href="admin-support.html?new=1"><span>◌</span><strong>Support Ticket</strong><small>Open ticket</small></a><button type="button" data-route-button="website"><span>▱</span><strong>Website Page</strong><small>Open page manager</small></button></div></section>
-            <section class="portal-panel" data-admin-view="notifications"><div class="portal-panel-head"><div><span class="management-kicker">Administration alerts</span><h2>Admin notifications</h2><p>Operational notifications and system messaging for the management team.</p></div></div><div class="portal-stat-grid"><article><span>System notifications</span><strong id="adminSystemNotificationCount">—</strong><small>system_notifications</small></article><article><span>Portal notifications</span><strong id="adminPortalNotificationCount">—</strong><small>portal_notifications</small></article><article><span>Email events</span><strong id="adminEmailEventCount">—</strong><small>portal_email_events</small></article><article><span>Status</span><strong>Live</strong><small>Operational environment</small></article></div></section>
-            <section class="portal-panel" data-admin-view="workflows"><div class="portal-panel-head"><div><span class="management-kicker">Operational automation</span><h2>Workflow Rules</h2><p>Centralize status-driven admin behavior as the management system expands.</p></div></div><div class="portal-module-grid"><article><span>▤</span><div><strong>Order lifecycle</strong><small>Order creation, notifications and downstream records</small></div><em>Existing</em></article><article><span>▧</span><div><strong>Application lifecycle</strong><small>Filing status and entity synchronization</small></div><em>Existing</em></article><article><span>◌</span><div><strong>Support routing</strong><small>Assignment and customer communications</small></div><em>Existing</em></article><article><span>✦</span><div><strong>Design projects</strong><small>Project creation and proof workflows</small></div><em>Existing</em></article></div></section>
-            <section class="portal-panel" data-admin-view="accounts"><div class="portal-panel-head"><div><span class="management-kicker">Team access</span><h2>Admin Accounts</h2><p>Authorized administrators with access to the internal filings4u portal.</p></div><button class="management-primary-button" type="button" data-route-button="users">Manage users & roles</button></div><div class="portal-account-summary"><span>Active admin profiles</span><strong id="adminPortalAccountCount2">—</strong><small>Loaded from admin_profiles. Detailed permissions belong in the Users & Roles manager.</small></div></section>
-          </div>
-        </div>
-      </section>
-      <section class="management-view wizard-manager-view" data-view="wizard">
-  <div class="management-page-head">
-    <div><span class="management-kicker">Wizard manager</span><h1>Service Wizard</h1><p>Manage service flows, plans, forms, add-ons, sessions and checkout behavior from the existing Wizard V2 backend.</p></div>
-    <div class="management-page-actions"><button class="management-secondary-button" id="wizardRefresh" type="button">Refresh</button><button class="management-primary-button" type="button" data-wizard-panel="services">Manage services</button></div>
-  </div>
-  <div class="wizard-manager-shell">
-    <aside class="wizard-manager-nav" aria-label="Wizard manager sections">
-      <div class="wizard-manager-nav__site"><span>◇</span><div><strong>filings4u Wizard</strong><small>Wizard V2 management</small></div></div>
-      <button class="is-active" type="button" data-wizard-panel="overview"><span>⌂</span><div><strong>Overview</strong><small>Health & activity</small></div></button>
-      <button type="button" data-wizard-panel="services"><span>▦</span><div><strong>Services</strong><small>Service configuration</small></div></button>
-      <button type="button" data-wizard-panel="flow"><span>⇢</span><div><strong>Flow Builder</strong><small>Conditional journey</small></div></button>
-      <button type="button" data-wizard-panel="plans"><span>$</span><div><strong>Plans</strong><small>Service pricing</small></div></button>
-      <button type="button" data-wizard-panel="forms"><span>▤</span><div><strong>Forms</strong><small>Definitions & versions</small></div></button>
-      <button type="button" data-wizard-panel="blocks"><span>▥</span><div><strong>Form Blocks</strong><small>Reusable questions</small></div></button>
-      <button type="button" data-wizard-panel="addons"><span>+</span><div><strong>Add-ons</strong><small>Upsells & rules</small></div></button>
-      <button type="button" data-wizard-panel="sessions"><span>◷</span><div><strong>Sessions</strong><small>Live customer progress</small></div></button>
-      <button type="button" data-wizard-panel="settings"><span>⚙</span><div><strong>Flow Settings</strong><small>Labels & behavior</small></div></button>
-    </aside>
-    <div class="wizard-manager-stage">
-      <section class="wizard-panel is-active" data-wizard-view="overview">
-        <div class="portal-panel-head"><div><span class="management-kicker">Wizard V2</span><h2>Wizard overview</h2><p>Live configuration and customer activity from Supabase.</p></div></div>
-        <div class="portal-stat-grid"><article><span>Services</span><strong id="wizardServiceCount">—</strong><small>Configured services</small></article><article><span>Plans</span><strong id="wizardPlanCount">—</strong><small>Pricing options</small></article><article><span>Forms</span><strong id="wizardFormCount">—</strong><small>Form definitions</small></article><article><span>Sessions</span><strong id="wizardSessionCount">—</strong><small>Wizard sessions</small></article></div>
-        <div class="wizard-overview-grid"><article><div><span class="management-kicker">Flow architecture</span><h3>Conditional service journey</h3><p>State services can require jurisdiction while government services can bypass that step. Authorization, add-ons, summary and checkout remain service configurable.</p></div><div class="wizard-flow-line"><span>Service</span><b>→</b><span>Jurisdiction</span><b>→</b><span>Application</span><b>→</b><span>Add-ons</span><b>→</b><span>Authorization</span><b>→</b><span>Summary</span><b>→</b><span>Payment</span></div></article><article><span class="management-kicker">Current data</span><h3>Reusable form system</h3><p><strong id="wizardVersionCount">—</strong> form versions and <strong id="wizardBlockCount">—</strong> reusable form blocks are available to the manager.</p><button class="management-secondary-button" type="button" data-wizard-panel="forms">Open form manager</button></article></div>
-      </section>
-      <section class="wizard-panel" data-wizard-view="services"><div class="portal-panel-head"><div><span class="management-kicker">Service flows</span><h2>Wizard services</h2><p>Select a service to control jurisdiction, authorization, form assignment and fee behavior.</p></div></div><div class="wizard-toolbar"><input id="wizardServiceSearch" type="search" placeholder="Search services…"><select id="wizardServiceCategory"><option value="">All categories</option></select></div><div class="wizard-table-card"><table><thead><tr><th>Service</th><th>Type</th><th>Flow</th><th>Form</th><th>Status</th><th></th></tr></thead><tbody id="wizardServicesBody"></tbody></table></div></section>
-      <section class="wizard-panel" data-wizard-view="flow">
-        <div class="portal-panel-head"><div><span class="management-kicker">Conditional journey</span><h2>Visual flow builder</h2><p>Control the order, availability and conditional behavior of each service journey without editing code.</p></div><div class="wizard-flow-top-actions"><span id="wizardFlowStatus"></span><button class="management-primary-button" type="button" id="wizardFlowSave">Save flow</button></div></div>
-        <div class="wizard-flow-builder">
-          <aside class="wizard-flow-services"><div class="wizard-flow-side-head"><strong>Services</strong><small>Select a wizard</small></div><input id="wizardFlowServiceSearch" type="search" placeholder="Search services…"><div id="wizardFlowServiceList"></div></aside>
-          <main class="wizard-flow-canvas-wrap">
-            <div class="wizard-flow-canvas-head"><div><span class="management-kicker" id="wizardFlowServiceType">Service flow</span><h3 id="wizardFlowTitle">Select a service</h3><p id="wizardFlowDescription">Choose a service to configure its customer journey.</p></div><button class="management-secondary-button" id="wizardFlowReset" type="button">Reset defaults</button></div>
-            <div class="wizard-flow-canvas" id="wizardFlowCanvas"></div>
-          </main>
-          <aside class="wizard-flow-inspector">
-            <div class="wizard-flow-inspector-empty" id="wizardFlowInspectorEmpty"><span>⚙</span><h3>Select a step</h3><p>Choose a flow step to edit its label, visibility and conditional rule.</p></div>
-            <form id="wizardFlowInspectorForm" hidden>
-              <div class="wizard-flow-inspector-head"><div><span class="management-kicker">Step settings</span><h3 id="wizardFlowInspectorTitle">Edit step</h3></div></div>
-              <input type="hidden" id="wizardFlowStepKey">
-              <label>Customer label<input id="wizardFlowStepLabel" type="text"></label>
-              <label class="website-toggle-row"><span><strong>Enabled</strong><small id="wizardFlowEnabledHelp">Show this step in the journey.</small></span><input id="wizardFlowStepEnabled" type="checkbox"></label>
-              <div class="wizard-condition-box"><div><strong>Conditional visibility</strong><small>Optional rule stored with this service flow.</small></div><label>Source key<input id="wizardFlowConditionField" type="text" placeholder="service_type"></label><div class="editor-field-row"><label>Operator<select id="wizardFlowConditionOperator"><option value="equals">Equals</option><option value="not_equals">Does not equal</option><option value="contains">Contains</option><option value="is_truthy">Is truthy</option><option value="is_falsy">Is false</option></select></label><label>Value<input id="wizardFlowConditionValue" type="text"></label></div></div>
-              <div class="wizard-flow-runtime-note" id="wizardFlowRuntimeNote"></div>
-              <button class="management-primary-button" type="submit">Apply step settings</button>
-            </form>
-          </aside>
-        </div>
-      </section>
-      <section class="wizard-panel" data-wizard-view="plans"><div class="portal-panel-head"><div><span class="management-kicker">Pricing</span><h2>Service plans</h2><p>Manage the plan choices and service fees presented by the wizard.</p></div></div><div class="wizard-toolbar"><input id="wizardPlanSearch" type="search" placeholder="Search plans or services…"></div><div class="wizard-table-card"><table><thead><tr><th>Service</th><th>Plan</th><th>Service fee</th><th>Status</th></tr></thead><tbody id="wizardPlansBody"></tbody></table></div></section>
-      <section class="wizard-panel" data-wizard-view="forms">
-        <div class="portal-panel-head"><div><span class="management-kicker">Visual form builder</span><h2>Application forms</h2><p>Build service forms with sections, questions, reusable blocks, conditions and versioned publishing.</p></div><button class="management-primary-button" type="button" id="wizardCreateFormButton">+ New form</button></div>
-        <div class="wizard-form-manager-toolbar"><input id="wizardFormSearch" type="search" placeholder="Search forms or services…"><select id="wizardFormStatus"><option value="">All forms</option><option value="published">Published</option><option value="draft">Draft only</option><option value="inactive">Inactive</option></select></div>
-        <div class="wizard-table-card"><table><thead><tr><th>Form</th><th>Service</th><th>Versions</th><th>Published</th><th>Status</th><th></th></tr></thead><tbody id="wizardFormsBody"></tbody></table></div>
-      </section>
-      <section class="wizard-panel" data-wizard-view="blocks"><div class="portal-panel-head"><div><span class="management-kicker">Reusable library</span><h2>Form blocks</h2><p>Reusable schemas that can be assembled into service-specific application forms.</p></div></div><div class="wizard-block-grid" id="wizardBlocksGrid"></div></section>
-      <section class="wizard-panel" data-wizard-view="addons"><div class="portal-panel-head"><div><span class="management-kicker">Upsells</span><h2>Add-ons</h2><p>Manage optional products, pricing and service recommendations.</p></div></div><div class="wizard-table-card"><table><thead><tr><th>Add-on</th><th>Price</th><th>Services</th><th>Status</th></tr></thead><tbody id="wizardAddonsBody"></tbody></table></div></section>
-      <section class="wizard-panel" data-wizard-view="sessions"><div class="portal-panel-head"><div><span class="management-kicker">Customer activity</span><h2>Recent sessions</h2><p>See where customers are in the wizard without exposing private form payloads here.</p></div></div><div class="wizard-table-card"><table><thead><tr><th>Customer</th><th>Service</th><th>Plan</th><th>Current step</th><th>Status</th><th>Started</th></tr></thead><tbody id="wizardSessionsBody"></tbody></table></div></section>
-      <section class="wizard-panel" data-wizard-view="settings"><div class="portal-panel-head"><div><span class="management-kicker">Service behavior</span><h2>Flow settings</h2><p>Select a service to edit its wizard labels and customer-flow behavior.</p></div></div><div class="wizard-settings-layout"><div class="wizard-settings-list" id="wizardSettingsServices"></div><form class="wizard-settings-form" id="wizardConfigForm"><input type="hidden" id="wizardConfigServiceKey"><label>Welcome title<input id="wizardWelcomeTitle"></label><label>Welcome message<textarea id="wizardWelcomeMessage" rows="3"></textarea></label><div class="wizard-form-grid"><label>Application label<input id="wizardApplicationLabel"></label><label>Add-ons label<input id="wizardAddonsLabel"></label><label>Authorization label<input id="wizardAuthorizationLabel"></label><label>Summary label<input id="wizardSummaryLabel"></label><label>Checkout label<input id="wizardCheckoutLabel"></label><label>Success redirect URL<input id="wizardSuccessRedirect"></label></div><div class="wizard-toggle-grid"><label><input type="checkbox" id="wizardShowAddons"> Show add-ons</label><label><input type="checkbox" id="wizardShowSummary"> Show summary</label><label><input type="checkbox" id="wizardRequireContact"> Require contact capture</label><label><input type="checkbox" id="wizardAllowSave"> Allow save & resume</label><label><input type="checkbox" id="wizardAllowBack"> Allow back navigation</label><label><input type="checkbox" id="wizardCheckoutEnabled"> Checkout enabled</label></div><div class="wizard-form-actions"><span id="wizardConfigStatus"></span><button class="management-primary-button" type="submit">Save flow settings</button></div></form></div></section>
-    </div>
-  </div>
+<div class="management-sidebar__footer">
+<span class="management-status-dot"></span>
+<div><strong>System connected</strong><small>filings4u administration</small></div>
+</div>
+</aside>
+<button aria-label="Close management navigation" class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
+<main class="management-main" id="managementMain" tabindex="-1">
+<section class="management-view is-active" data-view="home">
+<div class="management-page-head">
+<div>
+<span class="management-kicker">Management home</span>
+<h1>What would you like to manage?</h1>
+<p>Manage the filings4u website, portals, customers and operations from one workspace.</p>
+</div>
+<div class="management-page-actions">
+<a class="management-secondary-button" href="https://filings4u.com" rel="noopener" target="_blank">View live website ↗</a>
+<button class="management-primary-button" data-open-create="" type="button">+ Create</button>
+</div>
+</div>
+<div aria-label="Primary workspaces" class="workspace-grid">
+<button class="workspace-card workspace-card--feature" data-route-button="website" type="button">
+<span class="workspace-card__icon">▣</span>
+<span class="workspace-card__body"><strong>Main Website</strong><small>Pages, navigation, content, SEO and publishing.</small></span>
+<span class="workspace-card__arrow">→</span>
+</button>
+<button class="workspace-card" data-route-button="client-portal" type="button">
+<span class="workspace-card__icon">◫</span>
+<span class="workspace-card__body"><strong>Client Portal</strong><small>Manage client modules, navigation and portal content.</small></span>
+<span class="workspace-card__arrow">→</span>
+</button>
+<button class="workspace-card" data-route-button="admin-portal" type="button">
+<span class="workspace-card__icon">⚙</span>
+<span class="workspace-card__body"><strong>Admin Portal</strong><small>Configure administration pages, access and navigation.</small></span>
+<span class="workspace-card__arrow">→</span>
+</button>
+<button class="workspace-card" data-route-button="wizard" type="button">
+<span class="workspace-card__icon">◇</span>
+<span class="workspace-card__body"><strong>Wizard</strong><small>Services, plans, forms, steps, add-ons and handoffs.</small></span>
+<span class="workspace-card__arrow">→</span>
+</button>
+</div>
+<div class="management-home-grid">
+<section class="management-panel">
+<div class="management-panel__head">
+<div><span class="management-kicker">Business</span><h2>Manage operations</h2></div>
+</div>
+<div class="operation-grid">
+<a href="admin-customers.html"><span>◎</span><strong>Customers</strong><small>CRM and client records</small></a>
+<a href="admin-orders.html"><span>▤</span><strong>Orders</strong><small>Sales and fulfillment</small></a>
+<a href="admin-applications.html"><span>▧</span><strong>Applications</strong><small>Filing workflows</small></a>
+<a href="admin-invoices.html"><span>$</span><strong>Billing</strong><small>Invoices and payments</small></a>
+<a href="admin-support.html"><span>◌</span><strong>Support</strong><small>Customer assistance</small></a>
+<a href="admin-design.html"><span>✦</span><strong>Projects</strong><small>Design and web work</small></a>
+</div>
 </section>
-
-      <section class="management-view" data-view="pages"><div class="manager-placeholder"><span>▱</span><h1>Pages Manager</h1><p>Page inventory, status, SEO, preview and publishing will live here.</p></div></section>
-      <section class="management-view" data-view="services"><div class="manager-placeholder"><span>▦</span><h1>Service Catalog</h1><p>Services, plans, add-ons, state fees and wizard configuration will live here.</p></div></section>
-      <section class="management-view" data-view="blog"><div class="manager-placeholder"><span>¶</span><h1>Blog Manager</h1><p>Articles, drafts and publishing tools will live here.</p></div></section>
-      <section class="management-view" data-view="faqs"><div class="manager-placeholder"><span>?</span><h1>FAQ Manager</h1><p>Website FAQ content and feedback metrics will live here.</p></div></section>
-      <section class="management-view" data-view="knowledge"><div class="manager-placeholder"><span>☷</span><h1>Knowledge Base</h1><p>Customer and support knowledge articles will live here.</p></div></section>
-      <section class="management-view" data-view="media"><div class="manager-placeholder"><span>▨</span><h1>Media Library</h1><p>Images, documents and shared assets will live here.</p></div></section>
-      <section class="management-view" data-view="tasks"><div class="manager-placeholder"><span>✓</span><h1>Task Manager</h1><p>Operational tasks and assignments will live here.</p></div></section>
-      <section class="management-view" data-view="calendar"><div class="manager-placeholder"><span>□</span><h1>Operational Calendar</h1><p>Appointments, deadlines and operational events will live here.</p></div></section>
-      <section class="management-view" data-view="notifications"><div class="manager-placeholder"><span>◉</span><h1>Notifications</h1><p>Portal and system notifications will live here.</p></div></section>
-      <section class="management-view" data-view="activity"><div class="manager-placeholder"><span>↻</span><h1>Activity History</h1><p>Administrative and system activity will live here.</p></div></section>
-      <section class="management-view" data-view="users"><div class="manager-placeholder"><span>♙</span><h1>Users & Roles</h1><p>Admin accounts, roles, permissions and invitations will live here.</p></div></section>
-      <section class="management-view" data-view="automations"><div class="manager-placeholder"><span>⚡</span><h1>Automations</h1><p>Workflow and event automation configuration will live here.</p></div></section>
-      <section class="management-view" data-view="integrations"><div class="manager-placeholder"><span>∞</span><h1>Integrations</h1><p>Connected platform and service integrations will live here.</p></div></section>
-      <section class="management-view" data-view="security"><div class="manager-placeholder"><span>⌾</span><h1>Security</h1><p>Authentication, access policy and security controls will live here.</p></div></section>
-      <section class="management-view" data-view="logs"><div class="manager-placeholder"><span>≡</span><h1>System Logs</h1><p>Operational, security and system event logs will live here.</p></div></section>
-      <section class="management-view" data-view="settings"><div class="manager-placeholder"><span>⚙</span><h1>Management Settings</h1><p>Global filings4u platform configuration will live here.</p></div></section>
-    </main>
-  </div>
-
-  <div class="management-popover create-menu" id="createMenu" hidden>
-    <div class="create-menu__card">
-      <div class="management-popover__head"><div><span class="management-kicker">Quick action</span><h2>Create</h2></div><button type="button" data-close-create aria-label="Close">×</button></div>
-      <div class="create-grid">
-        <a href="admin-customers.html?new=1"><span>◎</span><strong>Customer</strong></a>
-        <a href="admin-orders.html?new=1"><span>▤</span><strong>Order</strong></a>
-        <a href="admin-invoices.html?new=1"><span>$</span><strong>Invoice</strong></a>
-        <a href="admin-applications.html?new=1"><span>▧</span><strong>Application</strong></a>
-        <a href="admin-support.html?new=1"><span>◌</span><strong>Support ticket</strong></a>
-        <button type="button" data-route-button="website" data-website-panel="pages"><span>▱</span><strong>Website page</strong></button>
-        <button type="button" data-route-button="blog"><span>¶</span><strong>Blog post</strong></button>
-        <button type="button" data-route-button="services"><span>▦</span><strong>Service</strong></button>
-        <a href="admin-design.html?new=1"><span>✦</span><strong>Design project</strong></a>
-      </div>
-    </div>
-  </div>
-
-  <div class="site-page-editor" id="websiteEditorDrawer" hidden>
-    <header class="site-page-editor__topbar">
-      <div class="site-page-editor__brand"><button type="button" data-close-website-drawer aria-label="Back to pages">←</button><div><span class="management-kicker" id="websiteDrawerKicker">Website page</span><h2 id="websiteDrawerTitle">Edit page</h2></div></div>
-      <div class="site-page-editor__url"><span>filings4u.com</span><strong id="editorLivePath">/</strong></div>
-      <div class="site-page-editor__actions"><span class="website-save-state" id="websitePageSaveState"></span><button class="management-secondary-button" type="button" id="editorPreviewButton">Preview ↗</button><button class="management-secondary-button" type="button" id="editorSaveButton">Save draft</button><button class="management-primary-button" type="button" id="editorPublishButton">Publish</button></div>
-    </header>
-    <div class="site-page-editor__workspace">
-      <aside class="site-page-editor__settings">
-        <div class="editor-tabbar"><button class="is-active" type="button" data-editor-tab="page">Page</button><button type="button" data-editor-tab="seo">SEO</button></div>
-        <div class="editor-settings-panel is-active" data-editor-settings="page">
-          <label><span>Page title</span><input id="websitePageTitle" type="text"></label>
-          <label><span>URL path</span><div class="editor-url-input"><span>filings4u.com/</span><input id="websitePageSlug" type="text"></div><small>Public pages use the existing <b>.html</b> URL structure.</small></label>
-          <div class="editor-field-row"><label><span>Page type</span><select id="websitePageType"><option value="standard">Standard</option><option value="service">Service</option><option value="landing">Landing</option><option value="legal">Legal</option><option value="system">System</option></select></label><label><span>Status</span><select id="websitePageStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></label></div>
-          <label class="website-toggle-row"><span><strong>Include in sitemap</strong><small>Allow this page in the public sitemap.</small></span><input id="websitePageSitemap" type="checkbox" checked></label>
-          <div class="editor-info-box"><strong>Public website</strong><span>https://filings4u.com</span><small>The management application remains on portal.filings4u.com.</small></div>
-        </div>
-        <div class="editor-settings-panel" data-editor-settings="seo">
-          <label><span>SEO title</span><input id="websiteSeoTitle" type="text" maxlength="70"><small><b id="seoTitleCount">0</b>/70 characters</small></label>
-          <label><span>Meta description</span><textarea id="websiteSeoDescription" rows="5" maxlength="170"></textarea><small><b id="seoDescriptionCount">0</b>/170 characters</small></label>
-          <label><span>Canonical URL</span><input id="websiteCanonicalUrl" type="url" placeholder="https://filings4u.com/page.html"></label>
-          <div class="editor-field-row"><label class="website-toggle-row"><span><strong>Index</strong></span><input id="websiteRobotsIndex" type="checkbox" checked></label><label class="website-toggle-row"><span><strong>Follow</strong></span><input id="websiteRobotsFollow" type="checkbox" checked></label></div>
-          <div class="seo-serp-preview"><small>filings4u.com</small><strong id="seoPreviewTitle">Page title</strong><p id="seoPreviewDescription">Add a meta description to preview this page in search results.</p></div>
-        </div>
-      </aside>
-      <main class="site-page-editor__canvas">
-        <div class="editor-canvas-head"><div><span class="management-kicker">Page sections</span><h3>Content & layout</h3></div><button class="management-primary-button" type="button" id="addSectionButton">+ Add section</button></div>
-        <div class="editor-section-list" id="websiteSectionList"></div>
-      </main>
-      <aside class="site-page-editor__inspector">
-        <div id="sectionInspectorEmpty" class="editor-empty-inspector"><span>▱</span><h3>Select a section</h3><p>Choose a page section to edit its content and settings.</p></div>
-        <form id="sectionInspectorForm" class="section-inspector-form" hidden>
-          <div class="section-inspector-head"><div><span class="management-kicker">Section editor</span><h3 id="sectionInspectorTitle">Hero</h3></div><button type="button" id="deleteSectionButton" title="Delete section">×</button></div>
-          <input id="sectionId" type="hidden"><input id="sectionKey" type="hidden">
-          <label><span>Section label</span><input id="sectionLabel" type="text"></label>
-          <label><span>Section type</span><select id="sectionType"><option value="hero">Hero</option><option value="content">Content</option><option value="benefits">Benefits</option><option value="pricing">Pricing</option><option value="faq">FAQ</option><option value="cta">CTA</option><option value="custom">Custom</option></select></label>
-          <label><span>Heading</span><input id="sectionHeading" type="text"></label>
-          <label><span>Subheading</span><textarea id="sectionSubheading" rows="3"></textarea></label>
-          <label><span>Body content</span><textarea id="sectionBody" rows="7" placeholder="Section text or supporting copy"></textarea></label>
-          <div class="editor-field-row"><label><span>Button label</span><input id="sectionButtonLabel" type="text"></label><label><span>Button URL</span><input id="sectionButtonUrl" type="text"></label></div>
-          <label class="website-toggle-row"><span><strong>Visible</strong><small>Show this section when published.</small></span><input id="sectionVisible" type="checkbox" checked></label>
-          <button class="management-primary-button" type="submit">Save section</button>
-          <p class="website-save-state" id="sectionSaveState"></p>
-        </form>
-      </aside>
-    </div>
-  </div>
-
-  <div class="wizard-form-builder" id="wizardFormBuilder" hidden>
-    <header class="wizard-form-builder__topbar">
-      <div class="wizard-form-builder__brand">
-        <button type="button" id="wizardBuilderClose" aria-label="Back to forms">←</button>
-        <div><span class="management-kicker">Visual Form Builder</span><h2 id="wizardBuilderTitle">Application form</h2><small id="wizardBuilderMeta">Draft</small></div>
-      </div>
-      <div class="wizard-form-builder__actions">
-        <span id="wizardBuilderSaveState" class="wizard-builder-save-state"></span>
-        <button class="management-secondary-button" type="button" id="wizardBuilderPreview">Preview</button>
-        <button class="management-secondary-button" type="button" id="wizardBuilderSave">Save draft</button>
-        <button class="management-primary-button" type="button" id="wizardBuilderPublish">Publish</button>
-      </div>
-    </header>
-    <div class="wizard-form-builder__workspace">
-      <aside class="wizard-builder-library">
-        <div class="wizard-builder-panel-head"><span class="management-kicker">Add to form</span><h3>Question library</h3></div>
-        <div class="wizard-builder-tabs"><button class="is-active" type="button" data-builder-library="fields">Fields</button><button type="button" data-builder-library="blocks">Blocks</button></div>
-        <div class="wizard-builder-library-panel is-active" data-builder-library-panel="fields">
-          <div class="wizard-field-palette" id="wizardFieldPalette">
-            <button draggable="true" data-add-field="text"><span>Ab</span><strong>Short text</strong><small>Name, ID, title</small></button>
-            <button draggable="true" data-add-field="textarea"><span>¶</span><strong>Long text</strong><small>Descriptions, notes</small></button>
-            <button draggable="true" data-add-field="email"><span>@</span><strong>Email</strong><small>Email address</small></button>
-            <button draggable="true" data-add-field="phone"><span>☎</span><strong>Phone</strong><small>Phone number</small></button>
-            <button draggable="true" data-add-field="number"><span>#</span><strong>Number</strong><small>Numeric value</small></button>
-            <button draggable="true" data-add-field="select"><span>⌄</span><strong>Dropdown</strong><small>Select one option</small></button>
-            <button draggable="true" data-add-field="radio"><span>◉</span><strong>Radio choice</strong><small>Visible choices</small></button>
-            <button draggable="true" data-add-field="checkbox"><span>✓</span><strong>Checkbox</strong><small>Agreement / yes-no</small></button>
-            <button draggable="true" data-add-field="date"><span>□</span><strong>Date</strong><small>Date picker</small></button>
-            <button draggable="true" data-add-field="state"><span>US</span><strong>State</strong><small>U.S. state selector</small></button>
-            <button draggable="true" data-add-field="address"><span>⌂</span><strong>Address</strong><small>Structured address</small></button>
-            <button draggable="true" data-add-field="file"><span>↑</span><strong>File upload</strong><small>Supporting document</small></button>
-          </div>
-        </div>
-        <div class="wizard-builder-library-panel" data-builder-library-panel="blocks">
-          <input class="wizard-library-search" id="wizardBuilderBlockSearch" type="search" placeholder="Search reusable blocks…">
-          <div id="wizardBuilderBlockLibrary" class="wizard-builder-block-library"></div>
-        </div>
-      </aside>
-      <main class="wizard-builder-canvas">
-        <div class="wizard-builder-canvas-head">
-          <div><span class="management-kicker" id="wizardBuilderService">Service form</span><h3 id="wizardBuilderCanvasTitle">Application</h3><p id="wizardBuilderCanvasDescription"></p></div>
-          <button class="management-primary-button" type="button" id="wizardAddSection">+ Add section</button>
-        </div>
-        <div class="wizard-builder-empty" id="wizardBuilderEmpty" hidden><span>▤</span><h3>Start building this form</h3><p>Add a section, then add questions or reusable blocks from the library.</p><button class="management-primary-button" type="button" data-add-first-section>+ Add first section</button></div>
-        <div class="wizard-builder-sections" id="wizardBuilderSections"></div>
-      </main>
-      <aside class="wizard-builder-inspector">
-        <div class="wizard-builder-inspector-empty" id="wizardInspectorEmpty"><span>⚙</span><h3>Select an item</h3><p>Choose a section or question to edit its settings, validation and conditional rules.</p></div>
-        <form id="wizardSectionInspector" class="wizard-builder-inspector-form" hidden>
-          <div class="wizard-builder-inspector-head"><div><span class="management-kicker">Section settings</span><h3>Edit section</h3></div><button type="button" data-delete-builder-item>×</button></div>
-          <label>Section title<input id="wizardInspectorSectionTitle" type="text"></label>
-          <label>Description<textarea id="wizardInspectorSectionDescription" rows="3"></textarea></label>
-          <label>Internal key<input id="wizardInspectorSectionKey" type="text"></label>
-          <label class="website-toggle-row"><span><strong>Visible</strong><small>Show this section in the customer form.</small></span><input id="wizardInspectorSectionVisible" type="checkbox" checked></label>
-          <div class="wizard-builder-inspector-actions"><button class="management-primary-button" type="submit">Apply changes</button></div>
-        </form>
-        <form id="wizardFieldInspector" class="wizard-builder-inspector-form" hidden>
-          <div class="wizard-builder-inspector-head"><div><span class="management-kicker">Question settings</span><h3 id="wizardInspectorFieldHeading">Edit question</h3></div><button type="button" data-delete-builder-item>×</button></div>
-          <label>Question label<input id="wizardInspectorFieldLabel" type="text"></label>
-          <label>Field key<input id="wizardInspectorFieldKey" type="text"></label>
-          <div class="editor-field-row"><label>Type<select id="wizardInspectorFieldType"><option value="text">Short text</option><option value="textarea">Long text</option><option value="email">Email</option><option value="phone">Phone</option><option value="number">Number</option><option value="select">Dropdown</option><option value="radio">Radio</option><option value="checkbox">Checkbox</option><option value="date">Date</option><option value="state">State</option><option value="address">Address</option><option value="file">File</option><option value="repeater">Repeater</option></select></label><label>Width<select id="wizardInspectorFieldSpan"><option value="full">Full width</option><option value="half">Half width</option></select></label></div>
-          <label>Placeholder<input id="wizardInspectorFieldPlaceholder" type="text"></label>
-          <label>Help text<textarea id="wizardInspectorFieldHelp" rows="2"></textarea></label>
-          <label id="wizardInspectorOptionsWrap">Options <small>One per line. Use <b>value | Label</b> when needed.</small><textarea id="wizardInspectorFieldOptions" rows="5"></textarea></label>
-          <div class="editor-field-row"><label>Minimum<input id="wizardInspectorFieldMin" type="number"></label><label>Maximum<input id="wizardInspectorFieldMax" type="number"></label></div>
-          <label class="website-toggle-row"><span><strong>Required</strong><small>Customer must complete this question.</small></span><input id="wizardInspectorFieldRequired" type="checkbox"></label>
-          <div class="wizard-condition-box"><div><strong>Conditional visibility</strong><small>Only show this question when another answer matches.</small></div><label>Field key<input id="wizardInspectorConditionField" type="text" placeholder="business_type"></label><div class="editor-field-row"><label>Operator<select id="wizardInspectorConditionOperator"><option value="equals">Equals</option><option value="not_equals">Does not equal</option><option value="contains">Contains</option><option value="is_truthy">Is checked / truthy</option></select></label><label>Value<input id="wizardInspectorConditionValue" type="text"></label></div></div>
-          <div class="wizard-builder-inspector-actions"><button class="management-primary-button" type="submit">Apply changes</button></div>
-        </form>
-      </aside>
-    </div>
-  </div>
-
-  <div class="wizard-form-preview" id="wizardFormPreview" hidden>
-    <div class="wizard-form-preview__card">
-      <div class="wizard-form-preview__head"><div><span class="management-kicker">Customer preview</span><h2 id="wizardPreviewTitle">Application</h2></div><button type="button" id="wizardPreviewClose">×</button></div>
-      <div id="wizardPreviewBody" class="wizard-form-preview__body"></div>
-    </div>
-  </div>
-
-  <div class="search-dialog" id="globalSearchDialog" hidden role="dialog" aria-modal="true" aria-labelledby="globalSearchTitle">
-    <div class="search-dialog__card">
-      <div class="search-dialog__input-wrap">
-        <span aria-hidden="true">⌕</span>
-        <input id="globalSearchInput" type="search" autocomplete="off" placeholder="Search customers, orders, pages, applications..." aria-labelledby="globalSearchTitle">
-        <button type="button" data-close-search aria-label="Close search">×</button>
-      </div>
-      <h2 class="sr-only" id="globalSearchTitle">Search filings4u</h2>
-      <div class="search-dialog__body">
-        <span class="management-kicker">Quick destinations</span>
-        <div class="search-destinations" id="searchDestinations">
-          <button type="button" data-search-keywords="website pages seo content publishing" data-route-button="website"><span>Main Website</span><small>Website management</small></button>
-          <a href="admin-customers.html" data-search-keywords="customer customers crm clients contacts"><span>Customers</span><small>CRM & client records</small></a>
-          <a href="admin-orders.html" data-search-keywords="orders order tracking sales fulfillment"><span>Orders</span><small>Sales & fulfillment</small></a>
-          <a href="admin-applications.html" data-search-keywords="applications filing filings tracking"><span>Applications</span><small>Filing workflows</small></a>
-          <button type="button" data-search-keywords="services catalog products pricing plans addons fees" data-route-button="services"><span>Services</span><small>Catalog & pricing</small></button>
-          <button type="button" data-search-keywords="users roles permissions admin accounts" data-route-button="users"><span>Users & Roles</span><small>Access management</small></button>
-        </div>
-        <div class="search-empty" id="searchEmpty" hidden>No matching management destination.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="portal-message-modal" id="clientPortalMessageModal" hidden>
-    <div class="portal-message-modal__backdrop" data-close-client-message></div>
-    <section class="portal-message-modal__card" role="dialog" aria-modal="true" aria-labelledby="clientPortalMessageModalTitle">
-      <header><div><span class="management-kicker">Client portal</span><h2 id="clientPortalMessageModalTitle">New portal message</h2></div><button class="management-icon-button" type="button" data-close-client-message aria-label="Close">×</button></header>
-      <form id="clientPortalMessageForm">
-        <label><span>Audience</span><select id="clientPortalMessageAudience"><option value="all">All clients</option><option value="client">One client</option></select></label>
-        <label id="clientPortalMessageClientField" hidden><span>Client</span><select id="clientPortalMessageClient"><option value="">Select a client</option></select></label>
-        <label><span>Title</span><input id="clientPortalMessageTitle" maxlength="160" required placeholder="Portal announcement title"></label>
-        <label><span>Message</span><textarea id="clientPortalMessageBody" rows="6" maxlength="3000" required placeholder="Write the customer-facing message"></textarea></label>
-        <div class="portal-message-form-grid"><label><span>Action label</span><input id="clientPortalMessageActionLabel" maxlength="80" placeholder="Optional, e.g. View order"></label><label><span>Action URL</span><input id="clientPortalMessageActionUrl" maxlength="500" placeholder="Optional portal link"></label></div>
-        <p class="portal-message-form-status" id="clientPortalMessageStatus"></p>
-        <footer><button class="management-secondary-button" type="button" data-close-client-message>Cancel</button><button class="management-primary-button" id="clientPortalMessageSubmit" type="submit">Send portal message</button></footer>
-      </form>
-    </section>
-  </div>
-
-  <!-- ADMIN PROTECTED PAGE -->
-  <div class="management-dialog" id="filings4uDialog" hidden aria-hidden="true">
-    <div class="management-dialog__backdrop" data-dialog-dismiss></div>
-    <section class="management-dialog__card" role="dialog" aria-modal="true" aria-labelledby="filings4uDialogTitle" aria-describedby="filings4uDialogMessage">
-      <header class="management-dialog__head">
-        <div><span class="management-kicker" id="filings4uDialogKicker">filings4u Management</span><h2 id="filings4uDialogTitle">Notice</h2></div>
-        <button class="management-icon-button" type="button" data-dialog-dismiss aria-label="Close">×</button>
-      </header>
-      <div class="management-dialog__body">
-        <p id="filings4uDialogMessage"></p>
-        <div class="management-dialog__field" id="filings4uDialogField" hidden>
-          <label id="filings4uDialogFieldLabel" for="filings4uDialogInput">Value</label>
-          <input id="filings4uDialogInput" type="text" autocomplete="off">
-          <select id="filings4uDialogSelect" hidden></select>
-          <small id="filings4uDialogHelp" hidden></small>
-        </div>
-      </div>
-      <footer class="management-dialog__actions">
-        <button class="management-secondary-button" id="filings4uDialogCancel" type="button">Cancel</button>
-        <button class="management-primary-button" id="filings4uDialogConfirm" type="button">Continue</button>
-      </footer>
-    </section>
-  </div>
-
-  <script src="assets/js/admin-management.js"></script>
-  <script src="assets/js/website-manager.js"></script>
-  <script src="assets/js/portal-managers.js"></script>
-  <script src="assets/js/wizard-manager.js"></script>
-  <script src="assets/js/wizard-form-builder.js"></script>
+<section class="management-panel quick-panel">
+<div class="management-panel__head">
+<div><span class="management-kicker">Quick access</span><h2>Platform controls</h2></div>
+</div>
+<div class="quick-link-list">
+<button data-route-button="services" type="button"><span>Service catalog</span><b>→</b></button>
+<button data-route-button="users" type="button"><span>Users &amp; roles</span><b>→</b></button>
+<button data-route-button="activity" type="button"><span>Activity history</span><b>→</b></button>
+<button data-route-button="settings" type="button"><span>System settings</span><b>→</b></button>
+</div>
+</section>
+</div>
+</section>
+<section class="management-view website-manager-view" data-view="website">
+<div class="management-page-head website-manager-head">
+<div>
+<div class="website-manager-titleline"><span class="management-kicker">Website manager</span><span class="website-live-pill"><i></i> Live</span></div>
+<h1>Main Website</h1>
+<p>Manage pages, navigation, global sections, services, content, SEO and publishing for filings4u.com.</p>
+</div>
+<div class="management-page-actions">
+<a class="management-secondary-button" href="https://filings4u.com" rel="noopener" target="_blank">View live site ↗</a>
+<button class="management-secondary-button" data-website-action="preview" type="button">Preview</button>
+<button class="management-primary-button" data-website-panel="publishing" type="button">Publish</button>
+</div>
+</div>
+<div class="website-manager-shell">
+<aside aria-label="Main website manager sections" class="website-manager-nav">
+<div class="website-manager-nav__site">
+<span class="website-manager-nav__site-icon">F4</span>
+<div><strong>filings4u.com</strong><small>Primary website</small></div>
+</div>
+<button class="is-active" data-website-panel="pages" type="button"><span>▱</span><div><strong>Pages</strong><small>Website structure</small></div></button>
+<button data-website-panel="navigation" type="button"><span>☷</span><div><strong>Navigation</strong><small>Menus &amp; links</small></div></button>
+<button data-website-panel="globals" type="button"><span>▤</span><div><strong>Header &amp; Footer</strong><small>Global sections</small></div></button>
+<button data-website-panel="services" type="button"><span>▦</span><div><strong>Services</strong><small>Catalog content</small></div></button>
+<button data-website-panel="content" type="button"><span>¶</span><div><strong>Content</strong><small>Blog, FAQs &amp; KB</small></div></button>
+<button data-website-panel="seo" type="button"><span>⌕</span><div><strong>SEO</strong><small>Search visibility</small></div></button>
+<button data-website-panel="publishing" type="button"><span>↑</span><div><strong>Publishing</strong><small>Preview &amp; production</small></div></button>
+</aside>
+<div class="website-manager-stage">
+<section class="website-panel is-active" data-website-view="pages">
+<div class="website-panel-head">
+<div><span class="management-kicker">Site structure</span><h2>Pages</h2><p>Manage the pages that make up the public filings4u website.</p></div>
+<button class="management-primary-button" data-new-website-page="" type="button">+ New page</button>
+</div>
+<div class="website-summary-grid">
+<article><span>Managed pages</span><strong id="websitePageCount">—</strong><small>Pages in website CMS</small></article>
+<article><span>Services</span><strong id="websiteServiceCount">—</strong><small>Active service records</small></article>
+<article><span>Content items</span><strong id="websiteContentCount">—</strong><small>Blog posts, FAQs &amp; knowledge</small></article>
+<article><span>Environment</span><strong id="websiteMode">Live</strong><small id="websiteUpdatedAt">Production</small></article>
+</div>
+<div class="website-table-card">
+<div class="website-table-toolbar">
+<label class="website-search-field"><span>⌕</span><input id="websitePageSearch" placeholder="Search pages..." type="search"/></label>
+<select aria-label="Filter pages" id="websitePageFilter"><option value="all">All pages</option><option value="landing">Landing pages</option></select>
+</div>
+<div class="website-table-wrap">
+<table class="website-table">
+<thead><tr><th>Page</th><th>URL</th><th>Type</th><th>Status</th><th></th></tr></thead>
+<tbody id="websitePagesTable"><tr><td class="website-loading" colspan="5">Loading website pages…</td></tr></tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="website-panel" data-website-view="navigation">
+<div class="website-panel-head"><div><span class="management-kicker">Menus</span><h2>Navigation</h2><p>Organize the primary website navigation and portal entry points.</p></div><button class="management-primary-button" data-add-nav-item="" type="button">+ Add item</button></div>
+<div class="website-editor-grid">
+<div class="website-config-card">
+<div class="website-config-card__head"><div><strong>Main navigation</strong><small>Desktop and mobile menu</small></div><span class="website-status-tag">Global</span></div>
+<div class="nav-builder" id="websiteNavBuilder">
+<div class="nav-builder-row"><span class="nav-drag">⋮⋮</span><div><strong>Services</strong><small>Dropdown menu</small></div><button type="button">Edit</button></div>
+<div class="nav-builder-row"><span class="nav-drag">⋮⋮</span><div><strong>Business Formation</strong><small>Service category</small></div><button type="button">Edit</button></div>
+<div class="nav-builder-row"><span class="nav-drag">⋮⋮</span><div><strong>DOT &amp; Fleet</strong><small>Service category</small></div><button type="button">Edit</button></div>
+<div class="nav-builder-row"><span class="nav-drag">⋮⋮</span><div><strong>Resources</strong><small>Dropdown menu</small></div><button type="button">Edit</button></div>
+<div class="nav-builder-row"><span class="nav-drag">⋮⋮</span><div><strong>Client Portal</strong><small>Button / portal link</small></div><button type="button">Edit</button></div>
+</div>
+</div>
+<aside class="website-inspector-card"><span class="management-kicker">Navigation settings</span><h3>Menu behavior</h3><label><span>Desktop menu</span><select><option>Horizontal navigation</option></select></label><label><span>Mobile menu</span><select><option>Slide-out drawer</option></select></label><label class="website-toggle-row"><span><strong>Client Portal button</strong><small>Show in primary navigation</small></span><input checked="" type="checkbox"/></label><div class="website-note">Navigation items are stored in the website CMS and can be added or edited here. Publish website changes when you are ready to release them.</div></aside>
+</div>
+</section>
+<section class="website-panel" data-website-view="globals">
+<div class="website-panel-head"><div><span class="management-kicker">Global sections</span><h2>Header &amp; Footer</h2><p>Control reusable website sections that appear across public pages.</p></div></div>
+<div class="global-section-grid">
+<article class="global-section-card"><div class="global-section-preview global-section-preview--header"><span class="preview-brand">filings4u</span><span></span><span></span><b>Client Portal</b></div><div class="global-section-card__body"><span class="website-status-tag">Global</span><h3>Website header</h3><p>Logo, navigation, dropdowns, mobile toggle and Client Portal action.</p><div><button class="management-secondary-button" data-global-editor="header" type="button">Edit header</button><button class="text-action" data-global-preview="" type="button">Preview ↗</button></div></div></article>
+<article class="global-section-card"><div class="global-section-preview global-section-preview--footer"><div></div><div></div><div></div><div></div></div><div class="global-section-card__body"><span class="website-status-tag">Global</span><h3>Website footer</h3><p>Business links, DOT &amp; Fleet, resources, copyright and legal links.</p><div><button class="management-secondary-button" data-global-editor="footer" type="button">Edit footer</button><button class="text-action" data-global-preview="" type="button">Preview ↗</button></div></div></article>
+</div>
+</section>
+<section class="website-panel" data-website-view="services">
+<div class="website-panel-head"><div><span class="management-kicker">Catalog</span><h2>Services</h2><p>Public service records connected to pricing and wizard configuration.</p></div><button class="management-primary-button" data-route-button="services" type="button">Open full catalog</button></div>
+<div class="website-table-card"><div class="website-table-toolbar"><label class="website-search-field"><span>⌕</span><input id="websiteServiceSearch" placeholder="Search services..." type="search"/></label><span class="website-toolbar-meta" id="websiteServicesMeta">Loading services…</span></div><div class="website-table-wrap"><table class="website-table"><thead><tr><th>Service</th><th>Category</th><th>Type</th><th>Status</th><th></th></tr></thead><tbody id="websiteServicesTable"><tr><td class="website-loading" colspan="5">Loading service catalog…</td></tr></tbody></table></div></div>
+</section>
+<section class="website-panel" data-website-view="content">
+<div class="website-panel-head"><div><span class="management-kicker">Content</span><h2>Content collections</h2><p>Manage customer-facing articles, help content and reusable information.</p></div></div>
+<div class="content-collection-grid">
+<button data-route-button="blog" type="button"><span>¶</span><div><strong>Blog</strong><small id="websiteBlogCount">— items</small></div><b>→</b></button>
+<button data-route-button="faqs" type="button"><span>?</span><div><strong>FAQs</strong><small id="websiteFaqCount">— items</small></div><b>→</b></button>
+<button data-route-button="knowledge" type="button"><span>☷</span><div><strong>Knowledge Base</strong><small id="websiteKnowledgeCount">— items</small></div><b>→</b></button>
+<button data-route-button="media" type="button"><span>▨</span><div><strong>Media Library</strong><small>Images &amp; documents</small></div><b>→</b></button>
+<button data-website-content="landing" type="button"><span>▱</span><div><strong>Landing Pages</strong><small id="websiteLandingCount">— pages</small></div><b>→</b></button>
+<button data-website-content="announcement" type="button"><span>!</span><div><strong>Announcement</strong><small id="websiteAnnouncementState">No active announcement</small></div><b>→</b></button>
+</div>
+</section>
+<section class="website-panel" data-website-view="seo">
+<div class="website-panel-head"><div><span class="management-kicker">Search visibility</span><h2>SEO</h2><p>Review site-wide metadata, indexing and page-level search settings.</p></div><button class="management-secondary-button" data-website-seo-settings="" type="button">SEO settings</button></div>
+<div class="seo-layout"><div class="seo-score-card"><div class="seo-ring"><strong>82</strong><span>/100</span></div><div><span class="management-kicker">Site health</span><h3>Strong foundation</h3><p>Page-specific metadata is the next layer to connect as the page manager expands.</p></div></div><div class="seo-checklist"><div><span class="seo-check is-good">✓</span><div><strong>Mobile responsive shell</strong><small>Viewport and responsive layout enabled.</small></div></div><div><span class="seo-check is-good">✓</span><div><strong>HTTPS production site</strong><small>Expected for public deployment.</small></div></div><div><span class="seo-check">!</span><div><strong>Page metadata manager</strong><small>Connect titles, descriptions, canonical URLs and social previews.</small></div><button data-website-panel="pages" type="button">Review pages</button></div><div><span class="seo-check">!</span><div><strong>Redirect manager</strong><small>Add permanent redirects and retired URL handling.</small></div><button type="button">Configure</button></div></div></div>
+</section>
+<section class="website-panel" data-website-view="publishing">
+<div class="website-panel-head"><div><span class="management-kicker">Deployment</span><h2>Publishing</h2><p>Review the current website environment before pushing public changes.</p></div></div>
+<div class="publishing-layout">
+<div class="publish-card publish-card--live"><div><span class="publish-environment"><i></i> Production</span><h3>filings4u.com</h3><p>The public site is currently configured for production mode.</p></div><div class="publish-card__actions"><a class="management-secondary-button" href="https://filings4u.com" rel="noopener" target="_blank">Open site ↗</a><button class="management-primary-button" id="websitePublishButton" type="button">Publish changes</button></div></div>
+<div class="publish-settings-card"><h3>Publishing controls</h3><label class="website-toggle-row"><span><strong>Production mode</strong><small>Website operating environment</small></span><input checked="" id="websiteProductionToggle" type="checkbox"/></label><label><span>Website announcement</span><textarea id="websiteAnnouncementInput" placeholder="Optional site-wide announcement" rows="4"></textarea></label><button class="management-secondary-button" id="saveWebsiteSettings" type="button">Save website settings</button><p class="website-save-state" id="websiteSaveState"></p></div>
+</div>
+</section>
+</div>
+</div>
+</section>
+<section class="management-view portal-manager-view" data-view="client-portal">
+<div class="management-page-head">
+<div><span class="management-kicker">Portal manager</span><h1>Client Portal</h1><p>Manage the customer experience on portal.filings4u.com, including dashboard modules, navigation, messages and portal settings.</p></div>
+<div class="management-page-actions"><a class="management-secondary-button" href="https://portal.filings4u.com/client-dashboard.html" rel="noopener" target="_blank">Open client portal ↗</a><button class="management-primary-button" data-client-panel="preview" type="button">Preview portal</button></div>
+</div>
+<div class="portal-manager-shell" data-portal-manager="client">
+<aside class="portal-manager-nav">
+<div class="portal-manager-nav__site"><span>CP</span><div><strong>Client Portal</strong><small>portal.filings4u.com</small></div></div>
+<button class="is-active" data-client-panel="overview" type="button"><span>⌂</span><div><strong>Overview</strong><small>Portal health &amp; usage</small></div></button>
+<button data-client-panel="structure" type="button"><span>▱</span><div><strong>Structure</strong><small>Customer modules</small></div></button>
+<button data-client-panel="navigation" type="button"><span>☷</span><div><strong>Navigation</strong><small>Portal menu</small></div></button>
+<button data-client-panel="dashboard" type="button"><span>▦</span><div><strong>Dashboard</strong><small>Home modules</small></div></button>
+<button data-client-panel="messages" type="button"><span>!</span><div><strong>Messages</strong><small>Announcements</small></div></button>
+<button data-client-panel="notifications" type="button"><span>◉</span><div><strong>Notifications</strong><small>Customer alerts</small></div></button>
+<button data-client-panel="settings" type="button"><span>⚙</span><div><strong>Settings</strong><small>Portal behavior</small></div></button>
+</aside>
+<div class="portal-manager-stage">
+<section class="portal-panel is-active" data-client-view="overview">
+<div class="portal-panel-head"><div><span class="management-kicker">Customer experience</span><h2>Portal overview</h2><p>Live operational counts from the customer-facing system.</p></div></div>
+<div class="portal-stat-grid">
+<article><span>Customers</span><strong id="clientPortalCustomerCount">—</strong><small>Client profiles</small></article>
+<article><span>Orders</span><strong id="clientPortalOrderCount">—</strong><small>Client orders</small></article>
+<article><span>Applications</span><strong id="clientPortalApplicationCount">—</strong><small>Filing records</small></article>
+<article><span>Notifications</span><strong id="clientPortalNotificationCount">—</strong><small>Portal notifications</small></article>
+</div>
+<div class="portal-card-grid">
+<article class="portal-feature-card"><span class="portal-feature-icon">◫</span><div><small>Primary entry point</small><h3>client-dashboard.html</h3><p>The client dashboard remains the authenticated home for client orders, applications, documents and account activity.</p><a href="https://portal.filings4u.com/client-dashboard.html" rel="noopener" target="_blank">Open live dashboard ↗</a></div></article>
+<article class="portal-feature-card"><span class="portal-feature-icon">✓</span><div><small>Management model</small><h3>Portal modules</h3><p>Control which customer modules are visible without changing the public filings4u.com website manager.</p><button data-client-panel="structure" type="button">Manage modules →</button></div></article>
+</div>
+</section>
+<section class="portal-panel" data-client-view="structure">
+<div class="portal-panel-head"><div><span class="management-kicker">Portal structure</span><h2>Customer modules</h2><p>Define the sections customers can access after signing in.</p></div></div>
+<div class="portal-module-grid" id="clientPortalModuleGrid">
+<article><span>⌂</span><div><strong>Home</strong><small>Dashboard and account summary</small></div><em>Core</em></article>
+<article><span>▤</span><div><strong>Orders</strong><small>Purchases, fulfillment and receipts</small></div><em>Enabled</em></article>
+<article><span>▧</span><div><strong>Applications</strong><small>Filing status and milestones</small></div><em>Enabled</em></article>
+<article><span>▨</span><div><strong>Documents</strong><small>Customer files and vault access</small></div><em>Enabled</em></article>
+<article><span>◇</span><div><strong>Entities</strong><small>Companies and registered entities</small></div><em>Enabled</em></article>
+<article><span>✓</span><div><strong>Compliance</strong><small>Deadlines and compliance records</small></div><em>Enabled</em></article>
+<article><span>$</span><div><strong>Invoices</strong><small>Billing and payment history</small></div><em>Enabled</em></article>
+<article><span>✦</span><div><strong>Projects</strong><small>Design and website projects</small></div><em>Enabled</em></article>
+<article><span>◌</span><div><strong>Support</strong><small>Tickets and customer assistance</small></div><em>Enabled</em></article>
+<article><span>⚙</span><div><strong>Account</strong><small>Profile, login and password controls</small></div><em>Core</em></article>
+</div>
+</section>
+<section class="portal-panel" data-client-view="navigation">
+<div class="portal-panel-head"><div><span class="management-kicker">Portal navigation</span><h2>Customer menu</h2><p>Organize the signed-in customer navigation independently from filings4u.com.</p></div><button class="management-secondary-button" type="button">+ Add menu item</button></div>
+<div class="portal-list-card"><div class="portal-list-row"><span>⋮⋮</span><div><strong>Dashboard</strong><small>Customer home</small></div><b>Core</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Orders &amp; Applications</strong><small>Primary customer work</small></div><b>Visible</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Documents &amp; Entities</strong><small>Records and files</small></div><b>Visible</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Compliance &amp; Billing</strong><small>Deadlines and payments</small></div><b>Visible</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Support &amp; Account</strong><small>Help and settings</small></div><b>Visible</b></div></div>
+</section>
+<section class="portal-panel" data-client-view="dashboard">
+<div class="portal-panel-head"><div><span class="management-kicker">Dashboard builder</span><h2>Customer home modules</h2><p>Choose what customers see first after login.</p></div></div>
+<div class="portal-module-grid"><article><span>▤</span><div><strong>Recent orders</strong><small>Latest customer purchases</small></div><em>On</em></article><article><span>▧</span><div><strong>Active applications</strong><small>Current filing progress</small></div><em>On</em></article><article><span>✓</span><div><strong>Compliance deadlines</strong><small>Upcoming required actions</small></div><em>On</em></article><article><span>◉</span><div><strong>Notifications</strong><small>Important portal updates</small></div><em>On</em></article><article><span>▨</span><div><strong>Recent documents</strong><small>Latest uploaded files</small></div><em>On</em></article><article><span>◌</span><div><strong>Support status</strong><small>Open support conversations</small></div><em>On</em></article></div>
+</section>
+<section class="portal-panel" data-client-view="messages">
+<div class="portal-panel-head">
+<div><span class="management-kicker">Client communication</span><h2>Portal messages</h2><p>Create client portal announcements without changing the main website announcement.</p></div>
+<button class="management-primary-button" id="clientPortalNewMessage" type="button">+ New message</button>
+</div>
+<div class="portal-message-summary">
+<article><span>Campaigns</span><strong id="clientPortalMessageCampaignCount">—</strong><small>Announcement groups</small></article>
+<article><span>Active deliveries</span><strong id="clientPortalMessageDeliveryCount">—</strong><small>Customer notification rows</small></article>
+<article><span>Unread</span><strong id="clientPortalMessageUnreadCount">—</strong><small>Still unread by customers</small></article>
+</div>
+<div class="portal-message-card">
+<div class="portal-message-toolbar"><div><strong>Announcement history</strong><small>Messages are delivered through portal_notifications.</small></div><button class="management-secondary-button" id="clientPortalRefreshMessages" type="button">Refresh</button></div>
+<div class="portal-message-list" id="clientPortalMessageList"><div class="portal-empty-state"><span>…</span><h3>Loading announcements</h3><p>Retrieving portal message history.</p></div></div>
+</div>
+</section>
+<section class="portal-panel" data-client-view="notifications"><div class="portal-panel-head"><div><span class="management-kicker">Delivery</span><h2>Client notifications</h2><p>Review notification volume and define client-facing notification categories.</p></div></div><div class="portal-stat-grid"><article><span>Stored notifications</span><strong id="clientPortalNotificationCount2">—</strong><small>portal_notifications</small></article><article><span>Delivery</span><strong>Portal</strong><small>Authenticated customer UI</small></article><article><span>Email events</span><strong id="clientPortalEmailEventCount">—</strong><small>portal_email_events</small></article><article><span>Mode</span><strong>Live</strong><small>Production portal</small></article></div></section>
+<section class="portal-panel" data-client-view="settings"><div class="portal-panel-head"><div><span class="management-kicker">Configuration</span><h2>Client Portal settings</h2><p>Portal identity, login flow and client experience controls.</p></div></div><div class="portal-settings-grid"><article><h3>Portal domain</h3><strong>portal.filings4u.com</strong><small>Client and admin authentication environment.</small></article><article><h3>Client home</h3><strong>client-dashboard.html</strong><small>Default destination after successful client login.</small></article><article><h3>Authentication</h3><strong>Supabase Auth</strong><small>Protected client sessions and account access.</small></article><article><h3>Public website</h3><strong>filings4u.com</strong><small>Managed separately in Main Website.</small></article></div></section>
+<section class="portal-panel" data-client-view="preview"><div class="portal-preview-frame"><div><span class="management-kicker">Preview target</span><h2>Client Portal</h2><p>Open the real authenticated client experience in a separate tab.</p><a class="management-primary-button" href="https://portal.filings4u.com/client-dashboard.html" rel="noopener" target="_blank">Open client-dashboard.html ↗</a></div></div></section>
+</div>
+</div>
+</section>
+<section class="management-view portal-manager-view" data-view="admin-portal">
+<div class="management-page-head">
+<div><span class="management-kicker">Portal manager</span><h1>Admin Portal</h1><p>Configure the internal filings4u administration environment, navigation, access and management tools.</p></div>
+<div class="management-page-actions"><a class="management-secondary-button" href="https://portal.filings4u.com/admin-management.html" rel="noopener" target="_blank">Open admin portal ↗</a><button class="management-primary-button" data-admin-panel="pages" type="button">Manage pages</button></div>
+</div>
+<div class="portal-manager-shell" data-portal-manager="admin">
+<aside class="portal-manager-nav">
+<div class="portal-manager-nav__site"><span>AP</span><div><strong>Admin Portal</strong><small>portal.filings4u.com</small></div></div>
+<button class="is-active" data-admin-panel="overview" type="button"><span>⌂</span><div><strong>Overview</strong><small>Admin environment</small></div></button>
+<button data-admin-panel="pages" type="button"><span>▱</span><div><strong>Pages</strong><small>Management tools</small></div></button>
+<button data-admin-panel="navigation" type="button"><span>☷</span><div><strong>Navigation</strong><small>Admin menu</small></div></button>
+<button data-admin-panel="roles" type="button"><span>♙</span><div><strong>Roles &amp; Permissions</strong><small>Access control</small></div></button>
+<button data-admin-panel="actions" type="button"><span>+</span><div><strong>Quick Actions</strong><small>Create menu</small></div></button>
+<button data-admin-panel="notifications" type="button"><span>◉</span><div><strong>Notifications</strong><small>Admin alerts</small></div></button>
+<button data-admin-panel="workflows" type="button"><span>⚡</span><div><strong>Workflow Rules</strong><small>Operational behavior</small></div></button>
+<button data-admin-panel="accounts" type="button"><span>◎</span><div><strong>Admin Accounts</strong><small>Team access</small></div></button>
+</aside>
+<div class="portal-manager-stage">
+<section class="portal-panel is-active" data-admin-view="overview"><div class="portal-panel-head"><div><span class="management-kicker">Administration</span><h2>Admin Portal overview</h2><p>Internal management environment for filings4u operations.</p></div></div><div class="portal-stat-grid"><article><span>Admin accounts</span><strong id="adminPortalAccountCount">—</strong><small>admin_profiles</small></article><article><span>Support tickets</span><strong id="adminPortalSupportCount">—</strong><small>Operational queue</small></article><article><span>Applications</span><strong id="adminPortalApplicationCount">—</strong><small>Filing records</small></article><article><span>Orders</span><strong id="adminPortalOrderCount">—</strong><small>Commerce records</small></article></div><div class="portal-card-grid"><article class="portal-feature-card"><span class="portal-feature-icon">⚙</span><div><small>Primary administration</small><h3>admin-management.html</h3><p>This management shell is the top-level administration workspace for website, portal and business operations.</p></div></article><article class="portal-feature-card"><span class="portal-feature-icon">♙</span><div><small>Authorization</small><h3>Role-based management</h3><p>Admin permissions should continue to rely on protected authorization data and database policies rather than editable client metadata.</p><button data-admin-panel="roles" type="button">Review roles →</button></div></article></div></section>
+<section class="portal-panel" data-admin-view="pages"><div class="portal-panel-head"><div><span class="management-kicker">Admin tools</span><h2>Administration pages</h2><p>Core management destinations already used across the filings4u portal.</p></div></div><div class="admin-page-grid"><a href="admin-customers.html"><span>◎</span><strong>Customers</strong><small>CRM &amp; client records</small></a><a href="admin-orders.html"><span>▤</span><strong>Orders</strong><small>Sales &amp; fulfillment</small></a><a href="admin-applications.html"><span>▧</span><strong>Applications</strong><small>Filing workflows</small></a><a href="admin-invoices.html"><span>$</span><strong>Invoices</strong><small>Billing &amp; payments</small></a><a href="admin-support.html"><span>◌</span><strong>Support</strong><small>Customer assistance</small></a><a href="admin-compliance.html"><span>✓</span><strong>Compliance</strong><small>Deadline management</small></a><a href="admin-design.html"><span>✦</span><strong>Design Projects</strong><small>Creative projects</small></a><button data-route-button="website" type="button"><span>▣</span><strong>Website Manager</strong><small>filings4u.com CMS</small></button></div></section>
+<section class="portal-panel" data-admin-view="navigation"><div class="portal-panel-head"><div><span class="management-kicker">Admin navigation</span><h2>Management menu</h2><p>Organize the internal management workspace by Websites, Business, Content, Operations and Platform.</p></div></div><div class="portal-list-card"><div class="portal-list-row"><span>⋮⋮</span><div><strong>Websites</strong><small>Main Website, Client Portal, Admin Portal, Wizard</small></div><b>Open</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Business</strong><small>Customers, Orders, Applications, Billing, Support</small></div><b>Open</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Content</strong><small>Pages, Services, Blog, FAQs, Knowledge, Media</small></div><b>Group</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Operations</strong><small>Tasks, Calendar, Notifications, Activity</small></div><b>Group</b></div><div class="portal-list-row"><span>⋮⋮</span><div><strong>Platform</strong><small>Users, Automations, Integrations, Security, Logs, Settings</small></div><b>Group</b></div></div></section>
+<section class="portal-panel" data-admin-view="roles"><div class="portal-panel-head"><div><span class="management-kicker">Access control</span><h2>Roles &amp; Permissions</h2><p>Role design for the management system. Database enforcement remains the source of truth.</p></div><button class="management-primary-button" data-route-button="users" type="button">Open Users &amp; Roles</button></div><div class="role-card-grid"><article><strong>Owner</strong><small>Full platform control</small><span>All permissions</span></article><article><strong>Super Admin</strong><small>Full operational administration</small><span>Broad access</span></article><article><strong>Operations Manager</strong><small>Orders, applications and operations</small><span>Operations</span></article><article><strong>Filing Specialist</strong><small>Applications and filing workflows</small><span>Filings</span></article><article><strong>Billing Manager</strong><small>Invoices, payments and refunds</small><span>Billing</span></article><article><strong>Support Agent</strong><small>Customer support and communications</small><span>Support</span></article><article><strong>Website Manager</strong><small>Website pages and publishing</small><span>Website</span></article><article><strong>Read Only</strong><small>View access without changes</small><span>View</span></article></div></section>
+<section class="portal-panel" data-admin-view="actions"><div class="portal-panel-head"><div><span class="management-kicker">Create menu</span><h2>Quick Actions</h2><p>Manage the global + Create destinations available to administrators.</p></div></div><div class="admin-page-grid"><a href="admin-customers.html?new=1"><span>◎</span><strong>Customer</strong><small>New CRM record</small></a><a href="admin-orders.html?new=1"><span>▤</span><strong>Order</strong><small>New order</small></a><a href="admin-invoices.html?new=1"><span>$</span><strong>Invoice</strong><small>Create invoice</small></a><a href="admin-applications.html?new=1"><span>▧</span><strong>Application</strong><small>Create application</small></a><a href="admin-support.html?new=1"><span>◌</span><strong>Support Ticket</strong><small>Open ticket</small></a><button data-route-button="website" type="button"><span>▱</span><strong>Website Page</strong><small>Open page manager</small></button></div></section>
+<section class="portal-panel" data-admin-view="notifications"><div class="portal-panel-head"><div><span class="management-kicker">Administration alerts</span><h2>Admin notifications</h2><p>Operational notifications and system messaging for the management team.</p></div></div><div class="portal-stat-grid"><article><span>System notifications</span><strong id="adminSystemNotificationCount">—</strong><small>system_notifications</small></article><article><span>Portal notifications</span><strong id="adminPortalNotificationCount">—</strong><small>portal_notifications</small></article><article><span>Email events</span><strong id="adminEmailEventCount">—</strong><small>portal_email_events</small></article><article><span>Status</span><strong>Live</strong><small>Operational environment</small></article></div></section>
+<section class="portal-panel" data-admin-view="workflows"><div class="portal-panel-head"><div><span class="management-kicker">Operational automation</span><h2>Workflow Rules</h2><p>Centralize status-driven admin behavior as the management system expands.</p></div></div><div class="portal-module-grid"><article><span>▤</span><div><strong>Order lifecycle</strong><small>Order creation, notifications and downstream records</small></div><em>Existing</em></article><article><span>▧</span><div><strong>Application lifecycle</strong><small>Filing status and entity synchronization</small></div><em>Existing</em></article><article><span>◌</span><div><strong>Support routing</strong><small>Assignment and customer communications</small></div><em>Existing</em></article><article><span>✦</span><div><strong>Design projects</strong><small>Project creation and proof workflows</small></div><em>Existing</em></article></div></section>
+<section class="portal-panel" data-admin-view="accounts"><div class="portal-panel-head"><div><span class="management-kicker">Team access</span><h2>Admin Accounts</h2><p>Authorized administrators with access to the internal filings4u portal.</p></div><button class="management-primary-button" data-route-button="users" type="button">Manage users &amp; roles</button></div><div class="portal-account-summary"><span>Active admin profiles</span><strong id="adminPortalAccountCount2">—</strong><small>Loaded from admin_profiles. Detailed permissions belong in the Users &amp; Roles manager.</small></div></section>
+</div>
+</div>
+</section>
+<section class="management-view wizard-manager-view" data-view="wizard">
+<div class="management-page-head">
+<div><span class="management-kicker">Wizard manager</span><h1>Service Wizard</h1><p>Manage service flows, plans, forms, add-ons, sessions and checkout behavior from the existing Wizard V2 backend.</p></div>
+<div class="management-page-actions"><button class="management-secondary-button" id="wizardRefresh" type="button">Refresh</button><button class="management-primary-button" data-wizard-panel="services" type="button">Manage services</button></div>
+</div>
+<div class="wizard-manager-shell">
+<aside aria-label="Wizard manager sections" class="wizard-manager-nav">
+<div class="wizard-manager-nav__site"><span>◇</span><div><strong>filings4u Wizard</strong><small>Wizard V2 management</small></div></div>
+<button class="is-active" data-wizard-panel="overview" type="button"><span>⌂</span><div><strong>Overview</strong><small>Health &amp; activity</small></div></button>
+<button data-wizard-panel="services" type="button"><span>▦</span><div><strong>Services</strong><small>Service configuration</small></div></button>
+<button data-wizard-panel="flow" type="button"><span>⇢</span><div><strong>Flow Builder</strong><small>Conditional journey</small></div></button>
+<button data-wizard-panel="plans" type="button"><span>$</span><div><strong>Plans</strong><small>Service pricing</small></div></button>
+<button data-wizard-panel="forms" type="button"><span>▤</span><div><strong>Forms</strong><small>Definitions &amp; versions</small></div></button>
+<button data-wizard-panel="blocks" type="button"><span>▥</span><div><strong>Form Blocks</strong><small>Reusable questions</small></div></button>
+<button data-wizard-panel="addons" type="button"><span>+</span><div><strong>Add-ons</strong><small>Upsells &amp; rules</small></div></button>
+<button data-wizard-panel="sessions" type="button"><span>◷</span><div><strong>Sessions</strong><small>Live customer progress</small></div></button>
+<button data-wizard-panel="settings" type="button"><span>⚙</span><div><strong>Flow Settings</strong><small>Labels &amp; behavior</small></div></button>
+</aside>
+<div class="wizard-manager-stage">
+<section class="wizard-panel is-active" data-wizard-view="overview">
+<div class="portal-panel-head"><div><span class="management-kicker">Wizard V2</span><h2>Wizard overview</h2><p>Live configuration and customer activity from Supabase.</p></div></div>
+<div class="portal-stat-grid"><article><span>Services</span><strong id="wizardServiceCount">—</strong><small>Configured services</small></article><article><span>Plans</span><strong id="wizardPlanCount">—</strong><small>Pricing options</small></article><article><span>Forms</span><strong id="wizardFormCount">—</strong><small>Form definitions</small></article><article><span>Sessions</span><strong id="wizardSessionCount">—</strong><small>Wizard sessions</small></article></div>
+<div class="wizard-overview-grid"><article><div><span class="management-kicker">Flow architecture</span><h3>Conditional service journey</h3><p>State services can require jurisdiction while government services can bypass that step. Authorization, add-ons, summary and checkout remain service configurable.</p></div><div class="wizard-flow-line"><span>Service</span><b>→</b><span>Jurisdiction</span><b>→</b><span>Application</span><b>→</b><span>Add-ons</span><b>→</b><span>Authorization</span><b>→</b><span>Summary</span><b>→</b><span>Payment</span></div></article><article><span class="management-kicker">Current data</span><h3>Reusable form system</h3><p><strong id="wizardVersionCount">—</strong> form versions and <strong id="wizardBlockCount">—</strong> reusable form blocks are available to the manager.</p><button class="management-secondary-button" data-wizard-panel="forms" type="button">Open form manager</button></article></div>
+</section>
+<section class="wizard-panel" data-wizard-view="services"><div class="portal-panel-head"><div><span class="management-kicker">Service flows</span><h2>Wizard services</h2><p>Select a service to control jurisdiction, authorization, form assignment and fee behavior.</p></div></div><div class="wizard-toolbar"><input id="wizardServiceSearch" placeholder="Search services…" type="search"/><select id="wizardServiceCategory"><option value="">All categories</option></select></div><div class="wizard-table-card"><table><thead><tr><th>Service</th><th>Type</th><th>Flow</th><th>Form</th><th>Status</th><th></th></tr></thead><tbody id="wizardServicesBody"></tbody></table></div></section>
+<section class="wizard-panel" data-wizard-view="flow">
+<div class="portal-panel-head"><div><span class="management-kicker">Conditional journey</span><h2>Visual flow builder</h2><p>Control the order, availability and conditional behavior of each service journey without editing code.</p></div><div class="wizard-flow-top-actions"><span id="wizardFlowStatus"></span><button class="management-primary-button" id="wizardFlowSave" type="button">Save flow</button></div></div>
+<div class="wizard-flow-builder">
+<aside class="wizard-flow-services"><div class="wizard-flow-side-head"><strong>Services</strong><small>Select a wizard</small></div><input id="wizardFlowServiceSearch" placeholder="Search services…" type="search"/><div id="wizardFlowServiceList"></div></aside>
+<main class="wizard-flow-canvas-wrap">
+<div class="wizard-flow-canvas-head"><div><span class="management-kicker" id="wizardFlowServiceType">Service flow</span><h3 id="wizardFlowTitle">Select a service</h3><p id="wizardFlowDescription">Choose a service to configure its customer journey.</p></div><button class="management-secondary-button" id="wizardFlowReset" type="button">Reset defaults</button></div>
+<div class="wizard-flow-canvas" id="wizardFlowCanvas"></div>
+</main>
+<aside class="wizard-flow-inspector">
+<div class="wizard-flow-inspector-empty" id="wizardFlowInspectorEmpty"><span>⚙</span><h3>Select a step</h3><p>Choose a flow step to edit its label, visibility and conditional rule.</p></div>
+<form hidden="" id="wizardFlowInspectorForm">
+<div class="wizard-flow-inspector-head"><div><span class="management-kicker">Step settings</span><h3 id="wizardFlowInspectorTitle">Edit step</h3></div></div>
+<input id="wizardFlowStepKey" type="hidden"/>
+<label>Customer label<input id="wizardFlowStepLabel" type="text"/></label>
+<label class="website-toggle-row"><span><strong>Enabled</strong><small id="wizardFlowEnabledHelp">Show this step in the journey.</small></span><input id="wizardFlowStepEnabled" type="checkbox"/></label>
+<div class="wizard-condition-box"><div><strong>Conditional visibility</strong><small>Optional rule stored with this service flow.</small></div><label>Source key<input id="wizardFlowConditionField" placeholder="service_type" type="text"/></label><div class="editor-field-row"><label>Operator<select id="wizardFlowConditionOperator"><option value="equals">Equals</option><option value="not_equals">Does not equal</option><option value="contains">Contains</option><option value="is_truthy">Is truthy</option><option value="is_falsy">Is false</option></select></label><label>Value<input id="wizardFlowConditionValue" type="text"/></label></div></div>
+<div class="wizard-flow-runtime-note" id="wizardFlowRuntimeNote"></div>
+<button class="management-primary-button" type="submit">Apply step settings</button>
+</form>
+</aside>
+</div>
+</section>
+<section class="wizard-panel" data-wizard-view="plans"><div class="portal-panel-head"><div><span class="management-kicker">Pricing</span><h2>Service plans</h2><p>Manage the plan choices and service fees presented by the wizard.</p></div></div><div class="wizard-toolbar"><input id="wizardPlanSearch" placeholder="Search plans or services…" type="search"/></div><div class="wizard-table-card"><table><thead><tr><th>Service</th><th>Plan</th><th>Service fee</th><th>Status</th></tr></thead><tbody id="wizardPlansBody"></tbody></table></div></section>
+<section class="wizard-panel" data-wizard-view="forms">
+<div class="portal-panel-head"><div><span class="management-kicker">Visual form builder</span><h2>Application forms</h2><p>Build service forms with sections, questions, reusable blocks, conditions and versioned publishing.</p></div><button class="management-primary-button" id="wizardCreateFormButton" type="button">+ New form</button></div>
+<div class="wizard-form-manager-toolbar"><input id="wizardFormSearch" placeholder="Search forms or services…" type="search"/><select id="wizardFormStatus"><option value="">All forms</option><option value="published">Published</option><option value="draft">Draft only</option><option value="inactive">Inactive</option></select></div>
+<div class="wizard-table-card"><table><thead><tr><th>Form</th><th>Service</th><th>Versions</th><th>Published</th><th>Status</th><th></th></tr></thead><tbody id="wizardFormsBody"></tbody></table></div>
+</section>
+<section class="wizard-panel" data-wizard-view="blocks"><div class="portal-panel-head"><div><span class="management-kicker">Reusable library</span><h2>Form blocks</h2><p>Reusable schemas that can be assembled into service-specific application forms.</p></div></div><div class="wizard-block-grid" id="wizardBlocksGrid"></div></section>
+<section class="wizard-panel" data-wizard-view="addons"><div class="portal-panel-head"><div><span class="management-kicker">Upsells</span><h2>Add-ons</h2><p>Manage optional products, pricing and service recommendations.</p></div></div><div class="wizard-table-card"><table><thead><tr><th>Add-on</th><th>Price</th><th>Services</th><th>Status</th></tr></thead><tbody id="wizardAddonsBody"></tbody></table></div></section>
+<section class="wizard-panel" data-wizard-view="sessions"><div class="portal-panel-head"><div><span class="management-kicker">Customer activity</span><h2>Recent sessions</h2><p>See where customers are in the wizard without exposing private form payloads here.</p></div></div><div class="wizard-table-card"><table><thead><tr><th>Customer</th><th>Service</th><th>Plan</th><th>Current step</th><th>Status</th><th>Started</th></tr></thead><tbody id="wizardSessionsBody"></tbody></table></div></section>
+<section class="wizard-panel" data-wizard-view="settings"><div class="portal-panel-head"><div><span class="management-kicker">Service behavior</span><h2>Flow settings</h2><p>Select a service to edit its wizard labels and customer-flow behavior.</p></div></div><div class="wizard-settings-layout"><div class="wizard-settings-list" id="wizardSettingsServices"></div><form class="wizard-settings-form" id="wizardConfigForm"><input id="wizardConfigServiceKey" type="hidden"/><label>Welcome title<input id="wizardWelcomeTitle"/></label><label>Welcome message<textarea id="wizardWelcomeMessage" rows="3"></textarea></label><div class="wizard-form-grid"><label>Application label<input id="wizardApplicationLabel"/></label><label>Add-ons label<input id="wizardAddonsLabel"/></label><label>Authorization label<input id="wizardAuthorizationLabel"/></label><label>Summary label<input id="wizardSummaryLabel"/></label><label>Checkout label<input id="wizardCheckoutLabel"/></label><label>Success redirect URL<input id="wizardSuccessRedirect"/></label></div><div class="wizard-toggle-grid"><label><input id="wizardShowAddons" type="checkbox"/> Show add-ons</label><label><input id="wizardShowSummary" type="checkbox"/> Show summary</label><label><input id="wizardRequireContact" type="checkbox"/> Require contact capture</label><label><input id="wizardAllowSave" type="checkbox"/> Allow save &amp; resume</label><label><input id="wizardAllowBack" type="checkbox"/> Allow back navigation</label><label><input id="wizardCheckoutEnabled" type="checkbox"/> Checkout enabled</label></div><div class="wizard-form-actions"><span id="wizardConfigStatus"></span><button class="management-primary-button" type="submit">Save flow settings</button></div></form></div></section>
+</div>
+</div>
+</section>
+<section class="management-view" data-view="pages"><div class="manager-placeholder"><span>▱</span><h1>Pages Manager</h1><p>Page inventory, status, SEO, preview and publishing will live here.</p></div></section>
+<section class="management-view" data-view="services"><div class="manager-placeholder"><span>▦</span><h1>Service Catalog</h1><p>Services, plans, add-ons, state fees and wizard configuration will live here.</p></div></section>
+<section class="management-view" data-view="blog"><div class="manager-placeholder"><span>¶</span><h1>Blog Manager</h1><p>Articles, drafts and publishing tools will live here.</p></div></section>
+<section class="management-view" data-view="faqs"><div class="manager-placeholder"><span>?</span><h1>FAQ Manager</h1><p>Website FAQ content and feedback metrics will live here.</p></div></section>
+<section class="management-view" data-view="knowledge"><div class="manager-placeholder"><span>☷</span><h1>Knowledge Base</h1><p>Customer and support knowledge articles will live here.</p></div></section>
+<section class="management-view" data-view="media"><div class="manager-placeholder"><span>▨</span><h1>Media Library</h1><p>Images, documents and shared assets will live here.</p></div></section>
+<section class="management-view" data-view="tasks"><div class="manager-placeholder"><span>✓</span><h1>Task Manager</h1><p>Operational tasks and assignments will live here.</p></div></section>
+<section class="management-view" data-view="calendar"><div class="manager-placeholder"><span>□</span><h1>Operational Calendar</h1><p>Appointments, deadlines and operational events will live here.</p></div></section>
+<section class="management-view" data-view="notifications"><div class="manager-placeholder"><span>◉</span><h1>Notifications</h1><p>Portal and system notifications will live here.</p></div></section>
+<section class="management-view" data-view="activity"><div class="manager-placeholder"><span>↻</span><h1>Activity History</h1><p>Administrative and system activity will live here.</p></div></section>
+<section class="management-view" data-view="users"><div class="manager-placeholder"><span>♙</span><h1>Users &amp; Roles</h1><p>Admin accounts, roles, permissions and invitations will live here.</p></div></section>
+<section class="management-view" data-view="automations"><div class="manager-placeholder"><span>⚡</span><h1>Automations</h1><p>Workflow and event automation configuration will live here.</p></div></section>
+<section class="management-view" data-view="integrations"><div class="manager-placeholder"><span>∞</span><h1>Integrations</h1><p>Connected platform and service integrations will live here.</p></div></section>
+<section class="management-view" data-view="security"><div class="manager-placeholder"><span>⌾</span><h1>Security</h1><p>Authentication, access policy and security controls will live here.</p></div></section>
+<section class="management-view" data-view="logs"><div class="manager-placeholder"><span>≡</span><h1>System Logs</h1><p>Operational, security and system event logs will live here.</p></div></section>
+<section class="management-view" data-view="settings"><div class="manager-placeholder"><span>⚙</span><h1>Management Settings</h1><p>Global filings4u platform configuration will live here.</p></div></section>
+</main>
+</div>
+<div class="management-popover create-menu" hidden="" id="createMenu">
+<div class="create-menu__card">
+<div class="management-popover__head"><div><span class="management-kicker">Quick action</span><h2>Create</h2></div><button aria-label="Close" data-close-create="" type="button">×</button></div>
+<div class="create-grid">
+<a href="admin-customers.html?new=1"><span>◎</span><strong>Customer</strong></a>
+<a href="admin-orders.html?new=1"><span>▤</span><strong>Order</strong></a>
+<a href="admin-invoices.html?new=1"><span>$</span><strong>Invoice</strong></a>
+<a href="admin-applications.html?new=1"><span>▧</span><strong>Application</strong></a>
+<a href="admin-support.html?new=1"><span>◌</span><strong>Support ticket</strong></a>
+<button data-route-button="website" data-website-panel="pages" type="button"><span>▱</span><strong>Website page</strong></button>
+<button data-route-button="blog" type="button"><span>¶</span><strong>Blog post</strong></button>
+<button data-route-button="services" type="button"><span>▦</span><strong>Service</strong></button>
+<a href="admin-design.html?new=1"><span>✦</span><strong>Design project</strong></a>
+</div>
+</div>
+</div>
+<div class="site-page-editor" hidden="" id="websiteEditorDrawer">
+<header class="site-page-editor__topbar">
+<div class="site-page-editor__brand"><button aria-label="Back to pages" data-close-website-drawer="" type="button">←</button><div><span class="management-kicker" id="websiteDrawerKicker">Website page</span><h2 id="websiteDrawerTitle">Edit page</h2></div></div>
+<div class="site-page-editor__url"><span>filings4u.com</span><strong id="editorLivePath">/</strong></div>
+<div class="site-page-editor__actions"><span class="website-save-state" id="websitePageSaveState"></span><button class="management-secondary-button" id="editorPreviewButton" type="button">Preview ↗</button><button class="management-secondary-button" id="editorSaveButton" type="button">Save draft</button><button class="management-primary-button" id="editorPublishButton" type="button">Publish</button></div>
+</header>
+<div class="site-page-editor__workspace">
+<aside class="site-page-editor__settings">
+<div class="editor-tabbar"><button class="is-active" data-editor-tab="page" type="button">Page</button><button data-editor-tab="seo" type="button">SEO</button></div>
+<div class="editor-settings-panel is-active" data-editor-settings="page">
+<label><span>Page title</span><input id="websitePageTitle" type="text"/></label>
+<label><span>URL path</span><div class="editor-url-input"><span>filings4u.com/</span><input id="websitePageSlug" type="text"/></div><small>Public pages use the existing <b>.html</b> URL structure.</small></label>
+<div class="editor-field-row"><label><span>Page type</span><select id="websitePageType"><option value="standard">Standard</option><option value="service">Service</option><option value="landing">Landing</option><option value="legal">Legal</option><option value="system">System</option></select></label><label><span>Status</span><select id="websitePageStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></label></div>
+<label class="website-toggle-row"><span><strong>Include in sitemap</strong><small>Allow this page in the public sitemap.</small></span><input checked="" id="websitePageSitemap" type="checkbox"/></label>
+<div class="editor-info-box"><strong>Public website</strong><span>https://filings4u.com</span><small>The management application remains on portal.filings4u.com.</small></div>
+</div>
+<div class="editor-settings-panel" data-editor-settings="seo">
+<label><span>SEO title</span><input id="websiteSeoTitle" maxlength="70" type="text"/><small><b id="seoTitleCount">0</b>/70 characters</small></label>
+<label><span>Meta description</span><textarea id="websiteSeoDescription" maxlength="170" rows="5"></textarea><small><b id="seoDescriptionCount">0</b>/170 characters</small></label>
+<label><span>Canonical URL</span><input id="websiteCanonicalUrl" placeholder="https://filings4u.com/page.html" type="url"/></label>
+<div class="editor-field-row"><label class="website-toggle-row"><span><strong>Index</strong></span><input checked="" id="websiteRobotsIndex" type="checkbox"/></label><label class="website-toggle-row"><span><strong>Follow</strong></span><input checked="" id="websiteRobotsFollow" type="checkbox"/></label></div>
+<div class="seo-serp-preview"><small>filings4u.com</small><strong id="seoPreviewTitle">Page title</strong><p id="seoPreviewDescription">Add a meta description to preview this page in search results.</p></div>
+</div>
+</aside>
+<main class="site-page-editor__canvas">
+<div class="editor-canvas-head"><div><span class="management-kicker">Page sections</span><h3>Content &amp; layout</h3></div><button class="management-primary-button" id="addSectionButton" type="button">+ Add section</button></div>
+<div class="editor-section-list" id="websiteSectionList"></div>
+</main>
+<aside class="site-page-editor__inspector">
+<div class="editor-empty-inspector" id="sectionInspectorEmpty"><span>▱</span><h3>Select a section</h3><p>Choose a page section to edit its content and settings.</p></div>
+<form class="section-inspector-form" hidden="" id="sectionInspectorForm">
+<div class="section-inspector-head"><div><span class="management-kicker">Section editor</span><h3 id="sectionInspectorTitle">Hero</h3></div><button id="deleteSectionButton" title="Delete section" type="button">×</button></div>
+<input id="sectionId" type="hidden"/><input id="sectionKey" type="hidden"/>
+<label><span>Section label</span><input id="sectionLabel" type="text"/></label>
+<label><span>Section type</span><select id="sectionType"><option value="hero">Hero</option><option value="content">Content</option><option value="benefits">Benefits</option><option value="pricing">Pricing</option><option value="faq">FAQ</option><option value="cta">CTA</option><option value="custom">Custom</option></select></label>
+<label><span>Heading</span><input id="sectionHeading" type="text"/></label>
+<label><span>Subheading</span><textarea id="sectionSubheading" rows="3"></textarea></label>
+<label><span>Body content</span><textarea id="sectionBody" placeholder="Section text or supporting copy" rows="7"></textarea></label>
+<div class="editor-field-row"><label><span>Button label</span><input id="sectionButtonLabel" type="text"/></label><label><span>Button URL</span><input id="sectionButtonUrl" type="text"/></label></div>
+<label class="website-toggle-row"><span><strong>Visible</strong><small>Show this section when published.</small></span><input checked="" id="sectionVisible" type="checkbox"/></label>
+<button class="management-primary-button" type="submit">Save section</button>
+<p class="website-save-state" id="sectionSaveState"></p>
+</form>
+</aside>
+</div>
+</div>
+<div class="wizard-form-builder" hidden="" id="wizardFormBuilder">
+<header class="wizard-form-builder__topbar">
+<div class="wizard-form-builder__brand">
+<button aria-label="Back to forms" id="wizardBuilderClose" type="button">←</button>
+<div><span class="management-kicker">Visual Form Builder</span><h2 id="wizardBuilderTitle">Application form</h2><small id="wizardBuilderMeta">Draft</small></div>
+</div>
+<div class="wizard-form-builder__actions">
+<span class="wizard-builder-save-state" id="wizardBuilderSaveState"></span>
+<button class="management-secondary-button" id="wizardBuilderPreview" type="button">Preview</button>
+<button class="management-secondary-button" id="wizardBuilderSave" type="button">Save draft</button>
+<button class="management-primary-button" id="wizardBuilderPublish" type="button">Publish</button>
+</div>
+</header>
+<div class="wizard-form-builder__workspace">
+<aside class="wizard-builder-library">
+<div class="wizard-builder-panel-head"><span class="management-kicker">Add to form</span><h3>Question library</h3></div>
+<div class="wizard-builder-tabs"><button class="is-active" data-builder-library="fields" type="button">Fields</button><button data-builder-library="blocks" type="button">Blocks</button></div>
+<div class="wizard-builder-library-panel is-active" data-builder-library-panel="fields">
+<div class="wizard-field-palette" id="wizardFieldPalette">
+<button data-add-field="text" draggable="true"><span>Ab</span><strong>Short text</strong><small>Name, ID, title</small></button>
+<button data-add-field="textarea" draggable="true"><span>¶</span><strong>Long text</strong><small>Descriptions, notes</small></button>
+<button data-add-field="email" draggable="true"><span>@</span><strong>Email</strong><small>Email address</small></button>
+<button data-add-field="phone" draggable="true"><span>☎</span><strong>Phone</strong><small>Phone number</small></button>
+<button data-add-field="number" draggable="true"><span>#</span><strong>Number</strong><small>Numeric value</small></button>
+<button data-add-field="select" draggable="true"><span>⌄</span><strong>Dropdown</strong><small>Select one option</small></button>
+<button data-add-field="radio" draggable="true"><span>◉</span><strong>Radio choice</strong><small>Visible choices</small></button>
+<button data-add-field="checkbox" draggable="true"><span>✓</span><strong>Checkbox</strong><small>Agreement / yes-no</small></button>
+<button data-add-field="date" draggable="true"><span>□</span><strong>Date</strong><small>Date picker</small></button>
+<button data-add-field="state" draggable="true"><span>US</span><strong>State</strong><small>U.S. state selector</small></button>
+<button data-add-field="address" draggable="true"><span>⌂</span><strong>Address</strong><small>Structured address</small></button>
+<button data-add-field="file" draggable="true"><span>↑</span><strong>File upload</strong><small>Supporting document</small></button>
+</div>
+</div>
+<div class="wizard-builder-library-panel" data-builder-library-panel="blocks">
+<input class="wizard-library-search" id="wizardBuilderBlockSearch" placeholder="Search reusable blocks…" type="search"/>
+<div class="wizard-builder-block-library" id="wizardBuilderBlockLibrary"></div>
+</div>
+</aside>
+<main class="wizard-builder-canvas">
+<div class="wizard-builder-canvas-head">
+<div><span class="management-kicker" id="wizardBuilderService">Service form</span><h3 id="wizardBuilderCanvasTitle">Application</h3><p id="wizardBuilderCanvasDescription"></p></div>
+<button class="management-primary-button" id="wizardAddSection" type="button">+ Add section</button>
+</div>
+<div class="wizard-builder-empty" hidden="" id="wizardBuilderEmpty"><span>▤</span><h3>Start building this form</h3><p>Add a section, then add questions or reusable blocks from the library.</p><button class="management-primary-button" data-add-first-section="" type="button">+ Add first section</button></div>
+<div class="wizard-builder-sections" id="wizardBuilderSections"></div>
+</main>
+<aside class="wizard-builder-inspector">
+<div class="wizard-builder-inspector-empty" id="wizardInspectorEmpty"><span>⚙</span><h3>Select an item</h3><p>Choose a section or question to edit its settings, validation and conditional rules.</p></div>
+<form class="wizard-builder-inspector-form" hidden="" id="wizardSectionInspector">
+<div class="wizard-builder-inspector-head"><div><span class="management-kicker">Section settings</span><h3>Edit section</h3></div><button data-delete-builder-item="" type="button">×</button></div>
+<label>Section title<input id="wizardInspectorSectionTitle" type="text"/></label>
+<label>Description<textarea id="wizardInspectorSectionDescription" rows="3"></textarea></label>
+<label>Internal key<input id="wizardInspectorSectionKey" type="text"/></label>
+<label class="website-toggle-row"><span><strong>Visible</strong><small>Show this section in the customer form.</small></span><input checked="" id="wizardInspectorSectionVisible" type="checkbox"/></label>
+<div class="wizard-builder-inspector-actions"><button class="management-primary-button" type="submit">Apply changes</button></div>
+</form>
+<form class="wizard-builder-inspector-form" hidden="" id="wizardFieldInspector">
+<div class="wizard-builder-inspector-head"><div><span class="management-kicker">Question settings</span><h3 id="wizardInspectorFieldHeading">Edit question</h3></div><button data-delete-builder-item="" type="button">×</button></div>
+<label>Question label<input id="wizardInspectorFieldLabel" type="text"/></label>
+<label>Field key<input id="wizardInspectorFieldKey" type="text"/></label>
+<div class="editor-field-row"><label>Type<select id="wizardInspectorFieldType"><option value="text">Short text</option><option value="textarea">Long text</option><option value="email">Email</option><option value="phone">Phone</option><option value="number">Number</option><option value="select">Dropdown</option><option value="radio">Radio</option><option value="checkbox">Checkbox</option><option value="date">Date</option><option value="state">State</option><option value="address">Address</option><option value="file">File</option><option value="repeater">Repeater</option></select></label><label>Width<select id="wizardInspectorFieldSpan"><option value="full">Full width</option><option value="half">Half width</option></select></label></div>
+<label>Placeholder<input id="wizardInspectorFieldPlaceholder" type="text"/></label>
+<label>Help text<textarea id="wizardInspectorFieldHelp" rows="2"></textarea></label>
+<label id="wizardInspectorOptionsWrap">Options <small>One per line. Use <b>value | Label</b> when needed.</small><textarea id="wizardInspectorFieldOptions" rows="5"></textarea></label>
+<div class="editor-field-row"><label>Minimum<input id="wizardInspectorFieldMin" type="number"/></label><label>Maximum<input id="wizardInspectorFieldMax" type="number"/></label></div>
+<label class="website-toggle-row"><span><strong>Required</strong><small>Customer must complete this question.</small></span><input id="wizardInspectorFieldRequired" type="checkbox"/></label>
+<div class="wizard-condition-box"><div><strong>Conditional visibility</strong><small>Only show this question when another answer matches.</small></div><label>Field key<input id="wizardInspectorConditionField" placeholder="business_type" type="text"/></label><div class="editor-field-row"><label>Operator<select id="wizardInspectorConditionOperator"><option value="equals">Equals</option><option value="not_equals">Does not equal</option><option value="contains">Contains</option><option value="is_truthy">Is checked / truthy</option></select></label><label>Value<input id="wizardInspectorConditionValue" type="text"/></label></div></div>
+<div class="wizard-builder-inspector-actions"><button class="management-primary-button" type="submit">Apply changes</button></div>
+</form>
+</aside>
+</div>
+</div>
+<div class="wizard-form-preview" hidden="" id="wizardFormPreview">
+<div class="wizard-form-preview__card">
+<div class="wizard-form-preview__head"><div><span class="management-kicker">Customer preview</span><h2 id="wizardPreviewTitle">Application</h2></div><button id="wizardPreviewClose" type="button">×</button></div>
+<div class="wizard-form-preview__body" id="wizardPreviewBody"></div>
+</div>
+</div>
+<div aria-labelledby="globalSearchTitle" aria-modal="true" class="search-dialog" hidden="" id="globalSearchDialog" role="dialog">
+<div class="search-dialog__card">
+<div class="search-dialog__input-wrap">
+<span aria-hidden="true">⌕</span>
+<input aria-labelledby="globalSearchTitle" autocomplete="off" id="globalSearchInput" placeholder="Search customers, orders, pages, applications..." type="search"/>
+<button aria-label="Close search" data-close-search="" type="button">×</button>
+</div>
+<h2 class="sr-only" id="globalSearchTitle">Search filings4u</h2>
+<div class="search-dialog__body">
+<span class="management-kicker">Quick destinations</span>
+<div class="search-destinations" id="searchDestinations">
+<button data-route-button="website" data-search-keywords="website pages seo content publishing" type="button"><span>Main Website</span><small>Website management</small></button>
+<a data-search-keywords="customer customers crm clients contacts" href="admin-customers.html"><span>Customers</span><small>CRM &amp; client records</small></a>
+<a data-search-keywords="orders order tracking sales fulfillment" href="admin-orders.html"><span>Orders</span><small>Sales &amp; fulfillment</small></a>
+<a data-search-keywords="applications filing filings tracking" href="admin-applications.html"><span>Applications</span><small>Filing workflows</small></a>
+<button data-route-button="services" data-search-keywords="services catalog products pricing plans addons fees" type="button"><span>Services</span><small>Catalog &amp; pricing</small></button>
+<button data-route-button="users" data-search-keywords="users roles permissions admin accounts" type="button"><span>Users &amp; Roles</span><small>Access management</small></button>
+</div>
+<div class="search-empty" hidden="" id="searchEmpty">No matching management destination.</div>
+</div>
+</div>
+</div>
+<div class="portal-message-modal" hidden="" id="clientPortalMessageModal">
+<div class="portal-message-modal__backdrop" data-close-client-message=""></div>
+<section aria-labelledby="clientPortalMessageModalTitle" aria-modal="true" class="portal-message-modal__card" role="dialog">
+<header><div><span class="management-kicker">Client portal</span><h2 id="clientPortalMessageModalTitle">New portal message</h2></div><button aria-label="Close" class="management-icon-button" data-close-client-message="" type="button">×</button></header>
+<form id="clientPortalMessageForm">
+<label><span>Audience</span><select id="clientPortalMessageAudience"><option value="all">All clients</option><option value="client">One client</option></select></label>
+<label hidden="" id="clientPortalMessageClientField"><span>Client</span><select id="clientPortalMessageClient"><option value="">Select a client</option></select></label>
+<label><span>Title</span><input id="clientPortalMessageTitle" maxlength="160" placeholder="Portal announcement title" required=""/></label>
+<label><span>Message</span><textarea id="clientPortalMessageBody" maxlength="3000" placeholder="Write the customer-facing message" required="" rows="6"></textarea></label>
+<div class="portal-message-form-grid"><label><span>Action label</span><input id="clientPortalMessageActionLabel" maxlength="80" placeholder="Optional, e.g. View order"/></label><label><span>Action URL</span><input id="clientPortalMessageActionUrl" maxlength="500" placeholder="Optional portal link"/></label></div>
+<p class="portal-message-form-status" id="clientPortalMessageStatus"></p>
+<footer><button class="management-secondary-button" data-close-client-message="" type="button">Cancel</button><button class="management-primary-button" id="clientPortalMessageSubmit" type="submit">Send portal message</button></footer>
+</form>
+</section>
+</div>
+<!-- ADMIN PROTECTED PAGE -->
+<div aria-hidden="true" class="management-dialog" hidden="" id="filings4uDialog">
+<div class="management-dialog__backdrop" data-dialog-dismiss=""></div>
+<section aria-describedby="filings4uDialogMessage" aria-labelledby="filings4uDialogTitle" aria-modal="true" class="management-dialog__card" role="dialog">
+<header class="management-dialog__head">
+<div><span class="management-kicker" id="filings4uDialogKicker">filings4u Management</span><h2 id="filings4uDialogTitle">Notice</h2></div>
+<button aria-label="Close" class="management-icon-button" data-dialog-dismiss="" type="button">×</button>
+</header>
+<div class="management-dialog__body">
+<p id="filings4uDialogMessage"></p>
+<div class="management-dialog__field" hidden="" id="filings4uDialogField">
+<label for="filings4uDialogInput" id="filings4uDialogFieldLabel">Value</label>
+<input autocomplete="off" id="filings4uDialogInput" type="text"/>
+<select hidden="" id="filings4uDialogSelect"></select>
+<small hidden="" id="filings4uDialogHelp"></small>
+</div>
+</div>
+<footer class="management-dialog__actions">
+<button class="management-secondary-button" id="filings4uDialogCancel" type="button">Cancel</button>
+<button class="management-primary-button" id="filings4uDialogConfirm" type="button">Continue</button>
+</footer>
+</section>
+</div>
+<script src="assets/js/admin-management.js"></script>
+<script src="assets/js/website-manager.js"></script>
+<script src="assets/js/portal-managers.js"></script>
+<script src="assets/js/wizard-manager.js"></script>
+<script src="assets/js/wizard-form-builder.js"></script>
 <script src="assets/js/navigation.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body>

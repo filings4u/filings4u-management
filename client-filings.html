@@ -1,148 +1,131 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/client-auth-guard.js"></script>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
 <title>filings4u | My Filings</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/client-filings.css">
-<link rel="stylesheet" href="assets/css/client-filings-lifecycle.css?v=20260908-2">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/client-filings.css" rel="stylesheet"/>
+<link href="assets/css/client-filings-lifecycle.css?v=20260908-2" rel="stylesheet"/>
 </head>
-<body data-portal="client" data-page="filings">
-
+<body data-page="filings" data-portal="client">
 <header class="client-header">
-  <a class="client-brand" href="client-dashboard.html">
-    <img src="images/logo.png" alt="filings4u" class="client-logo">
-    <span class="client-brand-divider" aria-hidden="true"></span>
-    <span class="client-portal-label">Client Portal</span>
-  </a>
-
-  <nav class="client-nav" aria-label="Client portal navigation">
-    <a href="client-dashboard.html" data-nav-target="dashboard">Dashboard</a>
-    <a href="client-orders.html" data-nav-target="orders">Orders</a>
-    <a href="client-billing.html" data-nav-target="billing">Billing</a>
-    <a href="client-filings.html" data-nav-target="filings">Filings</a>
-    <a href="client-entities.html" data-nav-target="entities">Entities</a>
-    <a href="client-documents.html" data-nav-target="documents">Documents</a>
-    <a href="client-design.html" data-nav-target="design">Design</a>
-    <a href="client-support.html" data-nav-target="support">Support</a>
-  </nav>
-
-  <div class="client-account">
-    <button class="client-profile" id="clientProfileButton" type="button"
-      aria-haspopup="menu" aria-expanded="false" aria-controls="clientAccountMenu">
-      <span class="avatar" id="clientAvatar">C</span>
-      <strong id="clientName">My Account</strong>
-      <span class="account-chevron" aria-hidden="true">⌄</span>
-    </button>
-
-    <div class="client-account-menu" id="clientAccountMenu" role="menu" hidden>
-      <div class="account-menu-header">
-        <span class="account-menu-avatar" id="clientMenuAvatar">C</span>
-        <div>
-          <strong id="clientMenuName">My Account</strong>
-          <small id="clientMenuCompany">filings4u client</small>
-        </div>
-      </div>
-      <div class="account-menu-links">
-        <a href="client-account.html" data-account-target="account" role="menuitem">
-          <span>My Account</span><small>Profile & contact details</small>
-        </a>
-        <a href="client-notifications.html" data-account-target="notifications" role="menuitem">
-          <span>Notifications</span><small>Portal alerts & updates</small>
-        </a>
-        <a href="client-support.html" data-account-target="support" role="menuitem">
-          <span>Support</span><small>Help with an order or filing</small>
-        </a>
-      </div>
-      <button id="clientSignOut" class="account-menu-signout" type="button" role="menuitem">Sign out</button>
-    </div>
-  </div>
+<a class="client-brand" href="client-dashboard.html">
+<img alt="filings4u" class="client-logo" src="images/logo.png"/>
+<span aria-hidden="true" class="client-brand-divider"></span>
+<span class="client-portal-label">Client Portal</span>
+</a>
+<nav aria-label="Client portal navigation" class="client-nav">
+<a data-nav-target="dashboard" href="client-dashboard.html">Dashboard</a>
+<a data-nav-target="orders" href="client-orders.html">Orders</a>
+<a data-nav-target="billing" href="client-billing.html">Billing</a>
+<a data-nav-target="filings" href="client-filings.html">Filings</a>
+<a data-nav-target="entities" href="client-entities.html">Entities</a>
+<a data-nav-target="documents" href="client-documents.html">Documents</a>
+<a data-nav-target="design" href="client-design.html">Design</a>
+<a data-nav-target="support" href="client-support.html">Support</a>
+</nav>
+<div class="client-account">
+<button aria-controls="clientAccountMenu" aria-expanded="false" aria-haspopup="menu" class="client-profile" id="clientProfileButton" type="button">
+<span class="avatar" id="clientAvatar">C</span>
+<strong id="clientName">My Account</strong>
+<span aria-hidden="true" class="account-chevron">⌄</span>
+</button>
+<div class="client-account-menu" hidden="" id="clientAccountMenu" role="menu">
+<div class="account-menu-header">
+<span class="account-menu-avatar" id="clientMenuAvatar">C</span>
+<div>
+<strong id="clientMenuName">My Account</strong>
+<small id="clientMenuCompany">filings4u client</small>
+</div>
+</div>
+<div class="account-menu-links">
+<a data-account-target="account" href="client-account.html" role="menuitem">
+<span>My Account</span><small>Profile &amp; contact details</small>
+</a>
+<a data-account-target="notifications" href="client-notifications.html" role="menuitem">
+<span>Notifications</span><small>Portal alerts &amp; updates</small>
+</a>
+<a data-account-target="support" href="client-support.html" role="menuitem">
+<span>Support</span><small>Help with an order or filing</small>
+</a>
+</div>
+<button class="account-menu-signout" id="clientSignOut" role="menuitem" type="button">Sign out</button>
+</div>
+</div>
 </header>
-
-<main class="client-main" id="app" hidden>
-  <section class="page-heading">
-    <span class="section-kicker">Compliance work</span>
-    <h1>My filings</h1>
-    <p>Follow application progress, government submission steps, jurisdiction details, and completion status.</p>
-  </section>
-
-  <div class="content-wrap">
-    <section class="filing-stats">
-      <article><span>Total filings</span><strong id="totalFilings">0</strong><small>All linked applications</small></article>
-      <article><span>Active</span><strong id="activeFilings">0</strong><small>Currently in progress</small></article>
-      <article><span>Completed</span><strong id="completedFilings">0</strong><small>Finished filings</small></article>
-      <article><span>Needs attention</span><strong id="attentionFilings">0</strong><small>Waiting or issue status</small></article>
-    </section>
-
-    <section class="content-card filings-workspace">
-      <div class="workspace-toolbar">
-        <div>
-          <span class="section-kicker">Application tracking</span>
-          <h2>Active filing activity</h2>
-        </div>
-        <div class="filters">
-          <input id="search" type="search" placeholder="Search company, service, tracking..." aria-label="Search filings">
-          <select id="statusFilter" aria-label="Filter by filing status">
-            <option value="">All active statuses</option>
-          </select>
-        </div>
-      </div>
-      <div id="filingsList"></div>
-    </section>
-
-
-
-    <section id="completedSection" class="content-card legacy-card">
-      <div class="legacy-head">
-        <div>
-          <span class="section-kicker">Filing history</span>
-          <h2>Completed filings</h2>
-          <p class="history-copy">Finished filing work is archived here. Entity records and completed documents remain available in their permanent portal sections.</p>
-        </div>
-      </div>
-      <div id="completedList"></div>
-    </section>
-
-    <section id="legacySection" class="content-card legacy-card" hidden>
-      <div class="legacy-head">
-        <div><span class="section-kicker">Previous records</span><h2>Legacy filings</h2></div>
-      </div>
-      <div id="legacyList"></div>
-    </section>
-  </div>
+<main class="client-main" hidden="" id="app">
+<section class="page-heading">
+<span class="section-kicker">Compliance work</span>
+<h1>My filings</h1>
+<p>Follow application progress, government submission steps, jurisdiction details, and completion status.</p>
+</section>
+<div class="content-wrap">
+<section class="filing-stats">
+<article><span>Total filings</span><strong id="totalFilings">0</strong><small>All linked applications</small></article>
+<article><span>Active</span><strong id="activeFilings">0</strong><small>Currently in progress</small></article>
+<article><span>Completed</span><strong id="completedFilings">0</strong><small>Finished filings</small></article>
+<article><span>Needs attention</span><strong id="attentionFilings">0</strong><small>Waiting or issue status</small></article>
+</section>
+<section class="content-card filings-workspace">
+<div class="workspace-toolbar">
+<div>
+<span class="section-kicker">Application tracking</span>
+<h2>Active filing activity</h2>
+</div>
+<div class="filters">
+<input aria-label="Search filings" id="search" placeholder="Search company, service, tracking..." type="search"/>
+<select aria-label="Filter by filing status" id="statusFilter">
+<option value="">All active statuses</option>
+</select>
+</div>
+</div>
+<div id="filingsList"></div>
+</section>
+<section class="content-card legacy-card" id="completedSection">
+<div class="legacy-head">
+<div>
+<span class="section-kicker">Filing history</span>
+<h2>Completed filings</h2>
+<p class="history-copy">Finished filing work is archived here. Entity records and completed documents remain available in their permanent portal sections.</p>
+</div>
+</div>
+<div id="completedList"></div>
+</section>
+<section class="content-card legacy-card" hidden="" id="legacySection">
+<div class="legacy-head">
+<div><span class="section-kicker">Previous records</span><h2>Legacy filings</h2></div>
+</div>
+<div id="legacyList"></div>
+</section>
+</div>
 </main>
-
-<div id="gate" class="gate">Loading your filing activity…</div>
-
-<aside id="drawer" class="drawer" aria-hidden="true">
-  <div class="drawer-backdrop" id="drawerBackdrop"></div>
-  <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
-    <div class="drawer-head">
-      <div><span class="section-kicker">Filing details</span><h2 id="drawerTitle">Application</h2></div>
-      <button id="closeDrawer" class="close-button" type="button" aria-label="Close">×</button>
-    </div>
-    <div id="drawerBody" class="drawer-body"></div>
-  </div>
+<div class="gate" id="gate">Loading your filing activity…</div>
+<aside aria-hidden="true" class="drawer" id="drawer">
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<div aria-labelledby="drawerTitle" aria-modal="true" class="drawer-panel" role="dialog">
+<div class="drawer-head">
+<div><span class="section-kicker">Filing details</span><h2 id="drawerTitle">Application</h2></div>
+<button aria-label="Close" class="close-button" id="closeDrawer" type="button">×</button>
+</div>
+<div class="drawer-body" id="drawerBody"></div>
+</div>
 </aside>
-
-<div id="toast" class="toast" hidden></div>
+<div class="toast" hidden="" id="toast"></div>
 <!-- CUSTOMER PROTECTED PAGE -->
 <script src="assets/js/client-navigation.js"></script>
 <script src="assets/js/client-filings.js?v=20260908-2"></script>

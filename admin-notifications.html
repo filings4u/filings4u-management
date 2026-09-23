@@ -1,73 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
 <title>filings4u Admin | Notifications Management</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/notifications-manager.css">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/notifications-manager.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
 <body class="management-body notifications-manager-body" data-management-page="notifications">
 <header class="management-topbar">
-<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a></div>
+<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a></div>
 <div class="management-topbar__center"><button class="global-search-trigger" id="notificationSearchTrigger" type="button"><span>⌕</span><span>Search notifications...</span><kbd>/</kbd></button></div>
 <div class="management-topbar__right"><button class="management-create-button" id="newNotificationTop" type="button">+ New notification</button></div>
 </header>
-
 <div class="management-shell">
-<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav class="management-nav" id="managementNavigation" data-management-navigation aria-label="Management navigation"></nav></aside>
+<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation"></nav></aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main notifications-main">
 <header class="management-page-head notifications-page-head"><div><span class="management-kicker">Operations · Communications</span><h1>Notifications Management</h1><p>Review system and customer notifications, manage portal messages and create new customer-facing notifications.</p></div><div class="management-page-actions"><button class="management-secondary-button" id="markVisibleRead" type="button">Mark visible read</button><button class="management-secondary-button" id="refreshNotifications" type="button">Refresh</button><button class="management-primary-button" id="newNotificationButton" type="button">+ New notification</button></div></header>
-
 <div class="notification-stat-grid">
 <article><small>Total</small><strong id="statTotal">—</strong><em>Loaded notifications</em></article>
 <article><small>Unread</small><strong id="statUnread">—</strong><em>Needs attention</em></article>
 <article><small>Portal</small><strong id="statPortal">—</strong><em>Customer-facing</em></article>
 <article><small>System</small><strong id="statSystem">—</strong><em>Internal events</em></article>
 </div>
-
 <section class="notification-card">
 <div class="notification-toolbar">
-<label class="notification-search"><span>⌕</span><input id="notificationSearch" type="search" placeholder="Search title, message or recipient"></label>
+<label class="notification-search"><span>⌕</span><input id="notificationSearch" placeholder="Search title, message or recipient" type="search"/></label>
 <div><select id="notificationSource"><option value="">All sources</option><option value="portal_notifications">Portal</option><option value="notifications">General</option><option value="system_notifications">System</option></select><select id="notificationState"><option value="">All states</option><option value="unread">Unread</option><option value="read">Read</option></select></div>
 </div>
 <div class="notification-list" id="notificationList"><div class="notification-empty">Loading notifications…</div></div>
 </section>
 </main>
 </div>
-
-<div class="notification-modal" id="notificationModal" hidden>
-<div class="notification-modal__backdrop" data-close-notification></div>
+<div class="notification-modal" hidden="" id="notificationModal">
+<div class="notification-modal__backdrop" data-close-notification=""></div>
 <section class="notification-modal__card">
-<header><div><span class="management-kicker">Customer portal</span><h2>New notification</h2></div><button data-close-notification type="button">×</button></header>
+<header><div><span class="management-kicker">Customer portal</span><h2>New notification</h2></div><button data-close-notification="" type="button">×</button></header>
 <form id="notificationForm">
-<label>Recipient email<input id="notificationEmail" type="email" required></label>
-<label>Title<input id="notificationTitle" required></label>
-<label>Message<textarea id="notificationMessage" rows="6" required></textarea></label>
-<div class="form-grid"><label>Type<select id="notificationType"><option value="general">General</option><option value="order">Order</option><option value="application">Application</option><option value="document">Document</option><option value="support">Support</option><option value="compliance">Compliance</option></select></label><label>Action label<input id="notificationActionLabel" placeholder="Optional"></label></div>
-<label>Action URL<input id="notificationActionUrl" placeholder="Optional portal link"></label>
-<footer><button class="management-secondary-button" data-close-notification type="button">Cancel</button><button class="management-primary-button" type="submit">Send notification</button></footer>
+<label>Recipient email<input id="notificationEmail" required="" type="email"/></label>
+<label>Title<input id="notificationTitle" required=""/></label>
+<label>Message<textarea id="notificationMessage" required="" rows="6"></textarea></label>
+<div class="form-grid"><label>Type<select id="notificationType"><option value="general">General</option><option value="order">Order</option><option value="application">Application</option><option value="document">Document</option><option value="support">Support</option><option value="compliance">Compliance</option></select></label><label>Action label<input id="notificationActionLabel" placeholder="Optional"/></label></div>
+<label>Action URL<input id="notificationActionUrl" placeholder="Optional portal link"/></label>
+<footer><button class="management-secondary-button" data-close-notification="" type="button">Cancel</button><button class="management-primary-button" type="submit">Send notification</button></footer>
 </form>
 </section>
 </div>
-
 <script src="assets/js/navigation.js"></script>
 <script src="assets/js/notifications-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>

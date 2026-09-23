@@ -1,76 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
 <title>Business Entities Management | filings4u Admin</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-entities.css">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-entities.css" rel="stylesheet"/>
 </head>
 <body data-page="entities">
 <div id="adminNavigationMount"></div>
 <main>
-  <div id="gate" class="gate">Verifying administrator access…</div>
-  <section id="app" hidden>
-    <div class="head">
-      <div>
-        <label>ENTITY PORTFOLIO</label>
-        <h1>Business Entities Management</h1>
-        <p>Manage entity records, standing, formation details, source orders, compliance and registry documents.</p>
-      </div>
-      <button id="refresh" class="primary">Refresh entities</button>
-    </div>
-
-    <div id="stats" class="stats"></div>
-
-    <section class="panel">
-      <div class="filters">
-        <input id="q" placeholder="Search entity, client email, service or state">
-        <select id="standing"><option value="">All standing</option></select>
-        <select id="state"><option value="">All states</option></select>
-        <select id="service"><option value="">All services</option></select>
-        <button id="clear">Clear</button>
-      </div>
-
-      <div class="table">
-        <table>
-          <thead>
-            <tr><th>Entity</th><th>Client</th><th>Service</th><th>State</th><th>Standing</th><th>Compliance</th><th>Formation</th><th></th></tr>
-          </thead>
-          <tbody id="rows"></tbody>
-        </table>
-      </div>
-    </section>
-  </section>
-</main>
-
-<div id="shade" class="shade" hidden></div>
-<section id="drawer" class="drawer">
-  <div class="drawerHead">
-    <div><label>ENTITY RECORD</label><h2 id="drawerTitle"></h2></div>
-    <button id="close">×</button>
-  </div>
-  <div id="detail" class="detailBody"></div>
+<div class="gate" id="gate">Verifying administrator access…</div>
+<section hidden="" id="app">
+<div class="head">
+<div>
+<label>ENTITY PORTFOLIO</label>
+<h1>Business Entities Management</h1>
+<p>Manage entity records, standing, formation details, source orders, compliance and registry documents.</p>
+</div>
+<button class="primary" id="refresh">Refresh entities</button>
+</div>
+<div class="stats" id="stats"></div>
+<section class="panel">
+<div class="filters">
+<input id="q" placeholder="Search entity, client email, service or state"/>
+<select id="standing"><option value="">All standing</option></select>
+<select id="state"><option value="">All states</option></select>
+<select id="service"><option value="">All services</option></select>
+<button id="clear">Clear</button>
+</div>
+<div class="table">
+<table>
+<thead>
+<tr><th>Entity</th><th>Client</th><th>Service</th><th>State</th><th>Standing</th><th>Compliance</th><th>Formation</th><th></th></tr>
+</thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
 </section>
-
-<div id="toast" class="toast" hidden></div>
+</section>
+</main>
+<div class="shade" hidden="" id="shade"></div>
+<section class="drawer" id="drawer">
+<div class="drawerHead">
+<div><label>ENTITY RECORD</label><h2 id="drawerTitle"></h2></div>
+<button id="close">×</button>
+</div>
+<div class="detailBody" id="detail"></div>
+</section>
+<div class="toast" hidden="" id="toast"></div>
 <!-- ADMIN PROTECTED PAGE -->
 <script src="assets/js/admin-navigation.js"></script>
 <script src="assets/js/admin-entities.js"></script>

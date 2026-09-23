@@ -1,33 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/client-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
-<title>Billing & Invoices | filings4u Client Portal</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/client-billing.css">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
+<title>Billing &amp; Invoices | filings4u Client Portal</title>
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/client-billing.css" rel="stylesheet"/>
 </head>
 <body>
 <header class="client-header">
-<a class="client-brand" href="client-dashboard.html"><img src="images/logo.png" alt="filings4u" class="client-logo"><span class="client-brand-divider"></span><span class="client-portal-label">Client Portal</span></a>
-<nav class="client-nav" aria-label="Client portal navigation"><a href="client-dashboard.html">Dashboard</a><a href="client-orders.html">Orders</a><a href="client-filings.html">Filings</a><a href="client-documents.html">Documents</a><a href="client-billing.html" class="is-active">Billing</a><a href="client-support.html">Support</a></nav>
+<a class="client-brand" href="client-dashboard.html"><img alt="filings4u" class="client-logo" src="images/logo.png"/><span class="client-brand-divider"></span><span class="client-portal-label">Client Portal</span></a>
+<nav aria-label="Client portal navigation" class="client-nav"><a href="client-dashboard.html">Dashboard</a><a href="client-orders.html">Orders</a><a href="client-filings.html">Filings</a><a href="client-documents.html">Documents</a><a class="is-active" href="client-billing.html">Billing</a><a href="client-support.html">Support</a></nav>
 <div class="client-account"><span class="avatar" id="clientAvatar">C</span><strong id="clientName">My Account</strong></div>
 </header>
-<div id="gate" class="gate">Loading your invoices…</div>
-<main id="app" hidden>
-<section class="page-heading"><div><span class="section-kicker">Billing & payments</span><h1>Invoices</h1><p>Review balances, due dates and payment history, then pay open invoices securely through Stripe.</p></div></section>
+<div class="gate" id="gate">Loading your invoices…</div>
+<main hidden="" id="app">
+<section class="page-heading"><div><span class="section-kicker">Billing &amp; payments</span><h1>Invoices</h1><p>Review balances, due dates and payment history, then pay open invoices securely through Stripe.</p></div></section>
 <div class="content-wrap">
 <section class="billing-stats">
 <article><span>Open balance</span><strong id="openBalance">$0.00</strong><small>Across unpaid invoices</small></article>
@@ -36,12 +35,12 @@
 <article><span>Total billed</span><strong id="totalBilled">$0.00</strong><small>All invoices</small></article>
 </section>
 <section class="billing-card">
-<div class="billing-toolbar"><div><span class="section-kicker">Invoice center</span><h2>Your billing records</h2></div><div class="filters"><input id="search" type="search" placeholder="Search invoice or order"><select id="statusFilter"><option value="">All invoices</option><option value="open">Open balance</option><option value="paid">Paid</option><option value="overdue">Overdue</option></select></div></div>
+<div class="billing-toolbar"><div><span class="section-kicker">Invoice center</span><h2>Your billing records</h2></div><div class="filters"><input id="search" placeholder="Search invoice or order" type="search"/><select id="statusFilter"><option value="">All invoices</option><option value="open">Open balance</option><option value="paid">Paid</option><option value="overdue">Overdue</option></select></div></div>
 <div class="invoice-list" id="invoiceList"></div>
 </section>
 </div>
 </main>
-<div id="toast" class="toast" hidden></div>
+<div class="toast" hidden="" id="toast"></div>
 <script src="assets/js/client-billing.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body></html>

@@ -1,91 +1,88 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
 <title>Client Forms | filings4u Admin</title>
-<link rel="icon" type="image/png" href="images/fav.png">
-<link rel="shortcut icon" type="image/png" href="images/fav.png">
-<link rel="apple-touch-icon" href="images/fav.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-client-forms.css">
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-client-forms.css" rel="stylesheet"/>
 </head>
 <body data-page="clientForms">
 <div id="adminNavigationMount"></div>
 <main class="forms-main">
-  <div id="formsGate" class="forms-gate">Verifying administrator access…</div>
-  <section id="formsApp" hidden>
-    <header class="forms-head">
-      <div>
-        <span class="forms-kicker">CLIENT RECORDS</span>
-        <h1>Completed Client Forms</h1>
-        <p>Review every completed customer application and intake in one place, including EIN applications, filing forms, wizard submissions and design intakes.</p>
-      </div>
-      <button class="forms-secondary" id="formsRefresh" type="button">Refresh</button>
-    </header>
-
-    <section class="forms-stats" id="formsStats">
-      <article><span>Total submissions</span><strong id="formsTotal">—</strong><small>Completed forms on file</small></article>
-      <article><span>Last 30 days</span><strong id="formsRecent">—</strong><small>Recently completed</small></article>
-      <article><span>Clients</span><strong id="formsClients">—</strong><small>Unique customer emails</small></article>
-      <article><span>Form types</span><strong id="formsTypes">—</strong><small>Unique application types</small></article>
-    </section>
-
-    <section class="forms-panel">
-      <div class="forms-panel-head">
-        <div><span class="forms-kicker">SUBMISSION ARCHIVE</span><h2>Form submissions</h2></div>
-        <div class="forms-filters">
-          <input id="formsSearch" type="search" placeholder="Search client, email, company, tracking or form…">
-          <select id="formsTypeFilter"><option value="">All form types</option></select>
-          <select id="formsClientFilter"><option value="">All clients</option></select>
-          <select id="formsDateFilter">
-            <option value="">All dates</option>
-            <option value="7">Last 7 days</option>
-            <option value="30">Last 30 days</option>
-            <option value="90">Last 90 days</option>
-            <option value="365">Last year</option>
-          </select>
-          <button id="formsClear" type="button">Clear</button>
-        </div>
-      </div>
-      <div class="forms-table-wrap">
-        <table class="forms-table">
-          <thead><tr><th>Form</th><th>Client</th><th>Business</th><th>Reference</th><th>Completed</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody id="formsRows"><tr><td colspan="7"><div class="forms-empty">Loading completed forms…</div></td></tr></tbody>
-        </table>
-      </div>
-      <footer class="forms-footer"><span id="formsResultCount">—</span></footer>
-    </section>
-  </section>
-</main>
-
-<div class="forms-modal" id="formsModal" hidden>
-  <div class="forms-modal-backdrop" data-close-form></div>
-  <section class="forms-modal-card" role="dialog" aria-modal="true" aria-labelledby="formViewerTitle">
-    <header class="forms-modal-head">
-      <div><span class="forms-kicker">COMPLETED SUBMISSION</span><h2 id="formViewerTitle">Client Form</h2><p id="formViewerMeta">—</p></div>
-      <button class="forms-modal-close" type="button" data-close-form aria-label="Close">×</button>
-    </header>
-    <div class="forms-modal-toolbar">
-      <div class="forms-record-meta" id="formRecordMeta"></div>
-      <button class="forms-primary" id="downloadFormPdf" type="button">Download PDF</button>
-    </div>
-    <div class="forms-answer-list" id="formAnswerList"></div>
-  </section>
+<div class="forms-gate" id="formsGate">Verifying administrator access…</div>
+<section hidden="" id="formsApp">
+<header class="forms-head">
+<div>
+<span class="forms-kicker">CLIENT RECORDS</span>
+<h1>Completed Client Forms</h1>
+<p>Review every completed customer application and intake in one place, including EIN applications, filing forms, wizard submissions and design intakes.</p>
 </div>
-<div id="formsToast" class="forms-toast" hidden></div>
-
+<button class="forms-secondary" id="formsRefresh" type="button">Refresh</button>
+</header>
+<section class="forms-stats" id="formsStats">
+<article><span>Total submissions</span><strong id="formsTotal">—</strong><small>Completed forms on file</small></article>
+<article><span>Last 30 days</span><strong id="formsRecent">—</strong><small>Recently completed</small></article>
+<article><span>Clients</span><strong id="formsClients">—</strong><small>Unique customer emails</small></article>
+<article><span>Form types</span><strong id="formsTypes">—</strong><small>Unique application types</small></article>
+</section>
+<section class="forms-panel">
+<div class="forms-panel-head">
+<div><span class="forms-kicker">SUBMISSION ARCHIVE</span><h2>Form submissions</h2></div>
+<div class="forms-filters">
+<input id="formsSearch" placeholder="Search client, email, company, tracking or form…" type="search"/>
+<select id="formsTypeFilter"><option value="">All form types</option></select>
+<select id="formsClientFilter"><option value="">All clients</option></select>
+<select id="formsDateFilter">
+<option value="">All dates</option>
+<option value="7">Last 7 days</option>
+<option value="30">Last 30 days</option>
+<option value="90">Last 90 days</option>
+<option value="365">Last year</option>
+</select>
+<button id="formsClear" type="button">Clear</button>
+</div>
+</div>
+<div class="forms-table-wrap">
+<table class="forms-table">
+<thead><tr><th>Form</th><th>Client</th><th>Business</th><th>Reference</th><th>Completed</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody id="formsRows"><tr><td colspan="7"><div class="forms-empty">Loading completed forms…</div></td></tr></tbody>
+</table>
+</div>
+<footer class="forms-footer"><span id="formsResultCount">—</span></footer>
+</section>
+</section>
+</main>
+<div class="forms-modal" hidden="" id="formsModal">
+<div class="forms-modal-backdrop" data-close-form=""></div>
+<section aria-labelledby="formViewerTitle" aria-modal="true" class="forms-modal-card" role="dialog">
+<header class="forms-modal-head">
+<div><span class="forms-kicker">COMPLETED SUBMISSION</span><h2 id="formViewerTitle">Client Form</h2><p id="formViewerMeta">—</p></div>
+<button aria-label="Close" class="forms-modal-close" data-close-form="" type="button">×</button>
+</header>
+<div class="forms-modal-toolbar">
+<div class="forms-record-meta" id="formRecordMeta"></div>
+<button class="forms-primary" id="downloadFormPdf" type="button">Download PDF</button>
+</div>
+<div class="forms-answer-list" id="formAnswerList"></div>
+</section>
+</div>
+<div class="forms-toast" hidden="" id="formsToast"></div>
 <script src="assets/js/admin-navigation.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 <script src="assets/js/admin-client-forms.js?v=20260922-submission-only-v3"></script>

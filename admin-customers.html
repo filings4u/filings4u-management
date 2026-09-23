@@ -1,100 +1,88 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
 <title>filings4u Admin | Customers</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/customer-manager.css">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/customer-manager.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
 <body class="management-body customer-manager-body" data-management-page="customers">
 <header class="management-topbar">
-  <div class="management-topbar__left">
-    <button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
-    <button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
-    <a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a>
-  </div>
-  <div class="management-topbar__center"><button class="global-search-trigger" id="customerSearchTrigger" type="button"><span>⌕</span><span>Search customers...</span><kbd>/</kbd></button></div>
-  <div class="management-topbar__right"><button class="management-create-button" id="addContactTop" type="button">+ Add prospect</button><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials>AD</span><span class="management-profile-copy"><strong data-admin-name>Administrator</strong><small data-admin-email>Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" id="managementProfileMenu" hidden><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users & roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
+<div class="management-topbar__left">
+<button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
+<button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
+<a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a>
+</div>
+<div class="management-topbar__center"><button class="global-search-trigger" id="customerSearchTrigger" type="button"><span>⌕</span><span>Search customers...</span><kbd>/</kbd></button></div>
+<div class="management-topbar__right"><button class="management-create-button" id="addContactTop" type="button">+ Add prospect</button><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials="">AD</span><span class="management-profile-copy"><strong data-admin-name="">Administrator</strong><small data-admin-email="">Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" hidden="" id="managementProfileMenu"><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users &amp; roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
 </header>
-
 <div class="management-shell">
 <aside class="management-sidebar" id="managementSidebar">
-  <div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div>
-<nav
-  class="management-nav"
-  id="managementNavigation"
-  data-management-navigation
-  aria-label="Management navigation">
+<div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div>
+<nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation">
 </nav></aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main customer-main" id="customerMain">
 <section id="customerListView">
-  <header class="management-page-head business-page-head">
-    <div>
-      <span class="management-kicker">Business · CRM</span>
-      <h1>Customers Management</h1>
-      <p>Manage customer accounts and the complete relationship across orders, applications, entities, billing, compliance, support and projects.</p>
-    </div>
-    <div class="management-page-actions"><button class="management-secondary-button" id="refreshCustomers" type="button">Refresh</button><button class="management-primary-button" id="addContactButton" type="button">+ Add prospect</button></div>
-  </header>
-
-  <div class="customer-stat-grid">
-    <article><span>◎</span><div><small>Customers</small><strong id="statCustomers">—</strong><em>Purchased / active accounts</em></div></article>
-    <article><span>▤</span><div><small>Orders</small><strong id="statOrders">—</strong><em>Across customers</em></div></article>
-    <article><span>$</span><div><small>Customer sales</small><strong id="statRevenue">—</strong><em>Paid order value</em></div></article>
-    <article><span>◷</span><div><small>Updated recently</small><strong id="statRecent">—</strong><em>Last 30 days</em></div></article>
-  </div>
-  <section class="customer-table-card">
-    <div class="customer-toolbar"><label class="customer-search-field"><span>⌕</span><input id="customerSearch" type="search" placeholder="Search name, email, company, phone or tracking number"></label><div><select id="customerStateFilter"><option value="">All states</option></select><select id="customerSort"><option value="updated">Recently updated</option><option value="name">Name A–Z</option><option value="company">Company A–Z</option><option value="orders">Most orders</option><option value="spend">Highest spend</option></select></div></div>
-    <div class="customer-table-wrap"><table class="customer-table"><thead><tr><th>Customer</th><th>Company</th><th>Location</th><th>Orders</th><th>Spend</th><th>Last activity</th><th></th></tr></thead><tbody id="customerTableBody"><tr><td colspan="7"><div class="customer-empty">Loading customers…</div></td></tr></tbody></table></div>
-    <footer class="customer-table-footer"><span id="customerResultCount">—</span><div><button id="customerPrev" type="button">Previous</button><span id="customerPageLabel">Page 1</span><button id="customerNext" type="button">Next</button></div></footer>
-  </section>
+<header class="management-page-head business-page-head">
+<div>
+<span class="management-kicker">Business · CRM</span>
+<h1>Customers Management</h1>
+<p>Manage customer accounts and the complete relationship across orders, applications, entities, billing, compliance, support and projects.</p>
+</div>
+<div class="management-page-actions"><button class="management-secondary-button" id="refreshCustomers" type="button">Refresh</button><button class="management-primary-button" id="addContactButton" type="button">+ Add prospect</button></div>
+</header>
+<div class="customer-stat-grid">
+<article><span>◎</span><div><small>Customers</small><strong id="statCustomers">—</strong><em>Purchased / active accounts</em></div></article>
+<article><span>▤</span><div><small>Orders</small><strong id="statOrders">—</strong><em>Across customers</em></div></article>
+<article><span>$</span><div><small>Customer sales</small><strong id="statRevenue">—</strong><em>Paid order value</em></div></article>
+<article><span>◷</span><div><small>Updated recently</small><strong id="statRecent">—</strong><em>Last 30 days</em></div></article>
+</div>
+<section class="customer-table-card">
+<div class="customer-toolbar"><label class="customer-search-field"><span>⌕</span><input id="customerSearch" placeholder="Search name, email, company, phone or tracking number" type="search"/></label><div><select id="customerStateFilter"><option value="">All states</option></select><select id="customerSort"><option value="updated">Recently updated</option><option value="name">Name A–Z</option><option value="company">Company A–Z</option><option value="orders">Most orders</option><option value="spend">Highest spend</option></select></div></div>
+<div class="customer-table-wrap"><table class="customer-table"><thead><tr><th>Customer</th><th>Company</th><th>Location</th><th>Orders</th><th>Spend</th><th>Last activity</th><th></th></tr></thead><tbody id="customerTableBody"><tr><td colspan="7"><div class="customer-empty">Loading customers…</div></td></tr></tbody></table></div>
+<footer class="customer-table-footer"><span id="customerResultCount">—</span><div><button id="customerPrev" type="button">Previous</button><span id="customerPageLabel">Page 1</span><button id="customerNext" type="button">Next</button></div></footer>
 </section>
-
-<section id="customerRecordView" hidden>
-  <div class="customer-record-toolbar"><button class="customer-back-button" id="customerBackButton" type="button">← Customers</button><div><button class="management-secondary-button" id="customerCreateInvoice" type="button">Create invoice</button><button class="management-secondary-button" id="customerCreateOrder" type="button">Create order</button><button class="management-secondary-button" id="customerPortalButton" type="button">Open client portal ↗</button><button class="management-primary-button" id="editCustomerButton" type="button">Edit customer</button></div></div>
-  <section class="customer-record-hero"><div class="customer-record-identity"><div class="customer-record-avatar" id="customerRecordAvatar">CU</div><div><div class="customer-record-title-line"><h1 id="customerRecordName">Customer</h1><span>Customer</span></div><p id="customerRecordCompany">—</p><div class="customer-record-contact"><a id="customerRecordEmail">—</a><b>•</b><a id="customerRecordPhone">—</a><b>•</b><span id="customerRecordLocation">—</span></div></div></div><div class="customer-record-summary"><div><small>Total orders</small><strong id="recordOrderCount">0</strong></div><div><small>Total spend</small><strong id="recordSpend">$0.00</strong></div><div><small>Applications</small><strong id="recordApplicationCount">0</strong></div><div><small>Open support</small><strong id="recordSupportCount">0</strong></div></div></section>
-  <nav class="customer-record-tabs" id="customerRecordTabs">
-    <button class="is-active" data-tab="overview">Overview</button><button data-tab="orders">Orders <span id="tabOrderCount">0</span></button><button data-tab="applications">Applications <span id="tabApplicationCount">0</span></button><button data-tab="entities">Entities <span id="tabEntityCount">0</span></button><button data-tab="documents">Documents <span id="tabDocumentCount">0</span></button><button data-tab="billing">Billing <span id="tabInvoiceCount">0</span></button><button data-tab="compliance">Compliance <span id="tabComplianceCount">0</span></button><button data-tab="support">Support <span id="tabSupportCount">0</span></button><button data-tab="projects">Projects <span id="tabProjectCount">0</span></button><button data-tab="activity">Activity</button><button data-tab="account">Account</button>
-  </nav>
-  <div class="customer-record-panels">
-    <section class="customer-record-panel is-active" data-panel="overview"><div class="customer-overview-grid"><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Profile</span><h2>Customer details</h2></div><button class="text-action" data-edit-customer>Edit</button></div><dl id="customerProfileDetails"></dl></article><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Relationship</span><h2>Account snapshot</h2></div></div><div class="snapshot-grid" id="customerSnapshotGrid"></div></article><article class="customer-detail-card wide"><div class="card-head"><div><span class="management-kicker">Recent</span><h2>Recent activity</h2></div></div><div class="activity-list" id="customerRecentActivity"></div></article><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Open work</span><h2>Applications & support</h2></div></div><div id="customerOpenWork"></div></article><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Compliance</span><h2>Upcoming deadlines</h2></div></div><div id="customerDeadlineList"></div></article></div></section>
-    <section class="customer-record-panel" data-panel="orders"><div class="section-head"><span class="management-kicker">Commerce</span><h2>Orders</h2></div><div class="customer-data-list" id="customerOrdersList"></div></section>
-    <section class="customer-record-panel" data-panel="applications"><div class="section-head"><span class="management-kicker">Fulfillment</span><h2>Applications</h2></div><div class="customer-data-list" id="customerApplicationsList"></div></section>
-    <section class="customer-record-panel" data-panel="entities"><div class="section-head"><span class="management-kicker">Entities</span><h2>Business entities</h2></div><div class="customer-card-grid" id="customerEntitiesList"></div></section>
-    <section class="customer-record-panel" data-panel="documents"><div class="section-head"><span class="management-kicker">Vault</span><h2>Documents</h2></div><div class="customer-data-list" id="customerDocumentsList"></div></section>
-    <section class="customer-record-panel" data-panel="billing"><div class="section-head"><span class="management-kicker">Finance</span><h2>Invoices & payments</h2></div><div class="customer-data-list" id="customerBillingList"></div></section>
-    <section class="customer-record-panel" data-panel="compliance"><div class="section-head"><span class="management-kicker">Compliance</span><h2>Compliance</h2></div><div class="customer-data-list" id="customerComplianceList"></div></section>
-    <section class="customer-record-panel" data-panel="support"><div class="section-head"><span class="management-kicker">Support</span><h2>Support history</h2></div><div class="customer-data-list" id="customerSupportList"></div></section>
-    <section class="customer-record-panel" data-panel="projects"><div class="section-head"><span class="management-kicker">Creative</span><h2>Design projects</h2></div><div class="customer-card-grid" id="customerProjectsList"></div></section>
-    <section class="customer-record-panel" data-panel="activity"><div class="section-head"><span class="management-kicker">Timeline</span><h2>Customer activity</h2></div><div class="activity-list" id="customerActivityList"></div></section>
-    <section class="customer-record-panel" data-panel="account"><div class="customer-account-grid"><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Authentication</span><h2>Portal account</h2></div></div><dl id="customerAccountDetails"></dl></article><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Connected systems</span><h2>External IDs</h2></div></div><dl id="customerExternalDetails"></dl></article></div></section>
-  </div>
+</section>
+<section hidden="" id="customerRecordView">
+<div class="customer-record-toolbar"><button class="customer-back-button" id="customerBackButton" type="button">← Customers</button><div><button class="management-secondary-button" id="customerCreateInvoice" type="button">Create invoice</button><button class="management-secondary-button" id="customerCreateOrder" type="button">Create order</button><button class="management-secondary-button" id="customerPortalButton" type="button">Open client portal ↗</button><button class="management-primary-button" id="editCustomerButton" type="button">Edit customer</button></div></div>
+<section class="customer-record-hero"><div class="customer-record-identity"><div class="customer-record-avatar" id="customerRecordAvatar">CU</div><div><div class="customer-record-title-line"><h1 id="customerRecordName">Customer</h1><span>Customer</span></div><p id="customerRecordCompany">—</p><div class="customer-record-contact"><a id="customerRecordEmail">—</a><b>•</b><a id="customerRecordPhone">—</a><b>•</b><span id="customerRecordLocation">—</span></div></div></div><div class="customer-record-summary"><div><small>Total orders</small><strong id="recordOrderCount">0</strong></div><div><small>Total spend</small><strong id="recordSpend">$0.00</strong></div><div><small>Applications</small><strong id="recordApplicationCount">0</strong></div><div><small>Open support</small><strong id="recordSupportCount">0</strong></div></div></section>
+<nav class="customer-record-tabs" id="customerRecordTabs">
+<button class="is-active" data-tab="overview">Overview</button><button data-tab="orders">Orders <span id="tabOrderCount">0</span></button><button data-tab="applications">Applications <span id="tabApplicationCount">0</span></button><button data-tab="entities">Entities <span id="tabEntityCount">0</span></button><button data-tab="documents">Documents <span id="tabDocumentCount">0</span></button><button data-tab="billing">Billing <span id="tabInvoiceCount">0</span></button><button data-tab="compliance">Compliance <span id="tabComplianceCount">0</span></button><button data-tab="support">Support <span id="tabSupportCount">0</span></button><button data-tab="projects">Projects <span id="tabProjectCount">0</span></button><button data-tab="activity">Activity</button><button data-tab="account">Account</button>
+</nav>
+<div class="customer-record-panels">
+<section class="customer-record-panel is-active" data-panel="overview"><div class="customer-overview-grid"><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Profile</span><h2>Customer details</h2></div><button class="text-action" data-edit-customer="">Edit</button></div><dl id="customerProfileDetails"></dl></article><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Relationship</span><h2>Account snapshot</h2></div></div><div class="snapshot-grid" id="customerSnapshotGrid"></div></article><article class="customer-detail-card wide"><div class="card-head"><div><span class="management-kicker">Recent</span><h2>Recent activity</h2></div></div><div class="activity-list" id="customerRecentActivity"></div></article><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Open work</span><h2>Applications &amp; support</h2></div></div><div id="customerOpenWork"></div></article><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Compliance</span><h2>Upcoming deadlines</h2></div></div><div id="customerDeadlineList"></div></article></div></section>
+<section class="customer-record-panel" data-panel="orders"><div class="section-head"><span class="management-kicker">Commerce</span><h2>Orders</h2></div><div class="customer-data-list" id="customerOrdersList"></div></section>
+<section class="customer-record-panel" data-panel="applications"><div class="section-head"><span class="management-kicker">Fulfillment</span><h2>Applications</h2></div><div class="customer-data-list" id="customerApplicationsList"></div></section>
+<section class="customer-record-panel" data-panel="entities"><div class="section-head"><span class="management-kicker">Entities</span><h2>Business entities</h2></div><div class="customer-card-grid" id="customerEntitiesList"></div></section>
+<section class="customer-record-panel" data-panel="documents"><div class="section-head"><span class="management-kicker">Vault</span><h2>Documents</h2></div><div class="customer-data-list" id="customerDocumentsList"></div></section>
+<section class="customer-record-panel" data-panel="billing"><div class="section-head"><span class="management-kicker">Finance</span><h2>Invoices &amp; payments</h2></div><div class="customer-data-list" id="customerBillingList"></div></section>
+<section class="customer-record-panel" data-panel="compliance"><div class="section-head"><span class="management-kicker">Compliance</span><h2>Compliance</h2></div><div class="customer-data-list" id="customerComplianceList"></div></section>
+<section class="customer-record-panel" data-panel="support"><div class="section-head"><span class="management-kicker">Support</span><h2>Support history</h2></div><div class="customer-data-list" id="customerSupportList"></div></section>
+<section class="customer-record-panel" data-panel="projects"><div class="section-head"><span class="management-kicker">Creative</span><h2>Design projects</h2></div><div class="customer-card-grid" id="customerProjectsList"></div></section>
+<section class="customer-record-panel" data-panel="activity"><div class="section-head"><span class="management-kicker">Timeline</span><h2>Customer activity</h2></div><div class="activity-list" id="customerActivityList"></div></section>
+<section class="customer-record-panel" data-panel="account"><div class="customer-account-grid"><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Authentication</span><h2>Portal account</h2></div></div><dl id="customerAccountDetails"></dl></article><article class="customer-detail-card"><div class="card-head"><div><span class="management-kicker">Connected systems</span><h2>External IDs</h2></div></div><dl id="customerExternalDetails"></dl></article></div></section>
+</div>
 </section>
 </main>
 </div>
-
-<div class="customer-modal" id="customerEditModal" hidden><div class="customer-modal__backdrop" data-close-edit></div><section class="customer-modal__card"><header><div><span class="management-kicker">Customer profile</span><h2>Edit customer</h2></div><button data-close-edit type="button">×</button></header><form id="customerEditForm"><div class="customer-form-grid"><label>First name<input name="first_name"></label><label>Last name<input name="last_name"></label><label class="full">Company<input name="company_name"></label><label>Email<input name="email_address" type="email" required></label><label>Phone<input name="phone_number"></label><label class="full">Street address<input name="street_address"></label><label>City<input name="city"></label><label>State<input name="state" maxlength="2"></label><label>ZIP<input name="zip_code"></label><label>Tracking number<input name="tracking_number"></label></div><footer><button class="management-secondary-button" data-close-edit type="button">Cancel</button><button class="management-primary-button" type="submit">Save customer</button></footer></form></section></div>
-
-<div class="customer-modal" id="contactModal" hidden><div class="customer-modal__backdrop" data-close-contact></div><section class="customer-modal__card"><header><div><span class="management-kicker">CRM</span><h2>Add prospect</h2></div><button data-close-contact type="button">×</button></header><form id="contactForm"><p class="customer-form-note">Add the person as a prospect. They move to Customers automatically after a paid purchase is recorded.</p><div class="customer-form-grid"><label>First name<input name="first_name"></label><label>Last name<input name="last_name"></label><label class="full">Company<input name="company_name"></label><label>Email<input name="email_address" type="email" required></label><label>Phone<input name="phone_number"></label><label>Lifecycle<select name="lifecycle_stage"><option value="new">New</option><option value="contacted">Contacted</option><option value="qualified">Qualified</option><option value="proposal">Proposal</option></select></label><label>Source<input name="source"></label></div><footer><button class="management-secondary-button" data-close-contact type="button">Cancel</button><button class="management-primary-button" type="submit">Create prospect</button></footer></form></section></div>
-
+<div class="customer-modal" hidden="" id="customerEditModal"><div class="customer-modal__backdrop" data-close-edit=""></div><section class="customer-modal__card"><header><div><span class="management-kicker">Customer profile</span><h2>Edit customer</h2></div><button data-close-edit="" type="button">×</button></header><form id="customerEditForm"><div class="customer-form-grid"><label>First name<input name="first_name"/></label><label>Last name<input name="last_name"/></label><label class="full">Company<input name="company_name"/></label><label>Email<input name="email_address" required="" type="email"/></label><label>Phone<input name="phone_number"/></label><label class="full">Street address<input name="street_address"/></label><label>City<input name="city"/></label><label>State<input maxlength="2" name="state"/></label><label>ZIP<input name="zip_code"/></label><label>Tracking number<input name="tracking_number"/></label></div><footer><button class="management-secondary-button" data-close-edit="" type="button">Cancel</button><button class="management-primary-button" type="submit">Save customer</button></footer></form></section></div>
+<div class="customer-modal" hidden="" id="contactModal"><div class="customer-modal__backdrop" data-close-contact=""></div><section class="customer-modal__card"><header><div><span class="management-kicker">CRM</span><h2>Add prospect</h2></div><button data-close-contact="" type="button">×</button></header><form id="contactForm"><p class="customer-form-note">Add the person as a prospect. They move to Customers automatically after a paid purchase is recorded.</p><div class="customer-form-grid"><label>First name<input name="first_name"/></label><label>Last name<input name="last_name"/></label><label class="full">Company<input name="company_name"/></label><label>Email<input name="email_address" required="" type="email"/></label><label>Phone<input name="phone_number"/></label><label>Lifecycle<select name="lifecycle_stage"><option value="new">New</option><option value="contacted">Contacted</option><option value="qualified">Qualified</option><option value="proposal">Proposal</option></select></label><label>Source<input name="source"/></label></div><footer><button class="management-secondary-button" data-close-contact="" type="button">Cancel</button><button class="management-primary-button" type="submit">Create prospect</button></footer></form></section></div>
 <script src="assets/js/navigation.js"></script>
 <script src="assets/js/customer-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>

@@ -1,148 +1,134 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/client-auth-guard.js"></script>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
 <title>filings4u | Support</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/client-support.css">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/client-support.css" rel="stylesheet"/>
 </head>
-<body data-portal="client" data-page="support">
-
+<body data-page="support" data-portal="client">
 <header class="client-header">
-  <a class="client-brand" href="client-dashboard.html">
-    <img src="images/logo.png" alt="filings4u" class="client-logo">
-    <span class="client-brand-divider" aria-hidden="true"></span>
-    <span class="client-portal-label">Client Portal</span>
-  </a>
-
-  <nav class="client-nav" aria-label="Client portal navigation">
-    <a href="client-dashboard.html" data-nav-target="dashboard">Dashboard</a>
-    <a href="client-orders.html" data-nav-target="orders">Orders</a>
-    <a href="client-billing.html" data-nav-target="billing">Billing</a>
-    <a href="client-filings.html" data-nav-target="filings">Filings</a>
-    <a href="client-entities.html" data-nav-target="entities">Entities</a>
-    <a href="client-documents.html" data-nav-target="documents">Documents</a>
-    <a href="client-design.html" data-nav-target="design">Design</a>
-    <a href="client-support.html" data-nav-target="support">Support</a>
-  </nav>
-
-  <div class="client-account">
-    <button class="client-profile" id="clientProfileButton" type="button"
-      aria-haspopup="menu" aria-expanded="false" aria-controls="clientAccountMenu">
-      <span class="avatar" id="clientAvatar">C</span>
-      <strong id="clientName">My Account</strong>
-      <span class="account-chevron" aria-hidden="true">⌄</span>
-    </button>
-
-    <div class="client-account-menu" id="clientAccountMenu" role="menu" hidden>
-      <div class="account-menu-header">
-        <span class="account-menu-avatar" id="clientMenuAvatar">C</span>
-        <div>
-          <strong id="clientMenuName">My Account</strong>
-          <small id="clientMenuCompany">filings4u client</small>
-        </div>
-      </div>
-      <div class="account-menu-links">
-        <a href="client-account.html" data-account-target="account" role="menuitem">
-          <span>My Account</span><small>Profile & contact details</small>
-        </a>
-        <a href="client-notifications.html" data-account-target="notifications" role="menuitem">
-          <span>Notifications</span><small>Portal alerts & updates</small>
-        </a>
-        <a href="client-support.html" data-account-target="support" role="menuitem">
-          <span>Support</span><small>Help with an order or filing</small>
-        </a>
-      </div>
-      <button id="clientSignOut" class="account-menu-signout" type="button" role="menuitem">Sign out</button>
-    </div>
-  </div>
+<a class="client-brand" href="client-dashboard.html">
+<img alt="filings4u" class="client-logo" src="images/logo.png"/>
+<span aria-hidden="true" class="client-brand-divider"></span>
+<span class="client-portal-label">Client Portal</span>
+</a>
+<nav aria-label="Client portal navigation" class="client-nav">
+<a data-nav-target="dashboard" href="client-dashboard.html">Dashboard</a>
+<a data-nav-target="orders" href="client-orders.html">Orders</a>
+<a data-nav-target="billing" href="client-billing.html">Billing</a>
+<a data-nav-target="filings" href="client-filings.html">Filings</a>
+<a data-nav-target="entities" href="client-entities.html">Entities</a>
+<a data-nav-target="documents" href="client-documents.html">Documents</a>
+<a data-nav-target="design" href="client-design.html">Design</a>
+<a data-nav-target="support" href="client-support.html">Support</a>
+</nav>
+<div class="client-account">
+<button aria-controls="clientAccountMenu" aria-expanded="false" aria-haspopup="menu" class="client-profile" id="clientProfileButton" type="button">
+<span class="avatar" id="clientAvatar">C</span>
+<strong id="clientName">My Account</strong>
+<span aria-hidden="true" class="account-chevron">⌄</span>
+</button>
+<div class="client-account-menu" hidden="" id="clientAccountMenu" role="menu">
+<div class="account-menu-header">
+<span class="account-menu-avatar" id="clientMenuAvatar">C</span>
+<div>
+<strong id="clientMenuName">My Account</strong>
+<small id="clientMenuCompany">filings4u client</small>
+</div>
+</div>
+<div class="account-menu-links">
+<a data-account-target="account" href="client-account.html" role="menuitem">
+<span>My Account</span><small>Profile &amp; contact details</small>
+</a>
+<a data-account-target="notifications" href="client-notifications.html" role="menuitem">
+<span>Notifications</span><small>Portal alerts &amp; updates</small>
+</a>
+<a data-account-target="support" href="client-support.html" role="menuitem">
+<span>Support</span><small>Help with an order or filing</small>
+</a>
+</div>
+<button class="account-menu-signout" id="clientSignOut" role="menuitem" type="button">Sign out</button>
+</div>
+</div>
 </header>
-
-<main class="client-main" id="app" hidden>
+<main class="client-main" hidden="" id="app">
 <section class="page-heading">
-  <div>
-    <span class="section-kicker">Help center</span>
-    <h1>Support</h1>
-    <p>Create and track support requests related to your orders, filings, documents, and account.</p>
-  </div>
-  <button class="button button--primary" id="newTicketButton" type="button">+ New support request</button>
+<div>
+<span class="section-kicker">Help center</span>
+<h1>Support</h1>
+<p>Create and track support requests related to your orders, filings, documents, and account.</p>
+</div>
+<button class="button button--primary" id="newTicketButton" type="button">+ New support request</button>
 </section>
-
 <div class="content-wrap">
 <section class="support-stats">
-  <article><span>Open tickets</span><strong id="openCount">0</strong><small>Currently being handled</small></article>
-  <article><span>Awaiting response</span><strong id="pendingCount">0</strong><small>Waiting for an update</small></article>
-  <article><span>Resolved</span><strong id="resolvedCount">0</strong><small>Completed requests</small></article>
-  <article><span>Total requests</span><strong id="totalCount">0</strong><small>Your support history</small></article>
+<article><span>Open tickets</span><strong id="openCount">0</strong><small>Currently being handled</small></article>
+<article><span>Awaiting response</span><strong id="pendingCount">0</strong><small>Waiting for an update</small></article>
+<article><span>Resolved</span><strong id="resolvedCount">0</strong><small>Completed requests</small></article>
+<article><span>Total requests</span><strong id="totalCount">0</strong><small>Your support history</small></article>
 </section>
-
 <section class="content-card support-workspace">
-  <div class="workspace-toolbar">
-    <div><span class="section-kicker">Support requests</span><h2>My tickets</h2></div>
-    <div class="filters">
-      <input id="search" type="search" placeholder="Search tickets..." aria-label="Search support tickets">
-      <select id="statusFilter" aria-label="Filter by ticket status"><option value="">All statuses</option></select>
-    </div>
-  </div>
-  <div id="ticketList"></div>
+<div class="workspace-toolbar">
+<div><span class="section-kicker">Support requests</span><h2>My tickets</h2></div>
+<div class="filters">
+<input aria-label="Search support tickets" id="search" placeholder="Search tickets..." type="search"/>
+<select aria-label="Filter by ticket status" id="statusFilter"><option value="">All statuses</option></select>
+</div>
+</div>
+<div id="ticketList"></div>
 </section>
 </div>
 </main>
-
-<div id="gate" class="gate">Loading your support requests…</div>
-
-<aside class="drawer" id="ticketDrawer" aria-hidden="true">
- <div class="drawer-backdrop" data-close-drawer></div>
- <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
-   <div class="drawer-head">
-     <div><span class="section-kicker">Support request</span><h2 id="drawerTitle">Ticket</h2></div>
-     <button class="close-button" type="button" data-close-drawer aria-label="Close">×</button>
-   </div>
-   <div class="drawer-body" id="drawerBody"></div>
- </div>
-</aside>
-
-<div class="modal" id="ticketModal" aria-hidden="true">
- <div class="modal-backdrop" data-close-modal></div>
- <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="newTicketTitle">
-   <div class="modal-head">
-     <div><span class="section-kicker">Contact support</span><h2 id="newTicketTitle">New support request</h2></div>
-     <button class="close-button" type="button" data-close-modal aria-label="Close">×</button>
-   </div>
-   <form id="ticketForm">
-     <label>Subject<input id="subject" required maxlength="160" placeholder="What do you need help with?"></label>
-     <div class="form-grid">
-       <label>Priority<select id="priority"><option value="normal">Normal</option><option value="high">High</option><option value="urgent">Urgent</option></select></label>
-       <label>Related order<select id="orderSelect"><option value="">Not order-specific</option></select></label>
-     </div>
-     <label>Description<textarea id="description" required rows="7" maxlength="4000" placeholder="Tell us what happened and what you need help with."></textarea></label>
-     <label>Attachments<input id="ticketAttachments" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,application/pdf,text/plain,.doc,.docx"><small class="support-file-help">Images, PDF, TXT, DOC or DOCX · up to 50 MB each</small></label>
-     <div class="form-actions">
-       <button type="button" class="button button--secondary" data-close-modal>Cancel</button>
-       <button class="button button--primary" id="submitTicket" type="submit">Submit request</button>
-     </div>
-   </form>
- </div>
+<div class="gate" id="gate">Loading your support requests…</div>
+<aside aria-hidden="true" class="drawer" id="ticketDrawer">
+<div class="drawer-backdrop" data-close-drawer=""></div>
+<div aria-labelledby="drawerTitle" aria-modal="true" class="drawer-panel" role="dialog">
+<div class="drawer-head">
+<div><span class="section-kicker">Support request</span><h2 id="drawerTitle">Ticket</h2></div>
+<button aria-label="Close" class="close-button" data-close-drawer="" type="button">×</button>
 </div>
-
-<div id="toast" class="toast" hidden></div>
+<div class="drawer-body" id="drawerBody"></div>
+</div>
+</aside>
+<div aria-hidden="true" class="modal" id="ticketModal">
+<div class="modal-backdrop" data-close-modal=""></div>
+<div aria-labelledby="newTicketTitle" aria-modal="true" class="modal-card" role="dialog">
+<div class="modal-head">
+<div><span class="section-kicker">Contact support</span><h2 id="newTicketTitle">New support request</h2></div>
+<button aria-label="Close" class="close-button" data-close-modal="" type="button">×</button>
+</div>
+<form id="ticketForm">
+<label>Subject<input id="subject" maxlength="160" placeholder="What do you need help with?" required=""/></label>
+<div class="form-grid">
+<label>Priority<select id="priority"><option value="normal">Normal</option><option value="high">High</option><option value="urgent">Urgent</option></select></label>
+<label>Related order<select id="orderSelect"><option value="">Not order-specific</option></select></label>
+</div>
+<label>Description<textarea id="description" maxlength="4000" placeholder="Tell us what happened and what you need help with." required="" rows="7"></textarea></label>
+<label>Attachments<input accept="image/jpeg,image/png,image/webp,image/gif,application/pdf,text/plain,.doc,.docx" id="ticketAttachments" multiple="" type="file"/><small class="support-file-help">Images, PDF, TXT, DOC or DOCX · up to 50 MB each</small></label>
+<div class="form-actions">
+<button class="button button--secondary" data-close-modal="" type="button">Cancel</button>
+<button class="button button--primary" id="submitTicket" type="submit">Submit request</button>
+</div>
+</form>
+</div>
+</div>
+<div class="toast" hidden="" id="toast"></div>
 <!-- CUSTOMER PROTECTED PAGE -->
 <script src="assets/js/client-navigation.js"></script>
 <script src="assets/js/client-support.js?v=20260922-supportfix"></script>

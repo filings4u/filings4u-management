@@ -1,0 +1,20 @@
+FILINGS4U MANAGEMENT WEBSITE - SEARCH INDEXING PROTECTION
+
+This package is configured as a private/non-search management portal.
+
+Applied to all 59 HTML pages:
+- meta robots: noindex,nofollow,noarchive,nosnippet,noimageindex
+- explicit Googlebot and Bingbot noindex directives
+
+Site-wide files:
+- robots.txt: User-agent * / Disallow /
+- _headers: X-Robots-Tag for Netlify / Cloudflare Pages-style hosting
+- vercel.json: X-Robots-Tag for Vercel
+- .htaccess: X-Robots-Tag for Apache
+- nginx-noindex.conf: header snippet for Nginx/custom servers
+- Cache-Control private, no-store in server-header configurations
+
+IMPORTANT SECURITY NOTE
+Search-engine directives are not access control. The strongest protection for a management site is to require authentication before any management page or asset is served. Keep the existing admin/client authentication protections enabled and do not rely on robots.txt for privacy.
+
+If this site was previously indexed, use Google Search Console and Bing Webmaster Tools removal tools after deploying this version. A noindex response must be crawled before an existing result is permanently removed.

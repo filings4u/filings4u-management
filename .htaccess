@@ -1,0 +1,5 @@
+# Search indexing protection for the Filings4u management portal
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet, noimageindex"
+  Header always set Cache-Control "private, no-store"
+</IfModule>

@@ -1,65 +1,60 @@
-<!doctype html><html lang="en">
-    <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <meta name="theme-color" content="#10b981">
-        <title>filings4u Admin | Tasks Management</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="assets/css/admin-management.css">
-        <link rel="stylesheet" href="assets/css/tasks-manager.css">
-      <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
+<title>filings4u Admin | Tasks Management</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/>
+<link href="assets/css/tasks-manager.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
-    <body class="management-body tasks-manager-body" data-management-page="tasks">
-        <header class="management-topbar">
-            <div class="management-topbar__left">
-                <button class="management-icon-button management-mobile-toggle" id="managementMobileToggle">☰</button>
-                <button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle">☰</button>
-                <a class="management-brand" href="admin-management.html#home">
-                    <img src="images/logo.png" class="management-logo">
-                    <span class="management-brand-divider"></span>
-                    <span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span>
-                </a>
-            </div>
-            <div class="management-topbar__center">
-                <button class="global-search-trigger" id="taskSearchTrigger">
-                    <span>⌕</span>
-                    <span>Search tasks...</span>
-                    <kbd>/</kbd>
-                </button>
-            </div>
-            <div class="management-topbar__right">
-                <button class="management-create-button" id="newTaskTop">+ New task</button>
-            </div>
-        </header>
-        <div class="management-shell">
-            <aside class="management-sidebar" id="managementSidebar">
-                <div class="management-sidebar__intro">
-                    <span>
-                        <i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small>
-                    </div>
-<nav
-  class="management-nav"
-  id="managementNavigation"
-  data-management-navigation
-  aria-label="Management navigation">
-</nav>                
-                </aside><button class="management-sidebar-backdrop" id="managementSidebarBackdrop"></button><main class="management-main tasks-main"><header class="management-page-head tasks-page-head"><div><span class="management-kicker">Operations · Workflow</span><h1>Tasks Management</h1><p>Track operational work, priorities, assignments, due dates and completion across filings4u.</p></div><div class="management-page-actions"><button class="management-secondary-button" id="refreshTasks">Refresh</button><button class="management-primary-button" id="newTaskButton">+ New task</button></div></header><div class="task-stat-grid"><article><small>Open</small><strong id="statOpen">—</strong></article><article><small>Due today</small><strong id="statToday">—</strong></article><article><small>Overdue</small><strong id="statOverdue">—</strong></article><article><small>Completed</small><strong id="statDone">—</strong></article></div><section class="task-card"><div class="task-toolbar"><label><span>⌕</span><input id="taskSearch" placeholder="Search tasks"></label><div><select id="taskStatus"><option value="">All statuses</option><option>Open</option><option>In Progress</option><option>Completed</option><option>Cancelled</option></select><select id="taskPriority"><option value="">All priorities</option><option>Urgent</option><option>High</option><option>Normal</option><option>Low</option></select></div></div><div class="task-board" id="taskBoard"></div></section></main></div>
-<div class="task-modal" id="taskModal" hidden><div class="task-modal__backdrop" data-task-close></div><section class="task-modal__card"><header><div><span class="management-kicker">Operational task</span><h2 id="taskModalTitle">New task</h2></div><button data-task-close>×</button></header><form id="taskForm"><input type="hidden" id="taskId"><label>Task title<input id="taskTitle" required></label><label>Description<textarea id="taskDescription" rows="4"></textarea></label><div class="task-form-grid"><label>Status<select id="taskEditStatus"><option>Open</option><option>In Progress</option><option>Completed</option><option>Cancelled</option></select></label><label>Priority<select id="taskEditPriority"><option>Normal</option><option>Urgent</option><option>High</option><option>Low</option></select></label><label>Due date<input id="taskDue" type="date"></label><label>Assigned to<input id="taskAssigned" placeholder="Name or email"></label></div><label>Related record<input id="taskRelated" placeholder="Order, application, customer, etc."></label><footer><button class="management-secondary-button" id="deleteTaskButton" type="button" hidden>Delete</button><button class="management-secondary-button" data-task-close type="button">Cancel</button><button class="management-primary-button">Save task</button></footer></form></section></div>
+<body class="management-body tasks-manager-body" data-management-page="tasks">
+<header class="management-topbar">
+<div class="management-topbar__left">
+<button class="management-icon-button management-mobile-toggle" id="managementMobileToggle">☰</button>
+<button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle">☰</button>
+<a class="management-brand" href="admin-management.html#home">
+<img class="management-logo" src="images/logo.png"/>
+<span class="management-brand-divider"></span>
+<span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span>
+</a>
+</div>
+<div class="management-topbar__center">
+<button class="global-search-trigger" id="taskSearchTrigger">
+<span>⌕</span>
+<span>Search tasks...</span>
+<kbd>/</kbd>
+</button>
+</div>
+<div class="management-topbar__right">
+<button class="management-create-button" id="newTaskTop">+ New task</button>
+</div>
+</header>
+<div class="management-shell">
+<aside class="management-sidebar" id="managementSidebar">
+<div class="management-sidebar__intro">
+<span>
+<i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small>
+</div>
+<nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation">
+</nav>
+</aside><button class="management-sidebar-backdrop" id="managementSidebarBackdrop"></button><main class="management-main tasks-main"><header class="management-page-head tasks-page-head"><div><span class="management-kicker">Operations · Workflow</span><h1>Tasks Management</h1><p>Track operational work, priorities, assignments, due dates and completion across filings4u.</p></div><div class="management-page-actions"><button class="management-secondary-button" id="refreshTasks">Refresh</button><button class="management-primary-button" id="newTaskButton">+ New task</button></div></header><div class="task-stat-grid"><article><small>Open</small><strong id="statOpen">—</strong></article><article><small>Due today</small><strong id="statToday">—</strong></article><article><small>Overdue</small><strong id="statOverdue">—</strong></article><article><small>Completed</small><strong id="statDone">—</strong></article></div><section class="task-card"><div class="task-toolbar"><label><span>⌕</span><input id="taskSearch" placeholder="Search tasks"/></label><div><select id="taskStatus"><option value="">All statuses</option><option>Open</option><option>In Progress</option><option>Completed</option><option>Cancelled</option></select><select id="taskPriority"><option value="">All priorities</option><option>Urgent</option><option>High</option><option>Normal</option><option>Low</option></select></div></div><div class="task-board" id="taskBoard"></div></section></main></div>
+<div class="task-modal" hidden="" id="taskModal"><div class="task-modal__backdrop" data-task-close=""></div><section class="task-modal__card"><header><div><span class="management-kicker">Operational task</span><h2 id="taskModalTitle">New task</h2></div><button data-task-close="">×</button></header><form id="taskForm"><input id="taskId" type="hidden"/><label>Task title<input id="taskTitle" required=""/></label><label>Description<textarea id="taskDescription" rows="4"></textarea></label><div class="task-form-grid"><label>Status<select id="taskEditStatus"><option>Open</option><option>In Progress</option><option>Completed</option><option>Cancelled</option></select></label><label>Priority<select id="taskEditPriority"><option>Normal</option><option>Urgent</option><option>High</option><option>Low</option></select></label><label>Due date<input id="taskDue" type="date"/></label><label>Assigned to<input id="taskAssigned" placeholder="Name or email"/></label></div><label>Related record<input id="taskRelated" placeholder="Order, application, customer, etc."/></label><footer><button class="management-secondary-button" hidden="" id="deleteTaskButton" type="button">Delete</button><button class="management-secondary-button" data-task-close="" type="button">Cancel</button><button class="management-primary-button">Save task</button></footer></form></section></div>
 <script src="assets/js/navigation.js"></script><script src="assets/js/tasks-manager.js"></script><script src="assets/js/filings4u-ui.js"></script>
 </body></html>

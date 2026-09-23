@@ -1,60 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981">
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
 <title>Admin Sign In | filings4u</title>
-<link rel="stylesheet" href="assets/css/admin-login.css">
-
+<link href="assets/css/admin-login.css" rel="stylesheet"/>
 </head>
 <body>
 <main class="login-shell">
-  <section class="brand-panel">
-    <a href="#" class="logo" aria-label="filings4u"><img src="images/logo2.png" alt="filings4u"></a>
-    <div>
-      <p class="eyebrow">ADMINISTRATION</p>
-      <h1>Management system access.</h1>
-      <p>Sign in with an authorized filings4u administrator account to manage operations, clients, services, documents, support and platform configuration.</p>
-    </div>
-    <small>filings4u, LLC · A Subsidiary of Roseland Companies, LLC</small>
-  </section>
-
-  <section class="form-panel">
-    <form id="loginForm">
-      <p class="eyebrow">SECURE ACCESS</p>
-      <h2>Administrator sign in</h2>
-      <p class="muted">Use the email and password associated with your Supabase administrator account.</p>
-
-      <div id="message" class="message" hidden></div>
-
-      <label>Email address
-        <input id="email" type="email" autocomplete="username" required>
-      </label>
-
-      <label>Password
+<section class="brand-panel">
+<a aria-label="filings4u" class="logo" href="#"><img alt="filings4u" src="images/logo2.png"/></a>
+<div>
+<p class="eyebrow">ADMINISTRATION</p>
+<h1>Management system access.</h1>
+<p>Sign in with an authorized filings4u administrator account to manage operations, clients, services, documents, support and platform configuration.</p>
+</div>
+<small>filings4u, LLC · A Subsidiary of Roseland Companies, LLC</small>
+</section>
+<section class="form-panel">
+<form id="loginForm">
+<p class="eyebrow">SECURE ACCESS</p>
+<h2>Administrator sign in</h2>
+<p class="muted">Use the email and password associated with your Supabase administrator account.</p>
+<div class="message" hidden="" id="message"></div>
+<label>Email address
+        <input autocomplete="username" id="email" required="" type="email"/>
+</label>
+<label>Password
         <div class="password-wrap">
-          <input id="password" type="password" autocomplete="current-password" required>
-          <button id="togglePassword" type="button">Show</button>
-        </div>
-      </label>
-
-      <button id="submit" class="primary" type="submit">Sign in</button>
-      <button id="signOutExisting" class="secondary" type="button" hidden>Sign out current session</button>
-    </form>
-
-      <div class="login-links"><a href="admin-forgot-password.html">Forgot password?</a></div>
-  </section>
+<input autocomplete="current-password" id="password" required="" type="password"/>
+<button id="togglePassword" type="button">Show</button>
+</div>
+</label>
+<button class="primary" id="submit" type="submit">Sign in</button>
+<button class="secondary" hidden="" id="signOutExisting" type="button">Sign out current session</button>
+</form>
+<div class="login-links"><a href="admin-forgot-password.html">Forgot password?</a></div>
+</section>
 </main>
-
 <!-- ADMIN PROTECTED PAGE -->
-
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/turnstile-protection.js"></script>

@@ -1,39 +1,39 @@
-<!doctype html><html lang="en"><head>
-
+<!DOCTYPE html>
+<html lang="en"><head>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981"><title>Messages | filings4u Admin</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-messages.css?v=20260909-4">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/><title>Messages | filings4u Admin</title>
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-messages.css?v=20260909-4" rel="stylesheet"/>
 <script src="assets/js/admin-navigation.js"></script></head>
 <body data-page="messages"><div id="adminNavigationMount"></div><main>
-<div id="gate" class="gate">Verifying administrator access…</div><section id="app" hidden>
-<div class="head"><div><label>COMMUNICATION CENTER</label><h1>Messages Management</h1><p>Start conversations with any client, send secure attachments, and manage customer replies.</p></div><div class="headActions"><button id="newMessage" class="primary">New message</button><button id="refresh" class="secondary">Refresh</button></div></div>
-<div id="stats" class="stats"></div>
+<div class="gate" id="gate">Verifying administrator access…</div><section hidden="" id="app">
+<div class="head"><div><label>COMMUNICATION CENTER</label><h1>Messages Management</h1><p>Start conversations with any client, send secure attachments, and manage customer replies.</p></div><div class="headActions"><button class="primary" id="newMessage">New message</button><button class="secondary" id="refresh">Refresh</button></div></div>
+<div class="stats" id="stats"></div>
 <section class="workspace">
-<div class="threads"><div class="threadFilters"><input id="q" placeholder="Search client, company, tracking #"><select id="filter"><option value="">All conversations</option><option value="unread">Unread</option></select></div><div id="threadList"></div></div>
-<div class="conversation"><div id="empty" class="empty">Select a conversation or start a new message.</div>
-<section id="chat" hidden><div id="chatHead" class="chatHead"></div><div id="messages" class="messages"></div>
-<div id="attachmentPreview" class="attachmentPreview" hidden></div>
-<div class="composer"><textarea id="reply" placeholder="Write a message…"></textarea><div class="composerActions"><label class="attachButton" for="attachments">Attach files</label><input id="attachments" type="file" multiple accept="image/*,.pdf,.doc,.docx,.txt" hidden><button id="send" class="primary">Send message</button></div></div></section></div></section>
+<div class="threads"><div class="threadFilters"><input id="q" placeholder="Search client, company, tracking #"/><select id="filter"><option value="">All conversations</option><option value="unread">Unread</option></select></div><div id="threadList"></div></div>
+<div class="conversation"><div class="empty" id="empty">Select a conversation or start a new message.</div>
+<section hidden="" id="chat"><div class="chatHead" id="chatHead"></div><div class="messages" id="messages"></div>
+<div class="attachmentPreview" hidden="" id="attachmentPreview"></div>
+<div class="composer"><textarea id="reply" placeholder="Write a message…"></textarea><div class="composerActions"><label class="attachButton" for="attachments">Attach files</label><input accept="image/*,.pdf,.doc,.docx,.txt" hidden="" id="attachments" multiple="" type="file"/><button class="primary" id="send">Send message</button></div></div></section></div></section>
 </section></main>
-<div id="shade" class="shade" hidden></div>
-<section id="newDrawer" class="newDrawer" aria-hidden="true"><div class="drawerHead"><div><label>NEW CLIENT MESSAGE</label><h2>Start a conversation</h2></div><button id="closeNew" class="closeBtn">×</button></div><div class="drawerBody">
+<div class="shade" hidden="" id="shade"></div>
+<section aria-hidden="true" class="newDrawer" id="newDrawer"><div class="drawerHead"><div><label>NEW CLIENT MESSAGE</label><h2>Start a conversation</h2></div><button class="closeBtn" id="closeNew">×</button></div><div class="drawerBody">
 <label class="fieldLabel" for="clientSelect">Customer</label><select id="clientSelect"><option value="">Choose a customer</option></select>
-<div id="clientSummary" class="clientSummary">Select a customer to view their account details.</div>
-<label class="fieldLabel" for="newText">Message</label><textarea id="newText" rows="7" placeholder="Write your message…"></textarea>
-<label class="fieldLabel" for="newAttachments">Attachments</label><input id="newAttachments" class="fileInput" type="file" multiple accept="image/*,.pdf,.doc,.docx,.txt">
+<div class="clientSummary" id="clientSummary">Select a customer to view their account details.</div>
+<label class="fieldLabel" for="newText">Message</label><textarea id="newText" placeholder="Write your message…" rows="7"></textarea>
+<label class="fieldLabel" for="newAttachments">Attachments</label><input accept="image/*,.pdf,.doc,.docx,.txt" class="fileInput" id="newAttachments" multiple="" type="file"/>
 <p class="help">Images and documents are stored in the customer's secure portal message folder.</p>
-<button id="sendNew" class="primary wide">Send to customer</button></div></section>
-<div id="toast" class="toast" hidden></div><script src="assets/js/admin-messages.js?v=20260909-4"></script><script src="assets/js/filings4u-ui.js"></script>
+<button class="primary wide" id="sendNew">Send to customer</button></div></section>
+<div class="toast" hidden="" id="toast"></div><script src="assets/js/admin-messages.js?v=20260909-4"></script><script src="assets/js/filings4u-ui.js"></script>
 </body></html>

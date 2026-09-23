@@ -1,75 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
-<title>filings4u Admin | Users & Roles</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/users-manager.css">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
+<title>filings4u Admin | Users &amp; Roles</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/users-manager.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
 <body class="management-body users-manager-body" data-management-page="users">
 <header class="management-topbar">
-<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a></div>
+<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a></div>
 <div class="management-topbar__center"><button class="global-search-trigger" id="userSearchTrigger" type="button"><span>⌕</span><span>Search users...</span><kbd>/</kbd></button></div>
 <div class="management-topbar__right"><button class="management-create-button" id="refreshUsersTop" type="button">Refresh users</button></div>
 </header>
-
 <div class="management-shell">
-<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav class="management-nav" id="managementNavigation" data-management-navigation aria-label="Management navigation"></nav></aside>
+<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation"></nav></aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main users-main">
-<header class="management-page-head users-page-head"><div><span class="management-kicker">Platform · Access Control</span><h1>Users & Roles Management</h1><p>Manage administrative profiles, roles, contact details and active or terminated access records.</p></div><div class="management-page-actions"><button class="management-secondary-button" id="refreshUsers" type="button">Refresh</button></div></header>
-
+<header class="management-page-head users-page-head"><div><span class="management-kicker">Platform · Access Control</span><h1>Users &amp; Roles Management</h1><p>Manage administrative profiles, roles, contact details and active or terminated access records.</p></div><div class="management-page-actions"><button class="management-secondary-button" id="refreshUsers" type="button">Refresh</button></div></header>
 <div class="user-stat-grid">
 <article><small>Total users</small><strong id="statTotal">—</strong><em>Admin profiles</em></article>
 <article><small>Active</small><strong id="statActive">—</strong><em>Current staff</em></article>
 <article><small>Admins</small><strong id="statAdmins">—</strong><em>Administrator role</em></article>
 <article><small>Roles</small><strong id="statRoles">—</strong><em>Distinct roles</em></article>
 </div>
-
 <section class="users-card">
 <div class="users-toolbar">
-<label class="users-search"><span>⌕</span><input id="userSearch" type="search" placeholder="Search name, email or role"></label>
+<label class="users-search"><span>⌕</span><input id="userSearch" placeholder="Search name, email or role" type="search"/></label>
 <div><select id="roleFilter"><option value="">All roles</option></select><select id="statusFilter"><option value="">All statuses</option><option value="active">Active</option><option value="terminated">Terminated</option></select></div>
 </div>
 <div class="users-table-wrap"><table class="users-table"><thead><tr><th>User</th><th>Role</th><th>Phone</th><th>Location</th><th>Hired</th><th>Status</th><th></th></tr></thead><tbody id="usersTableBody"><tr><td colspan="7"><div class="users-empty">Loading users…</div></td></tr></tbody></table></div>
 </section>
 </main>
 </div>
-
-<div class="user-modal" id="userModal" hidden>
-<div class="user-modal__backdrop" data-close-user></div>
-<section class="user-modal__card"><header><div><span class="management-kicker">Admin profile</span><h2 id="userModalTitle">Edit user</h2></div><button data-close-user type="button">×</button></header>
+<div class="user-modal" hidden="" id="userModal">
+<div class="user-modal__backdrop" data-close-user=""></div>
+<section class="user-modal__card"><header><div><span class="management-kicker">Admin profile</span><h2 id="userModalTitle">Edit user</h2></div><button data-close-user="" type="button">×</button></header>
 <form id="userForm">
-<input id="userId" type="hidden">
-<div class="form-grid"><label>First name<input id="userFirstName"></label><label>Last name<input id="userLastName"></label></div>
-<label>Email address<input id="userEmail" type="email" readonly></label>
-<div class="form-grid"><label>Role<input id="userRole" placeholder="admin"></label><label>Phone<input id="userPhone"></label></div>
-<label>Street address<input id="userStreet"></label>
-<div class="form-grid form-grid-3"><label>City<input id="userCity"></label><label>State<input id="userState"></label><label>ZIP<input id="userZip"></label></div>
-<div class="form-grid"><label>Hired date<input id="userHired" type="date"></label><label>Terminated date<input id="userTerminated" type="date"></label></div>
-<label>Avatar URL<input id="userAvatar"></label>
+<input id="userId" type="hidden"/>
+<div class="form-grid"><label>First name<input id="userFirstName"/></label><label>Last name<input id="userLastName"/></label></div>
+<label>Email address<input id="userEmail" readonly="" type="email"/></label>
+<div class="form-grid"><label>Role<input id="userRole" placeholder="admin"/></label><label>Phone<input id="userPhone"/></label></div>
+<label>Street address<input id="userStreet"/></label>
+<div class="form-grid form-grid-3"><label>City<input id="userCity"/></label><label>State<input id="userState"/></label><label>ZIP<input id="userZip"/></label></div>
+<div class="form-grid"><label>Hired date<input id="userHired" type="date"/></label><label>Terminated date<input id="userTerminated" type="date"/></label></div>
+<label>Avatar URL<input id="userAvatar"/></label>
 <div class="access-note"><strong>Authentication note</strong><p>This page manages the existing admin profile record. Creating or deleting Supabase Auth users requires a server-side admin workflow and is intentionally not performed from the browser.</p></div>
-<footer><button class="management-secondary-button" data-close-user type="button">Cancel</button><button class="management-primary-button" type="submit">Save user</button></footer>
+<footer><button class="management-secondary-button" data-close-user="" type="button">Cancel</button><button class="management-primary-button" type="submit">Save user</button></footer>
 </form></section>
 </div>
-
 <script src="assets/js/navigation.js"></script><script src="assets/js/users-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body></html>

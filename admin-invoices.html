@@ -1,79 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
-<title>filings4u Admin | Invoices & Payments</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/invoice-manager.css">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
+<title>filings4u Admin | Invoices &amp; Payments</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/invoice-manager.css" rel="stylesheet"/>
 </head>
 <body class="management-body invoice-manager-body" data-management-page="invoices">
 <header class="management-topbar">
-  <div class="management-topbar__left">
-    <button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
-    <button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
-    <a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a>
-  </div>
-  <div class="management-topbar__center"><button class="global-search-trigger" id="invoiceSearchTrigger" type="button"><span>⌕</span><span>Search invoices...</span><kbd>/</kbd></button></div>
-  <div class="management-topbar__right"><a class="management-create-button" id="newInvoiceManagementTop" href="admin-invoice-management.html">+ New invoice</a><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials>AD</span><span class="management-profile-copy"><strong data-admin-name>Administrator</strong><small data-admin-email>Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" id="managementProfileMenu" hidden><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users & roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
+<div class="management-topbar__left">
+<button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
+<button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
+<a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a>
+</div>
+<div class="management-topbar__center"><button class="global-search-trigger" id="invoiceSearchTrigger" type="button"><span>⌕</span><span>Search invoices...</span><kbd>/</kbd></button></div>
+<div class="management-topbar__right"><a class="management-create-button" href="admin-invoice-management.html" id="newInvoiceManagementTop">+ New invoice</a><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials="">AD</span><span class="management-profile-copy"><strong data-admin-name="">Administrator</strong><small data-admin-email="">Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" hidden="" id="managementProfileMenu"><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users &amp; roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
 </header>
-
 <div class="management-shell">
 <aside class="management-sidebar" id="managementSidebar">
-  <div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div>
-<nav
-  class="management-nav"
-  id="managementNavigation"
-  data-management-navigation
-  aria-label="Management navigation">
+<div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div>
+<nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation">
 </nav></aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main invoice-main" id="invoiceMain">
 <section id="invoiceListView">
-  <header class="management-page-head business-page-head">
-    <div>
-      <span class="management-kicker">Business · Finance</span>
-      <h1>Invoices & Payments Management</h1>
-      <p>Manage invoices, payment status, balances, customer billing, payment history, and Stripe-linked transactions.</p>
-    </div>
-    <div class="management-page-actions"><button class="management-secondary-button" id="refreshInvoices" type="button">Refresh</button><a class="management-primary-button" id="newInvoiceManagementButton" href="admin-invoice-management.html">+ New invoice</a></div>
-  </header>
-
-
-    <div class="invoice-stat-grid">
-      <article><span>$</span><div><small>Total invoiced</small><strong id="statTotalInvoiced">—</strong><em>All invoices</em></div></article>
-      <article><span>✓</span><div><small>Collected</small><strong id="statCollected">—</strong><em>Recorded payments</em></div></article>
-      <article><span>◷</span><div><small>Outstanding</small><strong id="statOutstanding">—</strong><em>Open balance</em></div></article>
-      <article><span>!</span><div><small>Overdue</small><strong id="statOverdue">—</strong><em>Past due invoices</em></div></article>
-    </div>
-
-    <section class="invoice-table-card">
-      <div class="invoice-toolbar">
-        <label class="invoice-search-field"><span>⌕</span><input id="invoiceSearch" type="search" placeholder="Search invoice, customer, email, order or tracking number"></label>
-        <div><select id="invoiceStatusFilter"><option value="">All invoice statuses</option></select><select id="paymentStatusFilter"><option value="">All payment statuses</option></select><select id="invoiceSort"><option value="created">Newest first</option><option value="due">Due date</option><option value="amount">Highest amount</option><option value="balance">Highest balance</option></select></div>
-      </div>
-      <div class="invoice-table-wrap"><table class="invoice-table"><thead><tr><th>Invoice</th><th>Customer</th><th>Status</th><th>Payment</th><th>Total</th><th>Balance</th><th>Due</th><th></th></tr></thead><tbody id="invoiceTableBody"><tr><td colspan="8"><div class="invoice-empty">Loading invoices…</div></td></tr></tbody></table></div>
-      <footer class="invoice-table-footer"><span id="invoiceResultCount">—</span><div><button id="invoicePrev" type="button">Previous</button><span id="invoicePageLabel">Page 1</span><button id="invoiceNext" type="button">Next</button></div></footer>
-    </section>
-  </section>
+<header class="management-page-head business-page-head">
+<div>
+<span class="management-kicker">Business · Finance</span>
+<h1>Invoices &amp; Payments Management</h1>
+<p>Manage invoices, payment status, balances, customer billing, payment history, and Stripe-linked transactions.</p>
+</div>
+<div class="management-page-actions"><button class="management-secondary-button" id="refreshInvoices" type="button">Refresh</button><a class="management-primary-button" href="admin-invoice-management.html" id="newInvoiceManagementButton">+ New invoice</a></div>
+</header>
+<div class="invoice-stat-grid">
+<article><span>$</span><div><small>Total invoiced</small><strong id="statTotalInvoiced">—</strong><em>All invoices</em></div></article>
+<article><span>✓</span><div><small>Collected</small><strong id="statCollected">—</strong><em>Recorded payments</em></div></article>
+<article><span>◷</span><div><small>Outstanding</small><strong id="statOutstanding">—</strong><em>Open balance</em></div></article>
+<article><span>!</span><div><small>Overdue</small><strong id="statOverdue">—</strong><em>Past due invoices</em></div></article>
+</div>
+<section class="invoice-table-card">
+<div class="invoice-toolbar">
+<label class="invoice-search-field"><span>⌕</span><input id="invoiceSearch" placeholder="Search invoice, customer, email, order or tracking number" type="search"/></label>
+<div><select id="invoiceStatusFilter"><option value="">All invoice statuses</option></select><select id="paymentStatusFilter"><option value="">All payment statuses</option></select><select id="invoiceSort"><option value="created">Newest first</option><option value="due">Due date</option><option value="amount">Highest amount</option><option value="balance">Highest balance</option></select></div>
+</div>
+<div class="invoice-table-wrap"><table class="invoice-table"><thead><tr><th>Invoice</th><th>Customer</th><th>Status</th><th>Payment</th><th>Total</th><th>Balance</th><th>Due</th><th></th></tr></thead><tbody id="invoiceTableBody"><tr><td colspan="8"><div class="invoice-empty">Loading invoices…</div></td></tr></tbody></table></div>
+<footer class="invoice-table-footer"><span id="invoiceResultCount">—</span><div><button id="invoicePrev" type="button">Previous</button><span id="invoicePageLabel">Page 1</span><button id="invoiceNext" type="button">Next</button></div></footer>
+</section>
+</section>
 </main>
 </div>
-
 <script src="assets/js/navigation.js"></script>
 <script src="assets/js/invoice-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>

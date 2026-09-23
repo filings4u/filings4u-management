@@ -1,97 +1,85 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
 <title>filings4u Admin | Compliance Management</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/compliance-manager.css">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/compliance-manager.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
 <body class="management-body compliance-manager-body" data-management-page="compliance">
 <header class="management-topbar">
-  <div class="management-topbar__left">
-    <button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
-    <button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
-    <a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a>
-  </div>
-  <div class="management-topbar__center"><button class="global-search-trigger" id="complianceSearchTrigger" type="button"><span>⌕</span><span>Search compliance...</span><kbd>/</kbd></button></div>
-  <div class="management-topbar__right"><button class="management-create-button" id="newDeadlineTop" type="button">+ New deadline</button><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials>AD</span><span class="management-profile-copy"><strong data-admin-name>Administrator</strong><small data-admin-email>Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" id="managementProfileMenu" hidden><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users & roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
+<div class="management-topbar__left">
+<button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
+<button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
+<a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a>
+</div>
+<div class="management-topbar__center"><button class="global-search-trigger" id="complianceSearchTrigger" type="button"><span>⌕</span><span>Search compliance...</span><kbd>/</kbd></button></div>
+<div class="management-topbar__right"><button class="management-create-button" id="newDeadlineTop" type="button">+ New deadline</button><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials="">AD</span><span class="management-profile-copy"><strong data-admin-name="">Administrator</strong><small data-admin-email="">Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" hidden="" id="managementProfileMenu"><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users &amp; roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
 </header>
 <div class="management-shell">
 <aside class="management-sidebar" id="managementSidebar">
-  <div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div>
-<nav
-  class="management-nav"
-  id="managementNavigation"
-  data-management-navigation
-  aria-label="Management navigation">
+<div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div>
+<nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation">
 </nav></aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main compliance-main">
 <section id="complianceListView">
-  <header class="management-page-head business-page-head">
-    <div>
-      <span class="management-kicker">Business · Compliance</span>
-      <h1>Compliance Management</h1>
-      <p>Manage entity compliance records, renewal obligations, filing deadlines, jurisdictions, audit status and customer compliance history.</p>
-    </div>
-    <div class="management-page-actions"><button class="management-secondary-button" id="refreshCompliance" type="button">Refresh</button><button class="management-primary-button" id="newDeadlineButton" type="button">+ New deadline</button></div>
-  </header>
-
-  <div class="compliance-stat-grid">
-    <article><span>✓</span><div><small>Compliance records</small><strong id="statRecords">—</strong><em>Customer obligations</em></div></article>
-    <article><span>◷</span><div><small>Due soon</small><strong id="statDueSoon">—</strong><em>Next 30 days</em></div></article>
-    <article><span>!</span><div><small>Past due</small><strong id="statPastDue">—</strong><em>Needs attention</em></div></article>
-    <article><span>◎</span><div><small>Jurisdictions</small><strong id="statStates">—</strong><em>States represented</em></div></article>
-  </div>
-
-  <section class="compliance-table-card">
-    <div class="compliance-toolbar">
-      <label class="compliance-search-field"><span>⌕</span><input id="complianceSearch" type="search" placeholder="Search entity, customer, filing, state or email"></label>
-      <div><select id="complianceStatusFilter"><option value="">All statuses</option></select><select id="complianceStateFilter"><option value="">All states</option></select><select id="complianceSort"><option value="renewal">Renewal date</option><option value="created">Newest added</option><option value="entity">Entity A–Z</option></select></div>
-    </div>
-    <div class="compliance-table-wrap"><table class="compliance-table"><thead><tr><th>Entity</th><th>Customer</th><th>Filing</th><th>State</th><th>Renewal</th><th>Status</th><th></th></tr></thead><tbody id="complianceTableBody"><tr><td colspan="7"><div class="compliance-empty">Loading compliance records…</div></td></tr></tbody></table></div>
-    <footer class="compliance-table-footer"><span id="complianceResultCount">—</span><div><button id="compliancePrev" type="button">Previous</button><span id="compliancePageLabel">Page 1</span><button id="complianceNext" type="button">Next</button></div></footer>
-  </section>
+<header class="management-page-head business-page-head">
+<div>
+<span class="management-kicker">Business · Compliance</span>
+<h1>Compliance Management</h1>
+<p>Manage entity compliance records, renewal obligations, filing deadlines, jurisdictions, audit status and customer compliance history.</p>
+</div>
+<div class="management-page-actions"><button class="management-secondary-button" id="refreshCompliance" type="button">Refresh</button><button class="management-primary-button" id="newDeadlineButton" type="button">+ New deadline</button></div>
+</header>
+<div class="compliance-stat-grid">
+<article><span>✓</span><div><small>Compliance records</small><strong id="statRecords">—</strong><em>Customer obligations</em></div></article>
+<article><span>◷</span><div><small>Due soon</small><strong id="statDueSoon">—</strong><em>Next 30 days</em></div></article>
+<article><span>!</span><div><small>Past due</small><strong id="statPastDue">—</strong><em>Needs attention</em></div></article>
+<article><span>◎</span><div><small>Jurisdictions</small><strong id="statStates">—</strong><em>States represented</em></div></article>
+</div>
+<section class="compliance-table-card">
+<div class="compliance-toolbar">
+<label class="compliance-search-field"><span>⌕</span><input id="complianceSearch" placeholder="Search entity, customer, filing, state or email" type="search"/></label>
+<div><select id="complianceStatusFilter"><option value="">All statuses</option></select><select id="complianceStateFilter"><option value="">All states</option></select><select id="complianceSort"><option value="renewal">Renewal date</option><option value="created">Newest added</option><option value="entity">Entity A–Z</option></select></div>
+</div>
+<div class="compliance-table-wrap"><table class="compliance-table"><thead><tr><th>Entity</th><th>Customer</th><th>Filing</th><th>State</th><th>Renewal</th><th>Status</th><th></th></tr></thead><tbody id="complianceTableBody"><tr><td colspan="7"><div class="compliance-empty">Loading compliance records…</div></td></tr></tbody></table></div>
+<footer class="compliance-table-footer"><span id="complianceResultCount">—</span><div><button id="compliancePrev" type="button">Previous</button><span id="compliancePageLabel">Page 1</span><button id="complianceNext" type="button">Next</button></div></footer>
 </section>
-
-<section id="complianceRecordView" hidden>
-  <div class="compliance-record-toolbar"><button class="compliance-back-button" id="complianceBackButton" type="button">← Compliance</button><div><button class="management-secondary-button" id="openCustomerButton" type="button">Open customer</button><button class="management-primary-button" id="editComplianceButton" type="button">Edit record</button></div></div>
-  <section class="compliance-record-hero">
-    <div class="compliance-record-identity"><div class="compliance-record-icon">✓</div><div><div class="compliance-record-title-line"><h1 id="recordEntity">Entity</h1><span id="recordStatus" class="status-pill">—</span></div><p id="recordFiling">—</p><div class="compliance-record-meta"><span id="recordEmail">—</span><b>•</b><span id="recordState">—</span><b>•</b><span id="recordCreated">—</span></div></div></div>
-    <div class="compliance-record-summary"><div><small>Renewal date</small><strong id="recordRenewal">—</strong></div><div><small>Days remaining</small><strong id="recordDays">—</strong></div><div><small>Jurisdiction</small><strong id="recordJurisdiction">—</strong></div><div><small>Audit status</small><strong id="recordAudit">—</strong></div></div>
-  </section>
-  <nav class="compliance-record-tabs"><button class="is-active" data-tab="overview">Overview</button><button data-tab="deadlines">Deadlines</button><button data-tab="audit">Audit</button><button data-tab="customer">Customer</button></nav>
-  <div class="compliance-record-panels">
-    <section class="compliance-record-panel is-active" data-panel="overview"><div class="compliance-overview-grid"><article class="compliance-detail-card"><div class="card-head"><div><span class="management-kicker">Compliance</span><h2>Record details</h2></div><button class="text-action" data-edit-record>Edit</button></div><dl id="recordDetails"></dl></article><article class="compliance-detail-card"><div class="card-head"><div><span class="management-kicker">Timeline</span><h2>Renewal health</h2></div></div><div id="renewalHealth" class="renewal-health"></div></article></div></section>
-    <section class="compliance-record-panel" data-panel="deadlines"><div class="section-head"><span class="management-kicker">Deadlines</span><h2>Related compliance deadlines</h2></div><div id="deadlineList" class="compliance-data-list"></div></section>
-    <section class="compliance-record-panel" data-panel="audit"><div class="section-head"><span class="management-kicker">Audit</span><h2>Administrative compliance audit</h2></div><div id="auditList" class="compliance-data-list"></div></section>
-    <section class="compliance-record-panel" data-panel="customer"><div class="compliance-overview-grid"><article class="compliance-detail-card"><div class="card-head"><div><span class="management-kicker">Customer</span><h2>Customer profile</h2></div></div><dl id="customerDetails"></dl></article><article class="compliance-detail-card"><div class="card-head"><div><span class="management-kicker">Other records</span><h2>Customer compliance</h2></div></div><div id="customerComplianceList"></div></article></div></section>
-  </div>
+</section>
+<section hidden="" id="complianceRecordView">
+<div class="compliance-record-toolbar"><button class="compliance-back-button" id="complianceBackButton" type="button">← Compliance</button><div><button class="management-secondary-button" id="openCustomerButton" type="button">Open customer</button><button class="management-primary-button" id="editComplianceButton" type="button">Edit record</button></div></div>
+<section class="compliance-record-hero">
+<div class="compliance-record-identity"><div class="compliance-record-icon">✓</div><div><div class="compliance-record-title-line"><h1 id="recordEntity">Entity</h1><span class="status-pill" id="recordStatus">—</span></div><p id="recordFiling">—</p><div class="compliance-record-meta"><span id="recordEmail">—</span><b>•</b><span id="recordState">—</span><b>•</b><span id="recordCreated">—</span></div></div></div>
+<div class="compliance-record-summary"><div><small>Renewal date</small><strong id="recordRenewal">—</strong></div><div><small>Days remaining</small><strong id="recordDays">—</strong></div><div><small>Jurisdiction</small><strong id="recordJurisdiction">—</strong></div><div><small>Audit status</small><strong id="recordAudit">—</strong></div></div>
+</section>
+<nav class="compliance-record-tabs"><button class="is-active" data-tab="overview">Overview</button><button data-tab="deadlines">Deadlines</button><button data-tab="audit">Audit</button><button data-tab="customer">Customer</button></nav>
+<div class="compliance-record-panels">
+<section class="compliance-record-panel is-active" data-panel="overview"><div class="compliance-overview-grid"><article class="compliance-detail-card"><div class="card-head"><div><span class="management-kicker">Compliance</span><h2>Record details</h2></div><button class="text-action" data-edit-record="">Edit</button></div><dl id="recordDetails"></dl></article><article class="compliance-detail-card"><div class="card-head"><div><span class="management-kicker">Timeline</span><h2>Renewal health</h2></div></div><div class="renewal-health" id="renewalHealth"></div></article></div></section>
+<section class="compliance-record-panel" data-panel="deadlines"><div class="section-head"><span class="management-kicker">Deadlines</span><h2>Related compliance deadlines</h2></div><div class="compliance-data-list" id="deadlineList"></div></section>
+<section class="compliance-record-panel" data-panel="audit"><div class="section-head"><span class="management-kicker">Audit</span><h2>Administrative compliance audit</h2></div><div class="compliance-data-list" id="auditList"></div></section>
+<section class="compliance-record-panel" data-panel="customer"><div class="compliance-overview-grid"><article class="compliance-detail-card"><div class="card-head"><div><span class="management-kicker">Customer</span><h2>Customer profile</h2></div></div><dl id="customerDetails"></dl></article><article class="compliance-detail-card"><div class="card-head"><div><span class="management-kicker">Other records</span><h2>Customer compliance</h2></div></div><div id="customerComplianceList"></div></article></div></section>
+</div>
 </section>
 </main>
 </div>
-
-<div class="compliance-modal" id="editComplianceModal" hidden><div class="compliance-modal__backdrop" data-close-edit></div><section class="compliance-modal__card"><header><div><span class="management-kicker">Compliance</span><h2>Edit compliance record</h2></div><button data-close-edit type="button">×</button></header><form id="editComplianceForm"><div class="compliance-form-grid"><label class="full">Entity name<input name="entity_name" required></label><label>Filing type<input name="filing_type" required></label><label>State<input name="state_jurisdiction" maxlength="2" required></label><label>Renewal date<input name="renewal_date" type="date" required></label><label>Fulfillment slug<input name="fulfillment_slug"></label><label>Vault category<input name="asset_vault_category"></label></div><footer><button class="management-secondary-button" data-close-edit type="button">Cancel</button><button class="management-primary-button" type="submit">Save record</button></footer></form></section></div>
-
-<div class="compliance-modal" id="newDeadlineModal" hidden><div class="compliance-modal__backdrop" data-close-new></div><section class="compliance-modal__card"><header><div><span class="management-kicker">Compliance deadline</span><h2>New deadline</h2></div><button data-close-new type="button">×</button></header><form id="newDeadlineForm"><div class="compliance-form-grid"><label>Customer name<input name="client_name" required></label><label>Email<input name="client_email" type="email" required></label><label class="full">Company / entity<input name="company_name" required></label><label class="full">Filing name<input name="filing_name" required></label><label>Expiration date<input name="expiration_date" type="date" required></label><label>Status<input name="status" value="Payment Pending" required></label></div><footer><button class="management-secondary-button" data-close-new type="button">Cancel</button><button class="management-primary-button" type="submit">Create deadline</button></footer></form></section></div>
-
+<div class="compliance-modal" hidden="" id="editComplianceModal"><div class="compliance-modal__backdrop" data-close-edit=""></div><section class="compliance-modal__card"><header><div><span class="management-kicker">Compliance</span><h2>Edit compliance record</h2></div><button data-close-edit="" type="button">×</button></header><form id="editComplianceForm"><div class="compliance-form-grid"><label class="full">Entity name<input name="entity_name" required=""/></label><label>Filing type<input name="filing_type" required=""/></label><label>State<input maxlength="2" name="state_jurisdiction" required=""/></label><label>Renewal date<input name="renewal_date" required="" type="date"/></label><label>Fulfillment slug<input name="fulfillment_slug"/></label><label>Vault category<input name="asset_vault_category"/></label></div><footer><button class="management-secondary-button" data-close-edit="" type="button">Cancel</button><button class="management-primary-button" type="submit">Save record</button></footer></form></section></div>
+<div class="compliance-modal" hidden="" id="newDeadlineModal"><div class="compliance-modal__backdrop" data-close-new=""></div><section class="compliance-modal__card"><header><div><span class="management-kicker">Compliance deadline</span><h2>New deadline</h2></div><button data-close-new="" type="button">×</button></header><form id="newDeadlineForm"><div class="compliance-form-grid"><label>Customer name<input name="client_name" required=""/></label><label>Email<input name="client_email" required="" type="email"/></label><label class="full">Company / entity<input name="company_name" required=""/></label><label class="full">Filing name<input name="filing_name" required=""/></label><label>Expiration date<input name="expiration_date" required="" type="date"/></label><label>Status<input name="status" required="" value="Payment Pending"/></label></div><footer><button class="management-secondary-button" data-close-new="" type="button">Cancel</button><button class="management-primary-button" type="submit">Create deadline</button></footer></form></section></div>
 <script src="assets/js/navigation.js"></script>
 <script src="assets/js/compliance-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>

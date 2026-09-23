@@ -1,145 +1,127 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
 <title>filings4u Admin | Settings Management</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/settings-manager.css">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/settings-manager.css" rel="stylesheet"/>
 </head>
-
 <body class="management-body settings-manager-body" data-management-page="settings">
 <header class="management-topbar">
-  <div class="management-topbar__left">
-    <button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
-    <button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
-    <a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a>
-  </div>
-  <div class="management-topbar__center"><button class="global-search-trigger" id="settingsSearchTrigger" type="button"><span>⌕</span><span>Search settings...</span><kbd>/</kbd></button></div>
-  <div class="management-topbar__right"><button class="management-create-button" id="saveSettingsTop" type="button">Save settings</button></div>
+<div class="management-topbar__left">
+<button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
+<button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
+<a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a>
+</div>
+<div class="management-topbar__center"><button class="global-search-trigger" id="settingsSearchTrigger" type="button"><span>⌕</span><span>Search settings...</span><kbd>/</kbd></button></div>
+<div class="management-topbar__right"><button class="management-create-button" id="saveSettingsTop" type="button">Save settings</button></div>
 </header>
-
 <div class="management-shell">
 <aside class="management-sidebar" id="managementSidebar">
-  <div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div>
-  <nav class="management-nav" id="managementNavigation" data-management-navigation aria-label="Management navigation"></nav>
+<div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div>
+<nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation"></nav>
 </aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main settings-main">
 <header class="management-page-head settings-page-head">
-  <div><span class="management-kicker">Platform · Configuration</span><h1>Settings Management</h1><p>Control website mode, customer portal options, operational endpoints, processing fees and scheduling preferences.</p></div>
-  <div class="management-page-actions"><button class="management-secondary-button" id="refreshSettings" type="button">Refresh</button><button class="management-primary-button" id="saveSettings" type="button">Save changes</button></div>
+<div><span class="management-kicker">Platform · Configuration</span><h1>Settings Management</h1><p>Control website mode, customer portal options, operational endpoints, processing fees and scheduling preferences.</p></div>
+<div class="management-page-actions"><button class="management-secondary-button" id="refreshSettings" type="button">Refresh</button><button class="management-primary-button" id="saveSettings" type="button">Save changes</button></div>
 </header>
-
 <div class="settings-layout">
-  <aside class="settings-menu">
-    <button class="is-active" data-settings-tab="general"><span>⚙</span><div><strong>General</strong><small>Website mode & announcements</small></div></button>
-    <button data-settings-tab="portal"><span>◫</span><div><strong>Client Portal</strong><small>Portal access & visibility</small></div></button>
-    <button data-settings-tab="fees"><span>$</span><div><strong>Processing Fees</strong><small>Platform fee defaults</small></div></button>
-    <button data-settings-tab="endpoints"><span>⌁</span><div><strong>Endpoints</strong><small>Webhook & email destinations</small></div></button>
-    <button data-settings-tab="scheduling"><span>□</span><div><strong>Scheduling</strong><small>Business hours & buffers</small></div></button>
-    <button data-settings-tab="random"><span>◇</span><div><strong>Random Pool</strong><small>DOT testing pool settings</small></div></button>
-  </aside>
-
-  <section class="settings-content">
-    <section class="settings-panel is-active" data-settings-panel="general">
-      <div class="panel-head"><div><span class="management-kicker">General</span><h2>Website configuration</h2><p>Core operating controls for the public website.</p></div><span id="generalStatus" class="settings-state">Loaded</span></div>
-
-      <div class="settings-card">
-        <div class="setting-row">
-          <div><strong>Website operating mode</strong><small>Controls the current operating state of the public website.</small></div>
-          <select id="websiteOperatingMode"><option value="production">Production</option><option value="maintenance">Maintenance</option><option value="staging">Staging</option></select>
-        </div>
-        <div class="setting-row">
-          <div><strong>Maintenance interlock</strong><small>Enable or disable the platform-wide maintenance mode interlock.</small></div>
-          <label class="switch"><input id="maintenanceMode" type="checkbox"><span></span></label>
-        </div>
-        <label class="stacked-setting"><span><strong>Website announcement</strong><small>Optional message displayed or used by website components.</small></span><textarea id="websiteAnnouncement" rows="4" placeholder="Enter a website announcement"></textarea></label>
-      </div>
-    </section>
-
-    <section class="settings-panel" data-settings-panel="portal">
-      <div class="panel-head"><div><span class="management-kicker">Client Portal</span><h2>Portal configuration</h2><p>Control availability and visible portal modules.</p></div></div>
-
-      <div class="settings-card">
-        <div class="setting-row"><div><strong>Client portal enabled</strong><small>Allow customers to access the client portal.</small></div><label class="switch"><input id="clientPortalEnabled" type="checkbox"><span></span></label></div>
-        <div class="setting-row"><div><strong>Show customer orders</strong><small>Display the Orders section inside the client portal.</small></div><label class="switch"><input id="clientPortalShowOrders" type="checkbox"><span></span></label></div>
-        <div class="setting-row"><div><strong>Show support</strong><small>Display support tools inside the client portal.</small></div><label class="switch"><input id="clientPortalShowSupport" type="checkbox"><span></span></label></div>
-        <label class="stacked-setting"><span><strong>Portal announcement</strong><small>Optional customer-facing portal notice.</small></span><textarea id="clientPortalAnnouncement" rows="4" placeholder="Enter a customer portal announcement"></textarea></label>
-      </div>
-    </section>
-
-    <section class="settings-panel" data-settings-panel="fees">
-      <div class="panel-head"><div><span class="management-kicker">Processing Fees</span><h2>Default platform fees</h2><p>Manage baseline processing fee amounts used by the platform.</p></div></div>
-
-      <div class="settings-card">
-        <label class="money-setting"><span><strong>Starter base processing fee</strong><small>Default starter plan processing fee.</small></span><div><b>$</b><input id="starterFee" type="number" step="0.01" min="0"></div></label>
-        <label class="money-setting"><span><strong>Premium suite processing fee</strong><small>Default premium processing fee.</small></span><div><b>$</b><input id="premiumFee" type="number" step="0.01" min="0"></div></label>
-        <label class="money-setting"><span><strong>State disbursement baseline</strong><small>Baseline amount used for state disbursement defaults.</small></span><div><b>$</b><input id="stateDisbursementFee" type="number" step="0.01" min="0"></div></label>
-      </div>
-    </section>
-
-    <section class="settings-panel" data-settings-panel="endpoints">
-      <div class="panel-head"><div><span class="management-kicker">Endpoints</span><h2>Operational endpoints</h2><p>Public destination URLs only. Secret credentials must remain server-side.</p></div></div>
-
-      <div class="settings-card">
-        <label class="stacked-setting"><span><strong>Stripe webhook receiver URL</strong><small>Destination used by platform configuration for Stripe webhook processing.</small></span><input id="stripeWebhookUrl" type="url" placeholder="https://..."></label>
-        <label class="stacked-setting"><span><strong>Transactional email endpoint URL</strong><small>Destination used for transactional email processing.</small></span><input id="transactionalEmailUrl" type="url" placeholder="https://..."></label>
-        <div class="security-callout"><span>⌾</span><div><strong>Do not store credentials here</strong><p>Signing secrets, private API keys and Supabase service-role keys should remain in secure server-side environment variables or Edge Function secrets.</p></div></div>
-      </div>
-    </section>
-
-    <section class="settings-panel" data-settings-panel="scheduling">
-      <div class="panel-head"><div><span class="management-kicker">Scheduling</span><h2>Business hours</h2><p>Configure the existing scheduling settings record.</p></div></div>
-
-      <div class="settings-card">
-        <div id="schedulingRecordPicker" class="record-picker"></div>
-        <div class="form-grid">
-          <label>Opening time<input id="openingTime" type="time"></label>
-          <label>Closing time<input id="closingTime" type="time"></label>
-          <label>Buffer minutes<input id="bufferMinutes" type="number" min="0" step="5"></label>
-        </div>
-        <label class="stacked-setting"><span><strong>Blocked date slots</strong><small>JSON object used by the scheduling engine.</small></span><textarea id="blockedSlots" rows="8" spellcheck="false"></textarea></label>
-        <button class="management-secondary-button" id="saveScheduling" type="button">Save scheduling settings</button>
-      </div>
-    </section>
-
-    <section class="settings-panel" data-settings-panel="random">
-      <div class="panel-head"><div><span class="management-kicker">DOT Random Pool</span><h2>Testing pool settings</h2><p>Manage existing random pool rates, agencies and selection frequency.</p></div></div>
-
-      <div class="settings-card">
-        <div class="random-toolbar"><select id="randomPoolPicker"></select><button class="management-secondary-button" id="refreshRandomPool" type="button">Refresh</button></div>
-        <div class="form-grid">
-          <label>Pool type<input id="poolType"></label>
-          <label>DOT agency<input id="dotAgency"></label>
-          <label>Drug rate (%)<input id="drugRate" type="number" min="0" max="100" step="0.01"></label>
-          <label>Alcohol rate (%)<input id="alcoholRate" type="number" min="0" max="100" step="0.01"></label>
-          <label>Selection frequency<select id="selectionFrequency"><option value="monthly">Monthly</option><option value="quarterly">Quarterly</option><option value="semiannual">Semiannual</option><option value="annual">Annual</option></select></label>
-          <label class="inline-check">Active<input id="randomPoolActive" type="checkbox"></label>
-        </div>
-        <button class="management-secondary-button" id="saveRandomPool" type="button">Save random pool settings</button>
-      </div>
-    </section>
-  </section>
+<aside class="settings-menu">
+<button class="is-active" data-settings-tab="general"><span>⚙</span><div><strong>General</strong><small>Website mode &amp; announcements</small></div></button>
+<button data-settings-tab="portal"><span>◫</span><div><strong>Client Portal</strong><small>Portal access &amp; visibility</small></div></button>
+<button data-settings-tab="fees"><span>$</span><div><strong>Processing Fees</strong><small>Platform fee defaults</small></div></button>
+<button data-settings-tab="endpoints"><span>⌁</span><div><strong>Endpoints</strong><small>Webhook &amp; email destinations</small></div></button>
+<button data-settings-tab="scheduling"><span>□</span><div><strong>Scheduling</strong><small>Business hours &amp; buffers</small></div></button>
+<button data-settings-tab="random"><span>◇</span><div><strong>Random Pool</strong><small>DOT testing pool settings</small></div></button>
+</aside>
+<section class="settings-content">
+<section class="settings-panel is-active" data-settings-panel="general">
+<div class="panel-head"><div><span class="management-kicker">General</span><h2>Website configuration</h2><p>Core operating controls for the public website.</p></div><span class="settings-state" id="generalStatus">Loaded</span></div>
+<div class="settings-card">
+<div class="setting-row">
+<div><strong>Website operating mode</strong><small>Controls the current operating state of the public website.</small></div>
+<select id="websiteOperatingMode"><option value="production">Production</option><option value="maintenance">Maintenance</option><option value="staging">Staging</option></select>
+</div>
+<div class="setting-row">
+<div><strong>Maintenance interlock</strong><small>Enable or disable the platform-wide maintenance mode interlock.</small></div>
+<label class="switch"><input id="maintenanceMode" type="checkbox"/><span></span></label>
+</div>
+<label class="stacked-setting"><span><strong>Website announcement</strong><small>Optional message displayed or used by website components.</small></span><textarea id="websiteAnnouncement" placeholder="Enter a website announcement" rows="4"></textarea></label>
+</div>
+</section>
+<section class="settings-panel" data-settings-panel="portal">
+<div class="panel-head"><div><span class="management-kicker">Client Portal</span><h2>Portal configuration</h2><p>Control availability and visible portal modules.</p></div></div>
+<div class="settings-card">
+<div class="setting-row"><div><strong>Client portal enabled</strong><small>Allow customers to access the client portal.</small></div><label class="switch"><input id="clientPortalEnabled" type="checkbox"/><span></span></label></div>
+<div class="setting-row"><div><strong>Show customer orders</strong><small>Display the Orders section inside the client portal.</small></div><label class="switch"><input id="clientPortalShowOrders" type="checkbox"/><span></span></label></div>
+<div class="setting-row"><div><strong>Show support</strong><small>Display support tools inside the client portal.</small></div><label class="switch"><input id="clientPortalShowSupport" type="checkbox"/><span></span></label></div>
+<label class="stacked-setting"><span><strong>Portal announcement</strong><small>Optional customer-facing portal notice.</small></span><textarea id="clientPortalAnnouncement" placeholder="Enter a customer portal announcement" rows="4"></textarea></label>
+</div>
+</section>
+<section class="settings-panel" data-settings-panel="fees">
+<div class="panel-head"><div><span class="management-kicker">Processing Fees</span><h2>Default platform fees</h2><p>Manage baseline processing fee amounts used by the platform.</p></div></div>
+<div class="settings-card">
+<label class="money-setting"><span><strong>Starter base processing fee</strong><small>Default starter plan processing fee.</small></span><div><b>$</b><input id="starterFee" min="0" step="0.01" type="number"/></div></label>
+<label class="money-setting"><span><strong>Premium suite processing fee</strong><small>Default premium processing fee.</small></span><div><b>$</b><input id="premiumFee" min="0" step="0.01" type="number"/></div></label>
+<label class="money-setting"><span><strong>State disbursement baseline</strong><small>Baseline amount used for state disbursement defaults.</small></span><div><b>$</b><input id="stateDisbursementFee" min="0" step="0.01" type="number"/></div></label>
+</div>
+</section>
+<section class="settings-panel" data-settings-panel="endpoints">
+<div class="panel-head"><div><span class="management-kicker">Endpoints</span><h2>Operational endpoints</h2><p>Public destination URLs only. Secret credentials must remain server-side.</p></div></div>
+<div class="settings-card">
+<label class="stacked-setting"><span><strong>Stripe webhook receiver URL</strong><small>Destination used by platform configuration for Stripe webhook processing.</small></span><input id="stripeWebhookUrl" placeholder="https://..." type="url"/></label>
+<label class="stacked-setting"><span><strong>Transactional email endpoint URL</strong><small>Destination used for transactional email processing.</small></span><input id="transactionalEmailUrl" placeholder="https://..." type="url"/></label>
+<div class="security-callout"><span>⌾</span><div><strong>Do not store credentials here</strong><p>Signing secrets, private API keys and Supabase service-role keys should remain in secure server-side environment variables or Edge Function secrets.</p></div></div>
+</div>
+</section>
+<section class="settings-panel" data-settings-panel="scheduling">
+<div class="panel-head"><div><span class="management-kicker">Scheduling</span><h2>Business hours</h2><p>Configure the existing scheduling settings record.</p></div></div>
+<div class="settings-card">
+<div class="record-picker" id="schedulingRecordPicker"></div>
+<div class="form-grid">
+<label>Opening time<input id="openingTime" type="time"/></label>
+<label>Closing time<input id="closingTime" type="time"/></label>
+<label>Buffer minutes<input id="bufferMinutes" min="0" step="5" type="number"/></label>
+</div>
+<label class="stacked-setting"><span><strong>Blocked date slots</strong><small>JSON object used by the scheduling engine.</small></span><textarea id="blockedSlots" rows="8" spellcheck="false"></textarea></label>
+<button class="management-secondary-button" id="saveScheduling" type="button">Save scheduling settings</button>
+</div>
+</section>
+<section class="settings-panel" data-settings-panel="random">
+<div class="panel-head"><div><span class="management-kicker">DOT Random Pool</span><h2>Testing pool settings</h2><p>Manage existing random pool rates, agencies and selection frequency.</p></div></div>
+<div class="settings-card">
+<div class="random-toolbar"><select id="randomPoolPicker"></select><button class="management-secondary-button" id="refreshRandomPool" type="button">Refresh</button></div>
+<div class="form-grid">
+<label>Pool type<input id="poolType"/></label>
+<label>DOT agency<input id="dotAgency"/></label>
+<label>Drug rate (%)<input id="drugRate" max="100" min="0" step="0.01" type="number"/></label>
+<label>Alcohol rate (%)<input id="alcoholRate" max="100" min="0" step="0.01" type="number"/></label>
+<label>Selection frequency<select id="selectionFrequency"><option value="monthly">Monthly</option><option value="quarterly">Quarterly</option><option value="semiannual">Semiannual</option><option value="annual">Annual</option></select></label>
+<label class="inline-check">Active<input id="randomPoolActive" type="checkbox"/></label>
+</div>
+<button class="management-secondary-button" id="saveRandomPool" type="button">Save random pool settings</button>
+</div>
+</section>
+</section>
 </div>
 </main>
 </div>
-
 <script src="assets/js/navigation.js"></script>
 <script src="assets/js/settings-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>

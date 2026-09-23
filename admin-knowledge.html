@@ -1,245 +1,225 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#10b981">
-  <title>filings4u Admin | Knowledge Center Management</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/admin-management.css">
-  <link rel="stylesheet" href="assets/css/knowledge-manager.css">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
+<title>filings4u Admin | Knowledge Center Management</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/>
+<link href="assets/css/knowledge-manager.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
 <body class="management-body knowledge-manager-body" data-management-page="knowledge">
-
 <header class="management-topbar">
-  <div class="management-topbar__left">
-    <button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
-    <button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
-    <a class="management-brand" href="admin-management.html#home">
-      <img src="images/logo.png" alt="filings4u" class="management-logo">
-      <span class="management-brand-divider"></span>
-      <span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span>
-    </a>
-  </div>
-  <div class="management-topbar__center">
-    <button class="global-search-trigger" id="knowledgeSearchTrigger" type="button">
-      <span>⌕</span><span>Search knowledge...</span><kbd>/</kbd>
-    </button>
-  </div>
-  <div class="management-topbar__right">
-    <button class="management-create-button" id="newKnowledgeTop" type="button">+ New resource</button>
-    <div class="management-account">
-      <button class="management-profile-button" id="managementProfileButton" type="button">
-        <span class="management-avatar" data-admin-initials>AD</span>
-        <span class="management-profile-copy"><strong data-admin-name>Administrator</strong><small data-admin-email>Admin account</small></span>
-        <span>⌄</span>
-      </button>
-      <div class="management-profile-menu" id="managementProfileMenu" hidden>
-        <a href="admin-settings.html">My profile</a>
-        <a href="admin-management.html#users">Users & roles</a>
-        <button id="managementSignOut" type="button">Sign out</button>
-      </div>
-    </div>
-  </div>
+<div class="management-topbar__left">
+<button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
+<button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
+<a class="management-brand" href="admin-management.html#home">
+<img alt="filings4u" class="management-logo" src="images/logo.png"/>
+<span class="management-brand-divider"></span>
+<span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span>
+</a>
+</div>
+<div class="management-topbar__center">
+<button class="global-search-trigger" id="knowledgeSearchTrigger" type="button">
+<span>⌕</span><span>Search knowledge...</span><kbd>/</kbd>
+</button>
+</div>
+<div class="management-topbar__right">
+<button class="management-create-button" id="newKnowledgeTop" type="button">+ New resource</button>
+<div class="management-account">
+<button class="management-profile-button" id="managementProfileButton" type="button">
+<span class="management-avatar" data-admin-initials="">AD</span>
+<span class="management-profile-copy"><strong data-admin-name="">Administrator</strong><small data-admin-email="">Admin account</small></span>
+<span>⌄</span>
+</button>
+<div class="management-profile-menu" hidden="" id="managementProfileMenu">
+<a href="admin-settings.html">My profile</a>
+<a href="admin-management.html#users">Users &amp; roles</a>
+<button id="managementSignOut" type="button">Sign out</button>
+</div>
+</div>
+</div>
 </header>
-
 <div class="management-shell">
-  <aside class="management-sidebar" id="managementSidebar">
-    <div class="management-sidebar__intro">
-      <span><i></i> filings4u</span>
-      <strong>Management System</strong>
-      <small>Control the website, portals and business operations.</small>
-    </div>
-<nav
-  class="management-nav"
-  id="managementNavigation"
-  data-management-navigation
-  aria-label="Management navigation">
-</nav>  </aside>
-  <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
-  <main class="management-main knowledge-main">
-    <section id="knowledgeListView">
-      <header class="management-page-head knowledge-page-head">
-        <div>
-          <span class="management-kicker">Content · Knowledge Center</span>
-          <h1>Knowledge Center Management</h1>
-          <p>Create and manage guides, checklists, roadmaps and educational resources displayed in the public Knowledge Center.</p>
-        </div>
-        <div class="management-page-actions">
-          <button class="management-secondary-button" id="refreshKnowledge" type="button">Refresh</button>
-          <button class="management-primary-button" id="newKnowledgeButton" type="button">+ New resource</button>
-        </div>
-      </header>
-
-      <div class="knowledge-stat-grid">
-        <article><span>▧</span><div><small>Total resources</small><strong id="statTotal">—</strong><em>All content</em></div></article>
-        <article><span>✓</span><div><small>Published</small><strong id="statPublished">—</strong><em>Live resources</em></div></article>
-        <article><span>✎</span><div><small>Drafts</small><strong id="statDraft">—</strong><em>Work in progress</em></div></article>
-        <article><span>◇</span><div><small>Categories</small><strong id="statCategories">—</strong><em>Knowledge groups</em></div></article>
-      </div>
-
-      <section class="knowledge-table-card">
-        <div class="knowledge-toolbar">
-          <label class="knowledge-search"><span>⌕</span><input id="knowledgeSearch" type="search" placeholder="Search title, summary, category or type"></label>
-          <div>
-            <select id="categoryFilter"><option value="">All categories</option></select>
-            <select id="typeFilter"><option value="">All types</option></select>
-            <select id="statusFilter"><option value="">All statuses</option></select>
-            <select id="knowledgeSort">
-              <option value="order">Display order</option>
-              <option value="updated">Recently updated</option>
-              <option value="title">Title A–Z</option>
-            </select>
-          </div>
-        </div>
-        <div class="knowledge-table-wrap">
-          <table class="knowledge-table">
-            <thead><tr><th>Resource</th><th>Category</th><th>Type</th><th>Order</th><th>Status</th><th>Updated</th><th></th></tr></thead>
-            <tbody id="knowledgeTableBody"><tr><td colspan="7"><div class="knowledge-empty">Loading Knowledge Center content…</div></td></tr></tbody>
-          </table>
-        </div>
-        <footer class="knowledge-table-footer"><span id="knowledgeResultCount">—</span></footer>
-      </section>
-    </section>
-
-    <section id="knowledgeEditor" hidden>
-      <div class="knowledge-editor-toolbar">
-        <button class="knowledge-back" id="knowledgeBack" type="button">← Knowledge Center</button>
-        <div>
-          <span id="saveState" class="save-state">Draft</span>
-          <button class="management-secondary-button" id="previewKnowledge" type="button">Preview ↗</button>
-          <button class="management-secondary-button" id="saveKnowledge" type="button">Save draft</button>
-          <button class="management-primary-button" id="publishKnowledge" type="button">Publish</button>
-        </div>
-      </div>
-
-      <div class="knowledge-editor-layout">
-        <section class="knowledge-editor-main">
-          <div class="knowledge-editor-card">
-            <label class="title-field">Resource title<input id="knowledgeTitle" placeholder="Enter resource title"></label>
-
-            <div class="field-row">
-              <label>Slug<input id="knowledgeSlug"></label>
-              <label>Content type
+<aside class="management-sidebar" id="managementSidebar">
+<div class="management-sidebar__intro">
+<span><i></i> filings4u</span>
+<strong>Management System</strong>
+<small>Control the website, portals and business operations.</small>
+</div>
+<nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation">
+</nav> </aside>
+<button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
+<main class="management-main knowledge-main">
+<section id="knowledgeListView">
+<header class="management-page-head knowledge-page-head">
+<div>
+<span class="management-kicker">Content · Knowledge Center</span>
+<h1>Knowledge Center Management</h1>
+<p>Create and manage guides, checklists, roadmaps and educational resources displayed in the public Knowledge Center.</p>
+</div>
+<div class="management-page-actions">
+<button class="management-secondary-button" id="refreshKnowledge" type="button">Refresh</button>
+<button class="management-primary-button" id="newKnowledgeButton" type="button">+ New resource</button>
+</div>
+</header>
+<div class="knowledge-stat-grid">
+<article><span>▧</span><div><small>Total resources</small><strong id="statTotal">—</strong><em>All content</em></div></article>
+<article><span>✓</span><div><small>Published</small><strong id="statPublished">—</strong><em>Live resources</em></div></article>
+<article><span>✎</span><div><small>Drafts</small><strong id="statDraft">—</strong><em>Work in progress</em></div></article>
+<article><span>◇</span><div><small>Categories</small><strong id="statCategories">—</strong><em>Knowledge groups</em></div></article>
+</div>
+<section class="knowledge-table-card">
+<div class="knowledge-toolbar">
+<label class="knowledge-search"><span>⌕</span><input id="knowledgeSearch" placeholder="Search title, summary, category or type" type="search"/></label>
+<div>
+<select id="categoryFilter"><option value="">All categories</option></select>
+<select id="typeFilter"><option value="">All types</option></select>
+<select id="statusFilter"><option value="">All statuses</option></select>
+<select id="knowledgeSort">
+<option value="order">Display order</option>
+<option value="updated">Recently updated</option>
+<option value="title">Title A–Z</option>
+</select>
+</div>
+</div>
+<div class="knowledge-table-wrap">
+<table class="knowledge-table">
+<thead><tr><th>Resource</th><th>Category</th><th>Type</th><th>Order</th><th>Status</th><th>Updated</th><th></th></tr></thead>
+<tbody id="knowledgeTableBody"><tr><td colspan="7"><div class="knowledge-empty">Loading Knowledge Center content…</div></td></tr></tbody>
+</table>
+</div>
+<footer class="knowledge-table-footer"><span id="knowledgeResultCount">—</span></footer>
+</section>
+</section>
+<section hidden="" id="knowledgeEditor">
+<div class="knowledge-editor-toolbar">
+<button class="knowledge-back" id="knowledgeBack" type="button">← Knowledge Center</button>
+<div>
+<span class="save-state" id="saveState">Draft</span>
+<button class="management-secondary-button" id="previewKnowledge" type="button">Preview ↗</button>
+<button class="management-secondary-button" id="saveKnowledge" type="button">Save draft</button>
+<button class="management-primary-button" id="publishKnowledge" type="button">Publish</button>
+</div>
+</div>
+<div class="knowledge-editor-layout">
+<section class="knowledge-editor-main">
+<div class="knowledge-editor-card">
+<label class="title-field">Resource title<input id="knowledgeTitle" placeholder="Enter resource title"/></label>
+<div class="field-row">
+<label>Slug<input id="knowledgeSlug"/></label>
+<label>Content type
                 <select id="knowledgeType">
-                  <option value="Guide">Guide</option>
-                  <option value="Checklist">Checklist</option>
-                  <option value="Roadmap">Roadmap</option>
-                  <option value="Quick Guide">Quick Guide</option>
-                  <option value="Resource">Resource</option>
-                  <option value="Glossary">Glossary</option>
-                </select>
-              </label>
-            </div>
-
-            <label>Summary<textarea id="knowledgeSummary" rows="3" placeholder="Short description shown on Knowledge Center cards"></textarea></label>
-
-            <div class="editor-label-row">
-              <span>Resource content</span>
-              <div class="rich-toolbar" id="richToolbar">
-                <button type="button" data-cmd="bold"><b>B</b></button>
-                <button type="button" data-cmd="italic"><i>I</i></button>
-                <button type="button" data-block="h2">H2</button>
-                <button type="button" data-block="h3">H3</button>
-                <button type="button" data-cmd="insertUnorderedList">• List</button>
-                <button type="button" data-cmd="insertOrderedList">1. List</button>
-                <button type="button" data-cmd="createLink">Link</button>
-                <button type="button" data-block="p">P</button>
-              </div>
-            </div>
-            <div id="knowledgeContent" class="rich-editor" contenteditable="true" data-placeholder="Write the knowledge resource here..."></div>
-          </div>
-        </section>
-
-        <aside class="knowledge-editor-side">
-          <section class="knowledge-editor-card">
-            <span class="management-kicker">Publishing</span>
-            <h2>Resource settings</h2>
-            <label>Status
+<option value="Guide">Guide</option>
+<option value="Checklist">Checklist</option>
+<option value="Roadmap">Roadmap</option>
+<option value="Quick Guide">Quick Guide</option>
+<option value="Resource">Resource</option>
+<option value="Glossary">Glossary</option>
+</select>
+</label>
+</div>
+<label>Summary<textarea id="knowledgeSummary" placeholder="Short description shown on Knowledge Center cards" rows="3"></textarea></label>
+<div class="editor-label-row">
+<span>Resource content</span>
+<div class="rich-toolbar" id="richToolbar">
+<button data-cmd="bold" type="button"><b>B</b></button>
+<button data-cmd="italic" type="button"><i>I</i></button>
+<button data-block="h2" type="button">H2</button>
+<button data-block="h3" type="button">H3</button>
+<button data-cmd="insertUnorderedList" type="button">• List</button>
+<button data-cmd="insertOrderedList" type="button">1. List</button>
+<button data-cmd="createLink" type="button">Link</button>
+<button data-block="p" type="button">P</button>
+</div>
+</div>
+<div class="rich-editor" contenteditable="true" data-placeholder="Write the knowledge resource here..." id="knowledgeContent"></div>
+</div>
+</section>
+<aside class="knowledge-editor-side">
+<section class="knowledge-editor-card">
+<span class="management-kicker">Publishing</span>
+<h2>Resource settings</h2>
+<label>Status
               <select id="knowledgeStatus">
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-                <option value="archived">Archived</option>
-              </select>
-            </label>
-            <label>Category<input id="knowledgeCategory"></label>
-            <label>Subcategory<input id="knowledgeSubcategory"></label>
-            <label>Display order<input id="knowledgeOrder" type="number" min="0" step="1"></label>
-            <label class="switch-row"><span>Featured resource</span><input id="knowledgeFeatured" type="checkbox"></label>
-          </section>
-
-          <section class="knowledge-editor-card">
-            <span class="management-kicker">Featured image</span>
-            <h2>Resource image</h2>
-            <div class="image-uploader" id="knowledgeImageDrop">
-              <img id="knowledgeImagePreview" alt="" hidden>
-              <div id="knowledgeImageEmpty">
-                <strong>Upload an image</strong>
-                <span>PNG, JPG or WEBP</span>
-              </div>
-              <input id="knowledgeImageFile" type="file" accept="image/png,image/jpeg,image/webp" hidden>
-            </div>
-            <button class="management-secondary-button full-button" id="chooseKnowledgeImage" type="button">Choose image</button>
-            <input id="knowledgeImage" type="hidden">
-          </section>
-
-          <section class="knowledge-editor-card">
-            <span class="management-kicker">SEO</span>
-            <h2>Search settings</h2>
-            <label>SEO title<input id="knowledgeSeoTitle"></label>
-            <label>Meta description<textarea id="knowledgeSeoDescription" rows="4"></textarea></label>
-            <div class="seo-preview">
-              <small>Search preview</small>
-              <strong id="seoTitlePreview">Resource title</strong>
-              <span id="seoUrlPreview">filings4u.com/knowledge-center.html?slug=</span>
-              <p id="seoDescPreview">Add a meta description.</p>
-            </div>
-          </section>
-        </aside>
-      </div>
-    </section>
-  </main>
+<option value="draft">Draft</option>
+<option value="published">Published</option>
+<option value="archived">Archived</option>
+</select>
+</label>
+<label>Category<input id="knowledgeCategory"/></label>
+<label>Subcategory<input id="knowledgeSubcategory"/></label>
+<label>Display order<input id="knowledgeOrder" min="0" step="1" type="number"/></label>
+<label class="switch-row"><span>Featured resource</span><input id="knowledgeFeatured" type="checkbox"/></label>
+</section>
+<section class="knowledge-editor-card">
+<span class="management-kicker">Featured image</span>
+<h2>Resource image</h2>
+<div class="image-uploader" id="knowledgeImageDrop">
+<img alt="" hidden="" id="knowledgeImagePreview"/>
+<div id="knowledgeImageEmpty">
+<strong>Upload an image</strong>
+<span>PNG, JPG or WEBP</span>
 </div>
-
-<div class="knowledge-modal" id="newKnowledgeModal" hidden>
-  <div class="knowledge-modal__backdrop" data-close-new></div>
-  <section class="knowledge-modal__card">
-    <header><div><span class="management-kicker">Knowledge Center</span><h2>New resource</h2></div><button data-close-new type="button">×</button></header>
-    <form id="newKnowledgeForm">
-      <label>Resource title<input name="title" required></label>
-      <label>Slug<input name="slug" required></label>
-      <label>Category<input name="category"></label>
-      <label>Content type
+<input accept="image/png,image/jpeg,image/webp" hidden="" id="knowledgeImageFile" type="file"/>
+</div>
+<button class="management-secondary-button full-button" id="chooseKnowledgeImage" type="button">Choose image</button>
+<input id="knowledgeImage" type="hidden"/>
+</section>
+<section class="knowledge-editor-card">
+<span class="management-kicker">SEO</span>
+<h2>Search settings</h2>
+<label>SEO title<input id="knowledgeSeoTitle"/></label>
+<label>Meta description<textarea id="knowledgeSeoDescription" rows="4"></textarea></label>
+<div class="seo-preview">
+<small>Search preview</small>
+<strong id="seoTitlePreview">Resource title</strong>
+<span id="seoUrlPreview">filings4u.com/knowledge-center.html?slug=</span>
+<p id="seoDescPreview">Add a meta description.</p>
+</div>
+</section>
+</aside>
+</div>
+</section>
+</main>
+</div>
+<div class="knowledge-modal" hidden="" id="newKnowledgeModal">
+<div class="knowledge-modal__backdrop" data-close-new=""></div>
+<section class="knowledge-modal__card">
+<header><div><span class="management-kicker">Knowledge Center</span><h2>New resource</h2></div><button data-close-new="" type="button">×</button></header>
+<form id="newKnowledgeForm">
+<label>Resource title<input name="title" required=""/></label>
+<label>Slug<input name="slug" required=""/></label>
+<label>Category<input name="category"/></label>
+<label>Content type
         <select name="content_type">
-          <option>Guide</option><option>Checklist</option><option>Roadmap</option><option>Quick Guide</option><option>Resource</option><option>Glossary</option>
-        </select>
-      </label>
-      <footer>
-        <button class="management-secondary-button" data-close-new type="button">Cancel</button>
-        <button class="management-primary-button" type="submit">Create & edit</button>
-      </footer>
-    </form>
-  </section>
+<option>Guide</option><option>Checklist</option><option>Roadmap</option><option>Quick Guide</option><option>Resource</option><option>Glossary</option>
+</select>
+</label>
+<footer>
+<button class="management-secondary-button" data-close-new="" type="button">Cancel</button>
+<button class="management-primary-button" type="submit">Create &amp; edit</button>
+</footer>
+</form>
+</section>
 </div>
-
 <script src="assets/js/navigation.js"></script>
 <script src="assets/js/knowledge-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>

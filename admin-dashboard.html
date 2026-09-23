@@ -1,71 +1,69 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#10b981">
-  <title>filings4u Admin | Management System</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/admin-dashboard.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
+<title>filings4u Admin | Management System</title>
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-dashboard.css" rel="stylesheet"/>
 </head>
-<body class="portal-body" data-portal="admin" data-page="overview">
+<body class="portal-body" data-page="overview" data-portal="admin">
 <div id="adminNavigationMount"></div>
-  <div class="portal-layout">
-    <main class="portal-main">
-      <section class="view-panel is-active" data-panel="overview">
-        <div class="page-heading">
-          <div><span class="page-kicker">Management system</span><h1>Operations overview</h1><p>Manage filings4u clients, orders, applications, compliance work, service delivery, and support from one operating workspace.</p></div>
-          <button class="primary-button" id="createWorkItem" type="button">Create work item <span>→</span></button>
-        </div>
-        <div class="management-strip">
-          <article><span>Open orders</span><strong data-metric="orders">—</strong><small>Awaiting or in fulfillment</small></article>
-          <article><span>Active applications</span><strong data-metric="applications">—</strong><small>Currently being processed</small></article>
-          <article><span>Compliance items</span><strong data-metric="filings">—</strong><small>Open filing workload</small></article>
-          <article><span>Support queue</span><strong data-metric="tickets">—</strong><small>Tickets requiring action</small></article>
-        </div>
-        <div class="management-grid">
-          <section class="management-panel management-panel--wide">
-            <div class="panel-heading"><div><span class="page-kicker">Work queue</span><h2>Current operations</h2></div><button class="text-button" id="viewAllOrders" type="button">View all →</button></div>
-            <div class="data-table-wrap"><table class="data-table"><thead><tr><th>Tracking</th><th>Client</th><th>Service</th><th>Status</th><th>Paid</th><th></th></tr></thead><tbody id="adminOrderRows"><tr><td colspan="6" class="empty-state">Connect the shell to Supabase to load current work.</td></tr></tbody></table></div>
-          </section>
-          <aside class="management-panel">
-            <div class="panel-heading"><div><span class="page-kicker">Attention</span><h2>Priority actions</h2></div></div>
-            <div class="action-list" id="adminPriorityList"><div class="action-item"><span class="action-dot"></span><div><strong>Portal foundation</strong><small>Complete the RLS hardening migration before production data binding.</small></div></div></div>
-          </aside>
-        </div>
-      </section>
-
-      </main>
-<div class="work-item-menu" id="workItemMenu" hidden>
-  <div class="work-item-menu__card">
-    <div class="work-item-menu__head">
-      <div><span class="page-kicker">Quick action</span><h2>Create work item</h2></div>
-      <button id="closeWorkItemMenu" type="button" aria-label="Close">×</button>
-    </div>
-    <div class="work-item-actions">
-      <button type="button" data-work-target="admin-orders.html">Manage orders <span>→</span></button>
-      <button type="button" data-work-target="admin-invoices.html?new=1">Create invoice <span>→</span></button>
-      <button type="button" data-work-target="admin-applications.html">Manage filing/application <span>→</span></button>
-      <button type="button" data-work-target="admin-design.html?new=1">Create design project <span>→</span></button>
-      <button type="button" data-work-target="admin-support.html">Open support queue <span>→</span></button>
-    </div>
-  </div>
+<div class="portal-layout">
+<main class="portal-main">
+<section class="view-panel is-active" data-panel="overview">
+<div class="page-heading">
+<div><span class="page-kicker">Management system</span><h1>Operations overview</h1><p>Manage filings4u clients, orders, applications, compliance work, service delivery, and support from one operating workspace.</p></div>
+<button class="primary-button" id="createWorkItem" type="button">Create work item <span>→</span></button>
 </div>
-  </div>
+<div class="management-strip">
+<article><span>Open orders</span><strong data-metric="orders">—</strong><small>Awaiting or in fulfillment</small></article>
+<article><span>Active applications</span><strong data-metric="applications">—</strong><small>Currently being processed</small></article>
+<article><span>Compliance items</span><strong data-metric="filings">—</strong><small>Open filing workload</small></article>
+<article><span>Support queue</span><strong data-metric="tickets">—</strong><small>Tickets requiring action</small></article>
+</div>
+<div class="management-grid">
+<section class="management-panel management-panel--wide">
+<div class="panel-heading"><div><span class="page-kicker">Work queue</span><h2>Current operations</h2></div><button class="text-button" id="viewAllOrders" type="button">View all →</button></div>
+<div class="data-table-wrap"><table class="data-table"><thead><tr><th>Tracking</th><th>Client</th><th>Service</th><th>Status</th><th>Paid</th><th></th></tr></thead><tbody id="adminOrderRows"><tr><td class="empty-state" colspan="6">Connect the shell to Supabase to load current work.</td></tr></tbody></table></div>
+</section>
+<aside class="management-panel">
+<div class="panel-heading"><div><span class="page-kicker">Attention</span><h2>Priority actions</h2></div></div>
+<div class="action-list" id="adminPriorityList"><div class="action-item"><span class="action-dot"></span><div><strong>Portal foundation</strong><small>Complete the RLS hardening migration before production data binding.</small></div></div></div>
+</aside>
+</div>
+</section>
+</main>
+<div class="work-item-menu" hidden="" id="workItemMenu">
+<div class="work-item-menu__card">
+<div class="work-item-menu__head">
+<div><span class="page-kicker">Quick action</span><h2>Create work item</h2></div>
+<button aria-label="Close" id="closeWorkItemMenu" type="button">×</button>
+</div>
+<div class="work-item-actions">
+<button data-work-target="admin-orders.html" type="button">Manage orders <span>→</span></button>
+<button data-work-target="admin-invoices.html?new=1" type="button">Create invoice <span>→</span></button>
+<button data-work-target="admin-applications.html" type="button">Manage filing/application <span>→</span></button>
+<button data-work-target="admin-design.html?new=1" type="button">Create design project <span>→</span></button>
+<button data-work-target="admin-support.html" type="button">Open support queue <span>→</span></button>
+</div>
+</div>
+</div>
+</div>
 <!-- ADMIN PROTECTED PAGE -->
 <script src="assets/js/admin-navigation.js"></script>
 <script src="assets/js/admin-dashboard.js"></script>

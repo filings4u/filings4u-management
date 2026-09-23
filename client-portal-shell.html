@@ -1,59 +1,53 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/client-auth-guard.js"></script>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#10b981">
-  <title>filings4u | Client Portal</title>
-  <link href="images/fav.png" rel="icon" type="image/png"/>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/client-portal-shell.css">
-</head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
+<title>filings4u | Client Portal</title>
+<link href="images/fav.png" rel="icon" type="image/png">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/client-portal-shell.css" rel="stylesheet"/>
+</link></head>
 <body data-portal="client">
-  <header class="client-header">
-    <a class="client-brand" href="#"><span class="client-brand__mark">f4u</span><span><strong>filings4u</strong><small>Client Portal</small></span></a>
-    <nav class="client-nav" aria-label="Client portal navigation">
-      <a class="is-active" href="#home" data-view="home">Dashboard</a>
-      <a href="#orders" data-view="orders">Orders</a>
-      <a href="#filings" data-view="filings">Filings</a>
-      <a href="#documents" data-view="documents">Documents</a>
-      <a href="#support" data-view="support">Support</a>
-    </nav>
-    <button class="client-profile" type="button"><span class="avatar">C</span><span><strong id="clientName">My Account</strong><small id="clientCompany">filings4u client</small></span></button>
-  </header>
-
-  <main class="client-main">
-    <section class="client-view is-active" data-panel="home">
-      <div class="client-hero">
-        <div><span class="eyebrow"><i></i> Secure compliance workspace</span><h1>Your business,<br><span>organized.</span></h1><p>Track orders, filing progress, compliance items, documents, and support in one secure portal.</p><div class="hero-actions"><a class="button button--primary" href="#orders" data-view="orders">View my orders →</a><a class="button button--secondary" href="checkout.html">Start a new service</a></div></div>
-        <div class="health-card"><div class="health-card__top"><div><small>COMPLIANCE OVERVIEW</small><h2>Account status</h2></div><span class="status-pill"><i></i> Active</span></div><div class="health-score"><div class="score-ring"><strong>—</strong><small>Health</small></div><div><strong>Stay on track</strong><p>Your active work and upcoming compliance items will appear here.</p></div></div><div class="quick-list"><div><span>✓</span><div><strong>Business entities</strong><small id="entitySummary">Loading when connected</small></div></div><div><span>↗</span><div><strong>Active filings</strong><small id="filingSummary">Loading when connected</small></div></div><div><span>#</span><div><strong>Documents</strong><small id="documentSummary">Secure records in one place</small></div></div></div></div>
-      </div>
-      <section class="client-section"><div class="section-heading"><div><span class="section-kicker">At a glance</span><h2>What needs your attention</h2></div></div><div class="client-grid"><article class="summary-card"><span>Open orders</span><strong data-metric="orders">—</strong><small>Orders being prepared or fulfilled</small></article><article class="summary-card"><span>Active filings</span><strong data-metric="filings">—</strong><small>Current filing work</small></article><article class="summary-card"><span>Unread updates</span><strong data-metric="notifications">—</strong><small>Portal notices and status updates</small></article><article class="summary-card"><span>Support tickets</span><strong data-metric="tickets">—</strong><small>Open customer service requests</small></article></div></section>
-      <section class="client-section client-section--soft"><div class="section-heading"><div><span class="section-kicker">Recent activity</span><h2>Your current work</h2></div><a href="#orders" data-view="orders">View all →</a></div><div class="activity-panel" id="clientActivity"><div class="empty-state">Your orders and filing milestones will populate here after Supabase binding.</div></div></section>
-    </section>
-
-    <section class="client-view" data-panel="orders"><div class="page-heading"><span class="section-kicker">Purchases & fulfillment</span><h1>My orders</h1><p>Review services purchased, payment details, and fulfillment status.</p></div><div class="content-card"><div class="empty-state">Order workspace</div></div></section>
-    <section class="client-view" data-panel="filings"><div class="page-heading"><span class="section-kicker">Compliance work</span><h1>My filings</h1><p>Follow application milestones, government submissions, deadlines, and completion status.</p></div><div class="content-card"><div class="empty-state">Filing workspace</div></div></section>
-    <section class="client-view" data-panel="documents"><div class="page-heading"><span class="section-kicker">Secure records</span><h1>Documents</h1><p>Access completed filings, receipts, notices, and uploaded documents.</p></div><div class="content-card"><div class="empty-state">Document library</div></div></section>
-    <section class="client-view" data-panel="support"><div class="page-heading"><span class="section-kicker">Help center</span><h1>Support</h1><p>Create and track support requests related to your orders and filings.</p></div><div class="content-card"><div class="empty-state">Support workspace</div></div></section>
-  </main>
-
-  
-  <script src="assets/js/client-portal-shell.js"></script>
+<header class="client-header">
+<a class="client-brand" href="#"><span class="client-brand__mark">f4u</span><span><strong>filings4u</strong><small>Client Portal</small></span></a>
+<nav aria-label="Client portal navigation" class="client-nav">
+<a class="is-active" data-view="home" href="#home">Dashboard</a>
+<a data-view="orders" href="#orders">Orders</a>
+<a data-view="filings" href="#filings">Filings</a>
+<a data-view="documents" href="#documents">Documents</a>
+<a data-view="support" href="#support">Support</a>
+</nav>
+<button class="client-profile" type="button"><span class="avatar">C</span><span><strong id="clientName">My Account</strong><small id="clientCompany">filings4u client</small></span></button>
+</header>
+<main class="client-main">
+<section class="client-view is-active" data-panel="home">
+<div class="client-hero">
+<div><span class="eyebrow"><i></i> Secure compliance workspace</span><h1>Your business,<br/><span>organized.</span></h1><p>Track orders, filing progress, compliance items, documents, and support in one secure portal.</p><div class="hero-actions"><a class="button button--primary" data-view="orders" href="#orders">View my orders →</a><a class="button button--secondary" href="checkout.html">Start a new service</a></div></div>
+<div class="health-card"><div class="health-card__top"><div><small>COMPLIANCE OVERVIEW</small><h2>Account status</h2></div><span class="status-pill"><i></i> Active</span></div><div class="health-score"><div class="score-ring"><strong>—</strong><small>Health</small></div><div><strong>Stay on track</strong><p>Your active work and upcoming compliance items will appear here.</p></div></div><div class="quick-list"><div><span>✓</span><div><strong>Business entities</strong><small id="entitySummary">Loading when connected</small></div></div><div><span>↗</span><div><strong>Active filings</strong><small id="filingSummary">Loading when connected</small></div></div><div><span>#</span><div><strong>Documents</strong><small id="documentSummary">Secure records in one place</small></div></div></div></div>
+</div>
+<section class="client-section"><div class="section-heading"><div><span class="section-kicker">At a glance</span><h2>What needs your attention</h2></div></div><div class="client-grid"><article class="summary-card"><span>Open orders</span><strong data-metric="orders">—</strong><small>Orders being prepared or fulfilled</small></article><article class="summary-card"><span>Active filings</span><strong data-metric="filings">—</strong><small>Current filing work</small></article><article class="summary-card"><span>Unread updates</span><strong data-metric="notifications">—</strong><small>Portal notices and status updates</small></article><article class="summary-card"><span>Support tickets</span><strong data-metric="tickets">—</strong><small>Open customer service requests</small></article></div></section>
+<section class="client-section client-section--soft"><div class="section-heading"><div><span class="section-kicker">Recent activity</span><h2>Your current work</h2></div><a data-view="orders" href="#orders">View all →</a></div><div class="activity-panel" id="clientActivity"><div class="empty-state">Your orders and filing milestones will populate here after Supabase binding.</div></div></section>
+</section>
+<section class="client-view" data-panel="orders"><div class="page-heading"><span class="section-kicker">Purchases &amp; fulfillment</span><h1>My orders</h1><p>Review services purchased, payment details, and fulfillment status.</p></div><div class="content-card"><div class="empty-state">Order workspace</div></div></section>
+<section class="client-view" data-panel="filings"><div class="page-heading"><span class="section-kicker">Compliance work</span><h1>My filings</h1><p>Follow application milestones, government submissions, deadlines, and completion status.</p></div><div class="content-card"><div class="empty-state">Filing workspace</div></div></section>
+<section class="client-view" data-panel="documents"><div class="page-heading"><span class="section-kicker">Secure records</span><h1>Documents</h1><p>Access completed filings, receipts, notices, and uploaded documents.</p></div><div class="content-card"><div class="empty-state">Document library</div></div></section>
+<section class="client-view" data-panel="support"><div class="page-heading"><span class="section-kicker">Help center</span><h1>Support</h1><p>Create and track support requests related to your orders and filings.</p></div><div class="content-card"><div class="empty-state">Support workspace</div></div></section>
+</main>
+<script src="assets/js/client-portal-shell.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body>
 </html>

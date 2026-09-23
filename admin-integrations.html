@@ -1,81 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
 <title>filings4u Admin | Integrations Management</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/integrations-manager.css">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/integrations-manager.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
 <body class="management-body integrations-manager-body" data-management-page="integrations">
-
 <header class="management-topbar">
-<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a></div>
+<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a></div>
 <div class="management-topbar__center"><button class="global-search-trigger" id="integrationSearchTrigger" type="button"><span>⌕</span><span>Search integrations...</span><kbd>/</kbd></button></div>
 <div class="management-topbar__right"><button class="management-create-button" id="newIntegrationTop" type="button">+ Add integration</button></div>
 </header>
-
 <div class="management-shell">
-<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav class="management-nav" id="managementNavigation" data-management-navigation aria-label="Management navigation"></nav></aside>
+<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation"></nav></aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main integrations-main">
 <header class="management-page-head integrations-page-head"><div><span class="management-kicker">Platform · Connections</span><h1>Integrations Management</h1><p>Monitor connected services, webhook activity and integration configuration without exposing private API credentials in the browser.</p></div><div class="management-page-actions"><button class="management-secondary-button" id="refreshIntegrations" type="button">Refresh</button><button class="management-primary-button" id="newIntegrationButton" type="button">+ Add integration</button></div></header>
-
 <div class="integration-stat-grid">
 <article><small>Configured</small><strong id="statConfigured">—</strong><em>Integration records</em></article>
 <article><small>Connected</small><strong id="statConnected">—</strong><em>Active connections</em></article>
 <article><small>Webhook events</small><strong id="statWebhookEvents">—</strong><em>Recorded events</em></article>
 <article><small>Email events</small><strong id="statEmailEvents">—</strong><em>Portal email activity</em></article>
 </div>
-
 <section class="observed-integrations">
 <div class="section-heading"><span class="management-kicker">Observed activity</span><h2>Platform connections</h2></div>
 <div class="health-grid" id="healthGrid"></div>
 </section>
-
 <section class="integration-card">
 <div class="integration-toolbar">
-<label class="integration-search"><span>⌕</span><input id="integrationSearch" type="search" placeholder="Search provider, category, environment or notes"></label>
+<label class="integration-search"><span>⌕</span><input id="integrationSearch" placeholder="Search provider, category, environment or notes" type="search"/></label>
 <div><select id="integrationCategory"><option value="">All categories</option></select><select id="integrationState"><option value="">All statuses</option><option>Connected</option><option>Disconnected</option><option>Needs attention</option><option>Planned</option></select></div>
 </div>
 <div class="integration-list" id="integrationList"><div class="integration-empty">Loading integrations…</div></div>
 </section>
 </main>
 </div>
-
-<div class="integration-modal" id="integrationModal" hidden>
-<div class="integration-modal__backdrop" data-close-integration></div>
+<div class="integration-modal" hidden="" id="integrationModal">
+<div class="integration-modal__backdrop" data-close-integration=""></div>
 <section class="integration-modal__card">
-<header><div><span class="management-kicker">Platform connection</span><h2 id="integrationModalTitle">Add integration</h2></div><button data-close-integration type="button">×</button></header>
+<header><div><span class="management-kicker">Platform connection</span><h2 id="integrationModalTitle">Add integration</h2></div><button data-close-integration="" type="button">×</button></header>
 <form id="integrationForm">
-<input id="integrationId" type="hidden">
-<label>Provider / integration name<input id="integrationProvider" required placeholder="Example: Stripe"></label>
+<input id="integrationId" type="hidden"/>
+<label>Provider / integration name<input id="integrationProvider" placeholder="Example: Stripe" required=""/></label>
 <div class="form-grid"><label>Category<select id="integrationEditCategory"><option>Payments</option><option>Email</option><option>Database</option><option>Storage</option><option>Webhooks</option><option>Analytics</option><option>Government</option><option>Other</option></select></label><label>Status<select id="integrationEditStatus"><option>Connected</option><option>Disconnected</option><option>Needs attention</option><option>Planned</option></select></label></div>
-<div class="form-grid"><label>Environment<select id="integrationEnvironment"><option>Production</option><option>Sandbox</option><option>Development</option></select></label><label>Endpoint label<input id="integrationEndpoint" placeholder="Public label only"></label></div>
-<label>Documentation URL<input id="integrationDocs" type="url" placeholder="Optional"></label>
-<label>Notes<textarea id="integrationNotes" rows="4" placeholder="Operational notes. Do not store API secrets here."></textarea></label>
+<div class="form-grid"><label>Environment<select id="integrationEnvironment"><option>Production</option><option>Sandbox</option><option>Development</option></select></label><label>Endpoint label<input id="integrationEndpoint" placeholder="Public label only"/></label></div>
+<label>Documentation URL<input id="integrationDocs" placeholder="Optional" type="url"/></label>
+<label>Notes<textarea id="integrationNotes" placeholder="Operational notes. Do not store API secrets here." rows="4"></textarea></label>
 <div class="security-note"><strong>Credential safety</strong><p>Secret keys, webhook signing secrets and service-role credentials belong in server-side environment variables or Edge Function secrets, never in this table or browser code.</p></div>
-<footer><button class="management-secondary-button" data-close-integration type="button">Cancel</button><button class="management-primary-button" type="submit">Save integration</button></footer>
+<footer><button class="management-secondary-button" data-close-integration="" type="button">Cancel</button><button class="management-primary-button" type="submit">Save integration</button></footer>
 </form>
 </section>
 </div>
-
 <script src="assets/js/navigation.js"></script><script src="assets/js/integrations-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body></html>

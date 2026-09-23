@@ -1,132 +1,114 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
 <title>filings4u Admin | Applications</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/application-manager.css">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/application-manager.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
 <body class="management-body application-manager-body" data-management-page="applications">
 <header class="management-topbar">
-  <div class="management-topbar__left">
-    <button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
-    <button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
-    <a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a>
-  </div>
-  <div class="management-topbar__center"><button class="global-search-trigger" id="applicationSearchTrigger" type="button"><span>⌕</span><span>Search applications...</span><kbd>/</kbd></button></div>
-  <div class="management-topbar__right"><button class="management-create-button" id="newApplicationTop" type="button">+ New application</button><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials>AD</span><span class="management-profile-copy"><strong data-admin-name>Administrator</strong><small data-admin-email>Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" id="managementProfileMenu" hidden><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users & roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
+<div class="management-topbar__left">
+<button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
+<button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
+<a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a>
+</div>
+<div class="management-topbar__center"><button class="global-search-trigger" id="applicationSearchTrigger" type="button"><span>⌕</span><span>Search applications...</span><kbd>/</kbd></button></div>
+<div class="management-topbar__right"><button class="management-create-button" id="newApplicationTop" type="button">+ New application</button><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials="">AD</span><span class="management-profile-copy"><strong data-admin-name="">Administrator</strong><small data-admin-email="">Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" hidden="" id="managementProfileMenu"><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users &amp; roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
 </header>
-
 <div class="management-shell">
 <aside class="management-sidebar" id="managementSidebar">
-  <div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div>
-<nav
-  class="management-nav"
-  id="managementNavigation"
-  data-management-navigation
-  aria-label="Management navigation">
+<div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div>
+<nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation">
 </nav>
 </aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main application-main" id="applicationMain">
 <section id="applicationListView">
-  <header class="management-page-head business-page-head">
-    <div>
-      <span class="management-kicker">Business · Fulfillment</span>
-      <h1>Applications Management</h1>
-      <p>Manage filings from customer intake through agency submission, approval, document delivery and completion.</p>
-    </div>
-    <div class="management-page-actions"><button class="management-secondary-button" id="refreshApplications" type="button">Refresh</button><button class="management-primary-button" id="newApplicationButton" type="button">+ New application</button></div>
-  </header>
-
-  <div class="application-stat-grid">
-    <article><span>▧</span><div><small>Total applications</small><strong id="statApplications">—</strong><em>All active records</em></div></article>
-    <article><span>◷</span><div><small>In progress</small><strong id="statInProgress">—</strong><em>Needs fulfillment</em></div></article>
-    <article><span>↑</span><div><small>Submitted</small><strong id="statSubmitted">—</strong><em>Sent to agency</em></div></article>
-    <article><span>✓</span><div><small>Completed</small><strong id="statCompleted">—</strong><em>Approved or finished</em></div></article>
-  </div>
-
-  <section class="application-table-card">
-    <div class="application-toolbar">
-      <label class="application-search-field"><span>⌕</span><input id="applicationSearch" type="search" placeholder="Search business, tracking, service or customer"></label>
-      <div><select id="applicationStatusFilter"><option value="">All statuses</option></select><select id="applicationStateFilter"><option value="">All states</option></select><select id="applicationSort"><option value="updated">Recently updated</option><option value="created">Newest first</option><option value="business">Business A–Z</option><option value="status">Status</option></select></div>
-    </div>
-    <div class="application-table-wrap"><table class="application-table"><thead><tr><th>Application</th><th>Customer</th><th>Service</th><th>Jurisdiction</th><th>Status</th><th>Updated</th><th></th></tr></thead><tbody id="applicationTableBody"><tr><td colspan="7"><div class="application-empty">Loading applications…</div></td></tr></tbody></table></div>
-    <footer class="application-table-footer"><span id="applicationResultCount">—</span><div><button id="applicationPrev" type="button">Previous</button><span id="applicationPageLabel">Page 1</span><button id="applicationNext" type="button">Next</button></div></footer>
-  </section>
+<header class="management-page-head business-page-head">
+<div>
+<span class="management-kicker">Business · Fulfillment</span>
+<h1>Applications Management</h1>
+<p>Manage filings from customer intake through agency submission, approval, document delivery and completion.</p>
+</div>
+<div class="management-page-actions"><button class="management-secondary-button" id="refreshApplications" type="button">Refresh</button><button class="management-primary-button" id="newApplicationButton" type="button">+ New application</button></div>
+</header>
+<div class="application-stat-grid">
+<article><span>▧</span><div><small>Total applications</small><strong id="statApplications">—</strong><em>All active records</em></div></article>
+<article><span>◷</span><div><small>In progress</small><strong id="statInProgress">—</strong><em>Needs fulfillment</em></div></article>
+<article><span>↑</span><div><small>Submitted</small><strong id="statSubmitted">—</strong><em>Sent to agency</em></div></article>
+<article><span>✓</span><div><small>Completed</small><strong id="statCompleted">—</strong><em>Approved or finished</em></div></article>
+</div>
+<section class="application-table-card">
+<div class="application-toolbar">
+<label class="application-search-field"><span>⌕</span><input id="applicationSearch" placeholder="Search business, tracking, service or customer" type="search"/></label>
+<div><select id="applicationStatusFilter"><option value="">All statuses</option></select><select id="applicationStateFilter"><option value="">All states</option></select><select id="applicationSort"><option value="updated">Recently updated</option><option value="created">Newest first</option><option value="business">Business A–Z</option><option value="status">Status</option></select></div>
+</div>
+<div class="application-table-wrap"><table class="application-table"><thead><tr><th>Application</th><th>Customer</th><th>Service</th><th>Jurisdiction</th><th>Status</th><th>Updated</th><th></th></tr></thead><tbody id="applicationTableBody"><tr><td colspan="7"><div class="application-empty">Loading applications…</div></td></tr></tbody></table></div>
+<footer class="application-table-footer"><span id="applicationResultCount">—</span><div><button id="applicationPrev" type="button">Previous</button><span id="applicationPageLabel">Page 1</span><button id="applicationNext" type="button">Next</button></div></footer>
 </section>
-
-<section id="applicationRecordView" hidden>
-  <div class="application-record-toolbar"><button class="application-back-button" id="applicationBackButton" type="button">← Applications</button><div><button class="management-secondary-button" id="openOrderButton" type="button">Open order</button><button class="management-secondary-button" id="openCustomerButton" type="button">Open customer</button><button class="management-primary-button" id="editApplicationButton" type="button">Edit application</button></div></div>
-
-  <section class="application-record-hero">
-    <div class="application-record-identity"><div class="application-record-icon">▧</div><div><div class="application-record-title-line"><h1 id="applicationRecordName">Application</h1><span id="applicationRecordStatus" class="status-pill">—</span></div><p id="applicationRecordService">—</p><div class="application-record-meta"><span id="applicationRecordTracking">—</span><b>•</b><span id="applicationRecordState">—</span><b>•</b><span id="applicationRecordCreated">—</span></div></div></div>
-    <div class="application-record-summary"><div><small>Priority</small><strong id="recordPriority">Normal</strong></div><div><small>Agency</small><strong id="recordAgency">—</strong></div><div><small>Due date</small><strong id="recordDueDate">—</strong></div><div><small>Progress</small><strong id="recordProgress">0%</strong></div></div>
-  </section>
-
-  <nav class="application-record-tabs">
-    <button class="is-active" data-tab="overview">Overview</button>
-    <button data-tab="filing">Filing</button>
-    <button data-tab="tracking">Tracking <span id="tabTrackingCount">0</span></button>
-    <button data-tab="documents">Documents <span id="tabDocumentCount">0</span></button>
-    <button data-tab="intake">Intake</button>
-    <button data-tab="activity">Activity <span id="tabActivityCount">0</span></button>
-  </nav>
-
-  <div class="application-record-panels">
-    <section class="application-record-panel is-active" data-panel="overview">
-      <div class="application-overview-grid">
-        <article class="application-detail-card"><div class="card-head"><div><span class="management-kicker">Application</span><h2>Application details</h2></div><button class="text-action" data-edit-application>Edit</button></div><dl id="applicationDetails"></dl></article>
-        <article class="application-detail-card"><div class="card-head"><div><span class="management-kicker">Fulfillment</span><h2>Filing management</h2></div><button class="text-action" data-tab-jump="filing">Manage</button></div><dl id="filingSnapshot"></dl></article>
-        <article class="application-detail-card wide"><div class="card-head"><div><span class="management-kicker">Timeline</span><h2>Current progress</h2></div></div><div class="application-progress-list" id="overviewProgress"></div></article>
-        <article class="application-detail-card"><div class="card-head"><div><span class="management-kicker">Customer</span><h2>Customer & order</h2></div></div><dl id="customerOrderSnapshot"></dl></article>
-        <article class="application-detail-card"><div class="card-head"><div><span class="management-kicker">Documents</span><h2>Official files</h2></div></div><div id="overviewDocuments"></div></article>
-      </div>
-    </section>
-
-    <section class="application-record-panel" data-panel="filing">
-      <div class="section-head"><span class="management-kicker">Agency fulfillment</span><h2>Filing management</h2><p>Manage filing number, agency, priority, due date, submission and completion milestones.</p></div>
-      <article class="application-detail-card">
-        <form id="filingManagementForm" class="application-form-grid">
-          <label>Filing number<input name="filing_number"></label><label>Agency name<input name="agency_name"></label>
-          <label>Priority<select name="priority"><option value="low">Low</option><option value="normal">Normal</option><option value="high">High</option><option value="urgent">Urgent</option></select></label><label>Due date<input name="due_date" type="date"></label>
-          <label>Submitted to agency<input name="submitted_to_agency_at" type="datetime-local"></label><label>Approved at<input name="approved_at" type="datetime-local"></label>
-          <label>Completed at<input name="completed_at" type="datetime-local"></label><label class="full">Internal notes<textarea name="internal_notes" rows="5"></textarea></label>
-          <div class="form-actions full"><button class="management-primary-button" type="submit">Save filing management</button></div>
-        </form>
-      </article>
-    </section>
-
-    <section class="application-record-panel" data-panel="tracking"><div class="section-head"><span class="management-kicker">Customer-facing progress</span><h2>Application tracking</h2><p>These milestones drive the progress view for the application.</p></div><div id="trackingList" class="application-progress-list card-list"></div></section>
-    <section class="application-record-panel" data-panel="documents"><div class="section-head"><span class="management-kicker">Vault</span><h2>Application documents</h2><p>Official files connected to the application and order.</p></div><div class="application-data-list" id="documentsList"></div></section>
-    <section class="application-record-panel" data-panel="intake"><div class="section-head"><span class="management-kicker">Submitted information</span><h2>Application intake</h2><p>Order form payload and wizard data submitted by the customer.</p></div><article class="application-detail-card"><div id="intakeViewer" class="intake-viewer"></div></article></section>
-    <section class="application-record-panel" data-panel="activity"><div class="section-head"><span class="management-kicker">Audit trail</span><h2>Application activity</h2></div><div class="activity-list" id="activityList"></div></section>
-  </div>
+</section>
+<section hidden="" id="applicationRecordView">
+<div class="application-record-toolbar"><button class="application-back-button" id="applicationBackButton" type="button">← Applications</button><div><button class="management-secondary-button" id="openOrderButton" type="button">Open order</button><button class="management-secondary-button" id="openCustomerButton" type="button">Open customer</button><button class="management-primary-button" id="editApplicationButton" type="button">Edit application</button></div></div>
+<section class="application-record-hero">
+<div class="application-record-identity"><div class="application-record-icon">▧</div><div><div class="application-record-title-line"><h1 id="applicationRecordName">Application</h1><span class="status-pill" id="applicationRecordStatus">—</span></div><p id="applicationRecordService">—</p><div class="application-record-meta"><span id="applicationRecordTracking">—</span><b>•</b><span id="applicationRecordState">—</span><b>•</b><span id="applicationRecordCreated">—</span></div></div></div>
+<div class="application-record-summary"><div><small>Priority</small><strong id="recordPriority">Normal</strong></div><div><small>Agency</small><strong id="recordAgency">—</strong></div><div><small>Due date</small><strong id="recordDueDate">—</strong></div><div><small>Progress</small><strong id="recordProgress">0%</strong></div></div>
+</section>
+<nav class="application-record-tabs">
+<button class="is-active" data-tab="overview">Overview</button>
+<button data-tab="filing">Filing</button>
+<button data-tab="tracking">Tracking <span id="tabTrackingCount">0</span></button>
+<button data-tab="documents">Documents <span id="tabDocumentCount">0</span></button>
+<button data-tab="intake">Intake</button>
+<button data-tab="activity">Activity <span id="tabActivityCount">0</span></button>
+</nav>
+<div class="application-record-panels">
+<section class="application-record-panel is-active" data-panel="overview">
+<div class="application-overview-grid">
+<article class="application-detail-card"><div class="card-head"><div><span class="management-kicker">Application</span><h2>Application details</h2></div><button class="text-action" data-edit-application="">Edit</button></div><dl id="applicationDetails"></dl></article>
+<article class="application-detail-card"><div class="card-head"><div><span class="management-kicker">Fulfillment</span><h2>Filing management</h2></div><button class="text-action" data-tab-jump="filing">Manage</button></div><dl id="filingSnapshot"></dl></article>
+<article class="application-detail-card wide"><div class="card-head"><div><span class="management-kicker">Timeline</span><h2>Current progress</h2></div></div><div class="application-progress-list" id="overviewProgress"></div></article>
+<article class="application-detail-card"><div class="card-head"><div><span class="management-kicker">Customer</span><h2>Customer &amp; order</h2></div></div><dl id="customerOrderSnapshot"></dl></article>
+<article class="application-detail-card"><div class="card-head"><div><span class="management-kicker">Documents</span><h2>Official files</h2></div></div><div id="overviewDocuments"></div></article>
+</div>
+</section>
+<section class="application-record-panel" data-panel="filing">
+<div class="section-head"><span class="management-kicker">Agency fulfillment</span><h2>Filing management</h2><p>Manage filing number, agency, priority, due date, submission and completion milestones.</p></div>
+<article class="application-detail-card">
+<form class="application-form-grid" id="filingManagementForm">
+<label>Filing number<input name="filing_number"/></label><label>Agency name<input name="agency_name"/></label>
+<label>Priority<select name="priority"><option value="low">Low</option><option value="normal">Normal</option><option value="high">High</option><option value="urgent">Urgent</option></select></label><label>Due date<input name="due_date" type="date"/></label>
+<label>Submitted to agency<input name="submitted_to_agency_at" type="datetime-local"/></label><label>Approved at<input name="approved_at" type="datetime-local"/></label>
+<label>Completed at<input name="completed_at" type="datetime-local"/></label><label class="full">Internal notes<textarea name="internal_notes" rows="5"></textarea></label>
+<div class="form-actions full"><button class="management-primary-button" type="submit">Save filing management</button></div>
+</form>
+</article>
+</section>
+<section class="application-record-panel" data-panel="tracking"><div class="section-head"><span class="management-kicker">Customer-facing progress</span><h2>Application tracking</h2><p>These milestones drive the progress view for the application.</p></div><div class="application-progress-list card-list" id="trackingList"></div></section>
+<section class="application-record-panel" data-panel="documents"><div class="section-head"><span class="management-kicker">Vault</span><h2>Application documents</h2><p>Official files connected to the application and order.</p></div><div class="application-data-list" id="documentsList"></div></section>
+<section class="application-record-panel" data-panel="intake"><div class="section-head"><span class="management-kicker">Submitted information</span><h2>Application intake</h2><p>Order form payload and wizard data submitted by the customer.</p></div><article class="application-detail-card"><div class="intake-viewer" id="intakeViewer"></div></article></section>
+<section class="application-record-panel" data-panel="activity"><div class="section-head"><span class="management-kicker">Audit trail</span><h2>Application activity</h2></div><div class="activity-list" id="activityList"></div></section>
+</div>
 </section>
 </main>
 </div>
-
-<div class="application-modal" id="applicationEditModal" hidden><div class="application-modal__backdrop" data-close-edit></div><section class="application-modal__card"><header><div><span class="management-kicker">Application</span><h2>Edit application</h2></div><button data-close-edit type="button">×</button></header><form id="applicationEditForm"><div class="application-form-grid"><label class="full">Business name<input name="business_name" required></label><label>Status<input name="current_status" required></label><label>Service key<input name="service_key"></label><label>Plan tier<input name="plan_tier"></label><label>Jurisdiction<input name="jurisdiction_state" maxlength="2"></label><label>Tracking number<input name="tracking_number"></label><label>Active<select name="is_active"><option value="true">Yes</option><option value="false">No</option></select></label></div><footer><button class="management-secondary-button" data-close-edit type="button">Cancel</button><button class="management-primary-button" type="submit">Save application</button></footer></form></section></div>
-
-<div class="application-modal" id="newApplicationModal" hidden><div class="application-modal__backdrop" data-close-new></div><section class="application-modal__card"><header><div><span class="management-kicker">Fulfillment</span><h2>New application</h2></div><button data-close-new type="button">×</button></header><form id="newApplicationForm"><p class="form-note">Use this for administrative application records. Customer purchases should continue creating applications through the order/wizard workflow.</p><div class="application-form-grid"><label class="full">Business name<input name="business_name" required></label><label>Status<input name="current_status" value="Submitted" required></label><label>Service key<input name="service_key"></label><label>Plan tier<input name="plan_tier"></label><label>Jurisdiction<input name="jurisdiction_state" maxlength="2"></label><label>Tracking number<input name="tracking_number"></label><label>Order ID<input name="order_id"></label><label>User ID<input name="user_id"></label></div><footer><button class="management-secondary-button" data-close-new type="button">Cancel</button><button class="management-primary-button" type="submit">Create application</button></footer></form></section></div>
-
+<div class="application-modal" hidden="" id="applicationEditModal"><div class="application-modal__backdrop" data-close-edit=""></div><section class="application-modal__card"><header><div><span class="management-kicker">Application</span><h2>Edit application</h2></div><button data-close-edit="" type="button">×</button></header><form id="applicationEditForm"><div class="application-form-grid"><label class="full">Business name<input name="business_name" required=""/></label><label>Status<input name="current_status" required=""/></label><label>Service key<input name="service_key"/></label><label>Plan tier<input name="plan_tier"/></label><label>Jurisdiction<input maxlength="2" name="jurisdiction_state"/></label><label>Tracking number<input name="tracking_number"/></label><label>Active<select name="is_active"><option value="true">Yes</option><option value="false">No</option></select></label></div><footer><button class="management-secondary-button" data-close-edit="" type="button">Cancel</button><button class="management-primary-button" type="submit">Save application</button></footer></form></section></div>
+<div class="application-modal" hidden="" id="newApplicationModal"><div class="application-modal__backdrop" data-close-new=""></div><section class="application-modal__card"><header><div><span class="management-kicker">Fulfillment</span><h2>New application</h2></div><button data-close-new="" type="button">×</button></header><form id="newApplicationForm"><p class="form-note">Use this for administrative application records. Customer purchases should continue creating applications through the order/wizard workflow.</p><div class="application-form-grid"><label class="full">Business name<input name="business_name" required=""/></label><label>Status<input name="current_status" required="" value="Submitted"/></label><label>Service key<input name="service_key"/></label><label>Plan tier<input name="plan_tier"/></label><label>Jurisdiction<input maxlength="2" name="jurisdiction_state"/></label><label>Tracking number<input name="tracking_number"/></label><label>Order ID<input name="order_id"/></label><label>User ID<input name="user_id"/></label></div><footer><button class="management-secondary-button" data-close-new="" type="button">Cancel</button><button class="management-primary-button" type="submit">Create application</button></footer></form></section></div>
 <script src="assets/js/navigation.js"></script>
 <script src="assets/js/application-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>

@@ -1,114 +1,111 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
 <title>Customer Documents | filings4u Admin</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-documents.css">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-documents.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
 <body data-page="documents">
 <div id="adminNavigationMount"></div>
 <main>
-  <div id="gate" class="gate">Verifying administrator access…</div>
-  <section id="app" hidden>
-    <header class="head">
-      <div>
-        <label>DOCUMENT DELIVERY</label>
-        <h1>Customer Documents</h1>
-        <p>Upload secure PDF documents directly to any customer account. Customers can view the real PDF and download the original file from their Documents page.</p>
-      </div>
-      <div class="head-actions">
-        <button id="refresh" class="secondary" type="button">Refresh</button>
-        <button id="openUpload" class="primary" type="button">+ Upload customer document</button>
-      </div>
-    </header>
-
-    <section id="stats" class="stats"></section>
-
-    <section class="panel">
-      <div class="panel-heading">
-        <div><span class="kicker">Secure customer library</span><h2>Delivered documents</h2></div>
-        <div class="filters">
-          <input id="q" type="search" placeholder="Search title, customer, email, category…">
-          <select id="category"><option value="">All categories</option></select>
-          <select id="customer"><option value="">All customers</option></select>
-          <button id="clear" type="button">Clear</button>
-        </div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Document</th><th>Customer</th><th>Category</th><th>Size</th><th>Uploaded</th><th>Status</th><th class="actions-col">Actions</th></tr></thead>
-          <tbody id="rows"></tbody>
-        </table>
-      </div>
-    </section>
-  </section>
-</main>
-
-<div class="doc-modal" id="uploadModal" hidden>
-  <div class="doc-modal__backdrop" data-close-upload></div>
-  <section class="doc-modal__card" role="dialog" aria-modal="true" aria-labelledby="uploadTitle">
-    <header>
-      <div><span class="kicker">Secure delivery</span><h2 id="uploadTitle">Upload customer document</h2><p>The PDF will appear in the selected customer's portal immediately.</p></div>
-      <button class="modal-close" type="button" data-close-upload aria-label="Close">×</button>
-    </header>
-    <form id="uploadForm">
-      <div class="form-grid">
-        <label class="full">Customer
-          <select id="uploadCustomer" required><option value="">Select customer…</option></select>
-        </label>
-        <label class="full">Document title
-          <input id="documentTitle" required maxlength="200" placeholder="Example: Articles of Organization">
-        </label>
-        <label>Category
-          <select id="documentCategory" required>
-            <option value="Formation">Formation</option>
-            <option value="Filing">Filing</option>
-            <option value="Compliance">Compliance</option>
-            <option value="Tax">Tax</option>
-            <option value="Receipt / Invoice">Receipt / Invoice</option>
-            <option value="Notice / Letter">Notice / Letter</option>
-            <option value="Contract">Contract</option>
-            <option value="Identification">Identification</option>
-            <option value="General" selected>General</option>
-          </select>
-        </label>
-        <label>Customer visibility
-          <select id="documentVisibility"><option value="true">Visible now</option><option value="false">Hidden from customer</option></select>
-        </label>
-        <label class="full">Description <span class="optional">Optional</span>
-          <textarea id="documentDescription" rows="3" placeholder="Internal/customer-friendly description of this document"></textarea>
-        </label>
-        <label class="full upload-zone" id="uploadZone">PDF file
-          <input id="documentFile" type="file" accept="application/pdf,.pdf" required>
-          <span class="upload-zone__body"><strong>Choose a PDF document</strong><small>Actual PDF file · maximum 50 MB · no screenshots or image-only placeholders</small></span>
-          <span id="selectedFile" class="selected-file" hidden></span>
-        </label>
-      </div>
-      <div id="uploadProgress" class="upload-progress" hidden><span></span><strong>Uploading secure PDF…</strong></div>
-      <footer>
-        <button class="secondary" type="button" data-close-upload>Cancel</button>
-        <button class="primary" id="uploadSubmit" type="submit">Upload to customer</button>
-      </footer>
-    </form>
-  </section>
+<div class="gate" id="gate">Verifying administrator access…</div>
+<section hidden="" id="app">
+<header class="head">
+<div>
+<label>DOCUMENT DELIVERY</label>
+<h1>Customer Documents</h1>
+<p>Upload secure PDF documents directly to any customer account. Customers can view the real PDF and download the original file from their Documents page.</p>
 </div>
-
-<div id="toast" class="toast" hidden></div>
+<div class="head-actions">
+<button class="secondary" id="refresh" type="button">Refresh</button>
+<button class="primary" id="openUpload" type="button">+ Upload customer document</button>
+</div>
+</header>
+<section class="stats" id="stats"></section>
+<section class="panel">
+<div class="panel-heading">
+<div><span class="kicker">Secure customer library</span><h2>Delivered documents</h2></div>
+<div class="filters">
+<input id="q" placeholder="Search title, customer, email, category…" type="search"/>
+<select id="category"><option value="">All categories</option></select>
+<select id="customer"><option value="">All customers</option></select>
+<button id="clear" type="button">Clear</button>
+</div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Document</th><th>Customer</th><th>Category</th><th>Size</th><th>Uploaded</th><th>Status</th><th class="actions-col">Actions</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+</section>
+</section>
+</main>
+<div class="doc-modal" hidden="" id="uploadModal">
+<div class="doc-modal__backdrop" data-close-upload=""></div>
+<section aria-labelledby="uploadTitle" aria-modal="true" class="doc-modal__card" role="dialog">
+<header>
+<div><span class="kicker">Secure delivery</span><h2 id="uploadTitle">Upload customer document</h2><p>The PDF will appear in the selected customer's portal immediately.</p></div>
+<button aria-label="Close" class="modal-close" data-close-upload="" type="button">×</button>
+</header>
+<form id="uploadForm">
+<div class="form-grid">
+<label class="full">Customer
+          <select id="uploadCustomer" required=""><option value="">Select customer…</option></select>
+</label>
+<label class="full">Document title
+          <input id="documentTitle" maxlength="200" placeholder="Example: Articles of Organization" required=""/>
+</label>
+<label>Category
+          <select id="documentCategory" required="">
+<option value="Formation">Formation</option>
+<option value="Filing">Filing</option>
+<option value="Compliance">Compliance</option>
+<option value="Tax">Tax</option>
+<option value="Receipt / Invoice">Receipt / Invoice</option>
+<option value="Notice / Letter">Notice / Letter</option>
+<option value="Contract">Contract</option>
+<option value="Identification">Identification</option>
+<option selected="" value="General">General</option>
+</select>
+</label>
+<label>Customer visibility
+          <select id="documentVisibility"><option value="true">Visible now</option><option value="false">Hidden from customer</option></select>
+</label>
+<label class="full">Description <span class="optional">Optional</span>
+<textarea id="documentDescription" placeholder="Internal/customer-friendly description of this document" rows="3"></textarea>
+</label>
+<label class="full upload-zone" id="uploadZone">PDF file
+          <input accept="application/pdf,.pdf" id="documentFile" required="" type="file"/>
+<span class="upload-zone__body"><strong>Choose a PDF document</strong><small>Actual PDF file · maximum 50 MB · no screenshots or image-only placeholders</small></span>
+<span class="selected-file" hidden="" id="selectedFile"></span>
+</label>
+</div>
+<div class="upload-progress" hidden="" id="uploadProgress"><span></span><strong>Uploading secure PDF…</strong></div>
+<footer>
+<button class="secondary" data-close-upload="" type="button">Cancel</button>
+<button class="primary" id="uploadSubmit" type="submit">Upload to customer</button>
+</footer>
+</form>
+</section>
+</div>
+<div class="toast" hidden="" id="toast"></div>
 <script src="assets/js/admin-navigation.js"></script>
 <script src="assets/js/admin-documents.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>

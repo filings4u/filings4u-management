@@ -1,53 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
 <title>Pay Invoice | filings4u</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/checkout.css">
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/checkout.css" rel="stylesheet"/>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <header class="checkout-header">
-  <div class="checkout-header-inner">
-    <a href="https://filings4u.com" class="brand"><img src="images/logo.png" alt="filings4u"></a>
-    <span>Secure invoice payment</span>
-  </div>
+<div class="checkout-header-inner">
+<a class="brand" href="https://filings4u.com"><img alt="filings4u" src="images/logo.png"/></a>
+<span>Secure invoice payment</span>
+</div>
 </header>
 <main class="checkout-shell">
-  <section id="checkoutLoading" class="checkout-state"><div class="spinner"></div><h1>Loading your invoice…</h1><p>Please wait while we securely retrieve your billing record.</p></section>
-  <section id="checkoutError" class="checkout-state error-state" hidden><div class="state-icon">!</div><h1>We could not load this invoice</h1><p id="checkoutErrorMessage">The invoice payment link is invalid or expired.</p></section>
-  <section id="checkoutPartial" class="checkout-state paid-state" hidden><div class="state-icon">✓</div><span class="eyebrow">PARTIAL PAYMENT RECEIVED</span><h1>Thank you. Your payment was received.</h1><p>We applied <strong id="partialPaidAmount">$0.00</strong> to invoice <strong id="partialInvoiceNumber">—</strong>.</p><div class="paid-meta"><span>Remaining balance</span><strong id="partialRemainingBalance">$0.00</strong></div><button id="continuePaying" class="continue-button" type="button">Make another payment</button></section>
-  <section id="checkoutPaid" class="checkout-state paid-state" hidden><div class="state-icon">✓</div><span class="eyebrow">PAYMENT COMPLETE</span><h1>Thank you. Your invoice is paid.</h1><p>Your payment was confirmed successfully. A branded receipt has been sent to your email address.</p><div class="paid-meta"><span>Invoice</span><strong id="paidInvoiceNumber">—</strong></div></section>
-
-  <section id="checkoutApp" class="checkout-layout" hidden>
-    <div class="invoice-card">
-      <div class="invoice-card-head"><div><span class="eyebrow">INVOICE</span><h1 id="invoiceNumber">Invoice</h1></div><div class="due-block"><span>Due date</span><strong id="dueDate">—</strong></div></div>
-      <div class="bill-meta"><div><span>Billed to</span><strong id="customerEmail">—</strong></div><div><span>Payment terms</span><strong id="paymentTerms">—</strong></div></div>
-      <div class="line-table"><div class="line-head"><span>Description</span><span>Qty</span><span>Amount</span></div><div id="invoiceLines"></div></div>
-      <div class="totals" id="invoiceTotals"></div>
-      <div id="customerNotesWrap" class="notes" hidden><strong>Invoice notes</strong><p id="customerNotes"></p></div>
-    </div>
-
-    <aside class="payment-card">
-      <span class="eyebrow">SECURE PAYMENT</span>
-      <h2>Pay invoice</h2>
-      <p>Complete payment securely with Stripe. Your card details are never stored by filings4u.</p>
-      <div class="amount-due"><span>Balance due</span><strong id="paymentAmount">$0.00</strong></div><button id="paymentOptionsLink" class="payment-options-link" type="button" aria-expanded="false">Payment options</button><div id="partialOptions" class="partial-options" hidden><label for="partialAmount">Partial payment amount</label><div class="partial-input-row"><span>$</span><input id="partialAmount" type="number" step="0.01" inputmode="decimal"><button id="applyPartial" type="button">Apply</button></div><small>Minimum payment: <strong id="partialMinimum">$0.00</strong> (25% of the current balance).</small></div>
-      <form id="paymentForm">
-        <div id="paymentElement" class="payment-element"></div>
-        <div id="paymentMessage" class="payment-message" hidden></div>
-        <button id="payButton" type="submit" disabled><span id="payButtonText">Preparing payment…</span></button>
-      </form>
-      <div class="secure-note">Secure payment processing by Stripe</div>
-    </aside>
-  </section>
+<section class="checkout-state" id="checkoutLoading"><div class="spinner"></div><h1>Loading your invoice…</h1><p>Please wait while we securely retrieve your billing record.</p></section>
+<section class="checkout-state error-state" hidden="" id="checkoutError"><div class="state-icon">!</div><h1>We could not load this invoice</h1><p id="checkoutErrorMessage">The invoice payment link is invalid or expired.</p></section>
+<section class="checkout-state paid-state" hidden="" id="checkoutPartial"><div class="state-icon">✓</div><span class="eyebrow">PARTIAL PAYMENT RECEIVED</span><h1>Thank you. Your payment was received.</h1><p>We applied <strong id="partialPaidAmount">$0.00</strong> to invoice <strong id="partialInvoiceNumber">—</strong>.</p><div class="paid-meta"><span>Remaining balance</span><strong id="partialRemainingBalance">$0.00</strong></div><button class="continue-button" id="continuePaying" type="button">Make another payment</button></section>
+<section class="checkout-state paid-state" hidden="" id="checkoutPaid"><div class="state-icon">✓</div><span class="eyebrow">PAYMENT COMPLETE</span><h1>Thank you. Your invoice is paid.</h1><p>Your payment was confirmed successfully. A branded receipt has been sent to your email address.</p><div class="paid-meta"><span>Invoice</span><strong id="paidInvoiceNumber">—</strong></div></section>
+<section class="checkout-layout" hidden="" id="checkoutApp">
+<div class="invoice-card">
+<div class="invoice-card-head"><div><span class="eyebrow">INVOICE</span><h1 id="invoiceNumber">Invoice</h1></div><div class="due-block"><span>Due date</span><strong id="dueDate">—</strong></div></div>
+<div class="bill-meta"><div><span>Billed to</span><strong id="customerEmail">—</strong></div><div><span>Payment terms</span><strong id="paymentTerms">—</strong></div></div>
+<div class="line-table"><div class="line-head"><span>Description</span><span>Qty</span><span>Amount</span></div><div id="invoiceLines"></div></div>
+<div class="totals" id="invoiceTotals"></div>
+<div class="notes" hidden="" id="customerNotesWrap"><strong>Invoice notes</strong><p id="customerNotes"></p></div>
+</div>
+<aside class="payment-card">
+<span class="eyebrow">SECURE PAYMENT</span>
+<h2>Pay invoice</h2>
+<p>Complete payment securely with Stripe. Your card details are never stored by filings4u.</p>
+<div class="amount-due"><span>Balance due</span><strong id="paymentAmount">$0.00</strong></div><button aria-expanded="false" class="payment-options-link" id="paymentOptionsLink" type="button">Payment options</button><div class="partial-options" hidden="" id="partialOptions"><label for="partialAmount">Partial payment amount</label><div class="partial-input-row"><span>$</span><input id="partialAmount" inputmode="decimal" step="0.01" type="number"/><button id="applyPartial" type="button">Apply</button></div><small>Minimum payment: <strong id="partialMinimum">$0.00</strong> (25% of the current balance).</small></div>
+<form id="paymentForm">
+<div class="payment-element" id="paymentElement"></div>
+<div class="payment-message" hidden="" id="paymentMessage"></div>
+<button disabled="" id="payButton" type="submit"><span id="payButtonText">Preparing payment…</span></button>
+</form>
+<div class="secure-note">Secure payment processing by Stripe</div>
+</aside>
+</section>
 </main>
 <footer class="checkout-footer">© 2026 filings4u, LLC. A Subsidiary of Roseland Companies, LLC.</footer>
 <script src="assets/js/checkout.js"></script>

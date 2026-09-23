@@ -1,67 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
 <title>filings4u Admin | Security Management</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/security-manager.css">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/security-manager.css" rel="stylesheet"/>
 </head>
 <body class="management-body security-manager-body" data-management-page="security">
 <header class="management-topbar">
-<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a></div>
+<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a></div>
 <div class="management-topbar__center"><button class="global-search-trigger" id="securitySearchTrigger" type="button"><span>⌕</span><span>Search security events...</span><kbd>/</kbd></button></div>
 <div class="management-topbar__right"><button class="management-create-button" id="refreshSecurityTop" type="button">Refresh security</button></div>
 </header>
-
 <div class="management-shell">
-<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav class="management-nav" id="managementNavigation" data-management-navigation aria-label="Management navigation"></nav></aside>
+<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation"></nav></aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main security-main">
 <header class="management-page-head security-page-head">
 <div><span class="management-kicker">Platform · Protection</span><h1>Security Management</h1><p>Monitor administrative security activity, account events and platform protection signals without exposing privileged credentials.</p></div>
 <div class="management-page-actions"><button class="management-secondary-button" id="refreshSecurity" type="button">Refresh</button></div>
 </header>
-
 <div class="security-stat-grid">
 <article><small>Security events</small><strong id="statEvents">—</strong><em>Telemetry records</em></article>
 <article><small>Today</small><strong id="statToday">—</strong><em>Events today</em></article>
 <article><small>Admin actors</small><strong id="statActors">—</strong><em>Distinct operators</em></article>
 <article><small>Deletion audits</small><strong id="statDeletions">—</strong><em>Recorded deletions</em></article>
 </div>
-
 <section class="security-overview-grid">
 <article class="security-card"><span class="management-kicker">Access model</span><h2>Administrative protection</h2><div class="security-check"><b>✓</b><div><strong>Authenticated management</strong><small>Admin pages rely on authenticated Supabase sessions and backend RLS.</small></div></div><div class="security-check"><b>✓</b><div><strong>Admin authorization</strong><small>Protected writes are intended to use the existing private.is_admin() authorization boundary.</small></div></div><div class="security-check"><b>✓</b><div><strong>Browser-safe client</strong><small>Management pages use the publishable browser key, not the service-role key.</small></div></div></article>
-<article class="security-card"><span class="management-kicker">Platform status</span><h2>Operational controls</h2><div id="platformSecurityStatus" class="platform-status"></div></article>
+<article class="security-card"><span class="management-kicker">Platform status</span><h2>Operational controls</h2><div class="platform-status" id="platformSecurityStatus"></div></article>
 </section>
-
 <section class="security-events-card">
 <div class="security-toolbar">
-<label class="security-search"><span>⌕</span><input id="securitySearch" type="search" placeholder="Search action, actor, role or details"></label>
+<label class="security-search"><span>⌕</span><input id="securitySearch" placeholder="Search action, actor, role or details" type="search"/></label>
 <div><select id="securityRole"><option value="">All roles</option></select><select id="securityAction"><option value="">All actions</option></select></div>
 </div>
 <div class="security-event-list" id="securityEventList"><div class="security-empty">Loading security telemetry…</div></div>
 </section>
 </main>
 </div>
-
-<div class="security-modal" id="securityModal" hidden><div class="security-modal__backdrop" data-close-security></div><section class="security-modal__card"><header><div><span class="management-kicker">Security event</span><h2 id="securityModalTitle">Event details</h2></div><button data-close-security type="button">×</button></header><div id="securityModalBody"></div></section></div>
-
+<div class="security-modal" hidden="" id="securityModal"><div class="security-modal__backdrop" data-close-security=""></div><section class="security-modal__card"><header><div><span class="management-kicker">Security event</span><h2 id="securityModalTitle">Event details</h2></div><button data-close-security="" type="button">×</button></header><div id="securityModalBody"></div></section></div>
 <script src="assets/js/navigation.js"></script><script src="assets/js/security-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body></html>

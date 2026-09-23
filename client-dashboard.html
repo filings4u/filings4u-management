@@ -1,142 +1,129 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/client-auth-guard.js"></script>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
 <title>filings4u | Client Dashboard</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/client-dashboard.css">
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/client-dashboard.css" rel="stylesheet"/>
 </head>
-<body data-portal="client" data-page="dashboard">
-
+<body data-page="dashboard" data-portal="client">
 <header class="client-header">
-  <a class="client-brand" href="client-dashboard.html">
-    <img src="images/logo.png" alt="filings4u" class="client-logo">
-    <span class="client-brand-divider" aria-hidden="true"></span>
-    <span class="client-portal-label">Client Portal</span>
-  </a>
-
-  <nav class="client-nav" aria-label="Client portal navigation">
-    <a href="client-dashboard.html" data-nav-target="dashboard">Dashboard</a>
-    <a href="client-orders.html" data-nav-target="orders">Orders</a>
-    <a href="client-filings.html" data-nav-target="filings">Filings</a>
-    <a href="client-entities.html" data-nav-target="entities">Entities</a>
-    <a href="client-documents.html" data-nav-target="documents">Documents</a>
-    <a href="client-billing.html" data-nav-target="billing">Billing</a>
-    <a href="client-design.html" data-nav-target="design">Design</a>
-    <a href="client-support.html" data-nav-target="support">Support</a>
-  </nav>
-
-  <div class="client-account">
-    <button class="client-profile" id="clientProfileButton" type="button"
-      aria-haspopup="menu" aria-expanded="false" aria-controls="clientAccountMenu">
-      <span class="avatar" id="clientAvatar">C</span>
-      <strong id="clientName">My Account</strong>
-      <span class="account-chevron" aria-hidden="true">⌄</span>
-    </button>
-
-    <div class="client-account-menu" id="clientAccountMenu" role="menu" hidden>
-      <div class="account-menu-header">
-        <span class="account-menu-avatar" id="clientMenuAvatar">C</span>
-        <div>
-          <strong id="clientMenuName">My Account</strong>
-          <small id="clientMenuCompany">filings4u client</small>
-        </div>
-      </div>
-
-      <div class="account-menu-links">
-        <a href="client-account.html" data-account-target="account" role="menuitem">
-          <span>My Account</span><small>Profile & contact details</small>
-        </a>
-        <a href="client-notifications.html" data-account-target="notifications" role="menuitem">
-          <span>Notifications</span><small>Portal alerts & updates</small>
-        </a>
-        <a href="client-support.html" data-account-target="support" role="menuitem">
-          <span>Support</span><small>Help with an order or filing</small>
-        </a>
-      </div>
-
-      <button id="clientSignOut" class="account-menu-signout" type="button" role="menuitem">Sign out</button>
-    </div>
-  </div>
+<a class="client-brand" href="client-dashboard.html">
+<img alt="filings4u" class="client-logo" src="images/logo.png"/>
+<span aria-hidden="true" class="client-brand-divider"></span>
+<span class="client-portal-label">Client Portal</span>
+</a>
+<nav aria-label="Client portal navigation" class="client-nav">
+<a data-nav-target="dashboard" href="client-dashboard.html">Dashboard</a>
+<a data-nav-target="orders" href="client-orders.html">Orders</a>
+<a data-nav-target="filings" href="client-filings.html">Filings</a>
+<a data-nav-target="entities" href="client-entities.html">Entities</a>
+<a data-nav-target="documents" href="client-documents.html">Documents</a>
+<a data-nav-target="billing" href="client-billing.html">Billing</a>
+<a data-nav-target="design" href="client-design.html">Design</a>
+<a data-nav-target="support" href="client-support.html">Support</a>
+</nav>
+<div class="client-account">
+<button aria-controls="clientAccountMenu" aria-expanded="false" aria-haspopup="menu" class="client-profile" id="clientProfileButton" type="button">
+<span class="avatar" id="clientAvatar">C</span>
+<strong id="clientName">My Account</strong>
+<span aria-hidden="true" class="account-chevron">⌄</span>
+</button>
+<div class="client-account-menu" hidden="" id="clientAccountMenu" role="menu">
+<div class="account-menu-header">
+<span class="account-menu-avatar" id="clientMenuAvatar">C</span>
+<div>
+<strong id="clientMenuName">My Account</strong>
+<small id="clientMenuCompany">filings4u client</small>
+</div>
+</div>
+<div class="account-menu-links">
+<a data-account-target="account" href="client-account.html" role="menuitem">
+<span>My Account</span><small>Profile &amp; contact details</small>
+</a>
+<a data-account-target="notifications" href="client-notifications.html" role="menuitem">
+<span>Notifications</span><small>Portal alerts &amp; updates</small>
+</a>
+<a data-account-target="support" href="client-support.html" role="menuitem">
+<span>Support</span><small>Help with an order or filing</small>
+</a>
+</div>
+<button class="account-menu-signout" id="clientSignOut" role="menuitem" type="button">Sign out</button>
+</div>
+</div>
 </header>
-
-<main class="client-main" id="app" hidden>
-  <section class="client-hero">
-    <div>
-      <span class="eyebrow"><i></i> Secure compliance workspace</span>
-      <h1>Your business,<br><span>organized.</span></h1>
-      <p>Track orders, filing progress, compliance items, documents, design work, and support in one secure portal.</p>
-      <div class="hero-actions">
-        <a class="button button--primary" href="client-orders.html">View my orders →</a>
-        <a class="button button--secondary" href="checkout.html">Start a new service</a>
-      </div>
-    </div>
-
-    <div class="health-card">
-      <div class="health-card__top">
-        <div><small>COMPLIANCE OVERVIEW</small><h2>Account status</h2></div>
-        <span class="status-pill"><i></i> Active</span>
-      </div>
-      <div class="health-score">
-        <div class="score-ring"><strong id="healthScore">—</strong><small>Health</small></div>
-        <div><strong>Stay on track</strong><p>Your active work and open support requests appear here.</p></div>
-      </div>
-      <div class="quick-list">
-        <div><span>✓</span><div><strong>Business entities</strong><small id="entitySummary">Loading…</small></div></div>
-        <div><span>↗</span><div><strong>Active filings</strong><small id="filingSummary">Loading…</small></div></div>
-        <div><span>#</span><div><strong>Documents</strong><small id="documentSummary">Loading…</small></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="client-section">
-    <div class="section-heading">
-      <div><span class="section-kicker">At a glance</span><h2>What needs your attention</h2></div>
-    </div>
-    <div class="client-grid">
-      <a class="summary-card" href="client-orders.html"><span>Open orders</span><strong id="openOrders">0</strong><small>Orders being prepared or fulfilled</small></a>
-      <a class="summary-card" href="client-filings.html"><span>Active filings</span><strong id="activeFilings">0</strong><small>Current filing work</small></a>
-      <a class="summary-card" href="client-notifications.html"><span>Unread updates</span><strong id="unreadCount">0</strong><small>Portal notices and status updates</small></a>
-      <a class="summary-card" href="client-support.html"><span>Support tickets</span><strong id="ticketCount">0</strong><small>Open customer service requests</small></a>
-    </div>
-  </section>
-
-  <section class="client-section client-section--soft">
-    <div class="section-heading">
-      <div><span class="section-kicker">Recent activity</span><h2>Your current work</h2></div>
-      <a href="client-orders.html">View all →</a>
-    </div>
-    <div class="activity-layout">
-      <div class="activity-panel">
-        <div class="activity-panel__head"><strong>Orders & filings</strong></div>
-        <div id="clientActivity"></div>
-      </div>
-      <div class="activity-panel" id="updates">
-        <div class="activity-panel__head"><strong>Portal updates</strong><button id="markRead" class="text-link" type="button">Mark all read</button></div>
-        <div id="notificationList"></div>
-      </div>
-    </div>
-  </section>
+<main class="client-main" hidden="" id="app">
+<section class="client-hero">
+<div>
+<span class="eyebrow"><i></i> Secure compliance workspace</span>
+<h1>Your business,<br/><span>organized.</span></h1>
+<p>Track orders, filing progress, compliance items, documents, design work, and support in one secure portal.</p>
+<div class="hero-actions">
+<a class="button button--primary" href="client-orders.html">View my orders →</a>
+<a class="button button--secondary" href="checkout.html">Start a new service</a>
+</div>
+</div>
+<div class="health-card">
+<div class="health-card__top">
+<div><small>COMPLIANCE OVERVIEW</small><h2>Account status</h2></div>
+<span class="status-pill"><i></i> Active</span>
+</div>
+<div class="health-score">
+<div class="score-ring"><strong id="healthScore">—</strong><small>Health</small></div>
+<div><strong>Stay on track</strong><p>Your active work and open support requests appear here.</p></div>
+</div>
+<div class="quick-list">
+<div><span>✓</span><div><strong>Business entities</strong><small id="entitySummary">Loading…</small></div></div>
+<div><span>↗</span><div><strong>Active filings</strong><small id="filingSummary">Loading…</small></div></div>
+<div><span>#</span><div><strong>Documents</strong><small id="documentSummary">Loading…</small></div></div>
+</div>
+</div>
+</section>
+<section class="client-section">
+<div class="section-heading">
+<div><span class="section-kicker">At a glance</span><h2>What needs your attention</h2></div>
+</div>
+<div class="client-grid">
+<a class="summary-card" href="client-orders.html"><span>Open orders</span><strong id="openOrders">0</strong><small>Orders being prepared or fulfilled</small></a>
+<a class="summary-card" href="client-filings.html"><span>Active filings</span><strong id="activeFilings">0</strong><small>Current filing work</small></a>
+<a class="summary-card" href="client-notifications.html"><span>Unread updates</span><strong id="unreadCount">0</strong><small>Portal notices and status updates</small></a>
+<a class="summary-card" href="client-support.html"><span>Support tickets</span><strong id="ticketCount">0</strong><small>Open customer service requests</small></a>
+</div>
+</section>
+<section class="client-section client-section--soft">
+<div class="section-heading">
+<div><span class="section-kicker">Recent activity</span><h2>Your current work</h2></div>
+<a href="client-orders.html">View all →</a>
+</div>
+<div class="activity-layout">
+<div class="activity-panel">
+<div class="activity-panel__head"><strong>Orders &amp; filings</strong></div>
+<div id="clientActivity"></div>
+</div>
+<div class="activity-panel" id="updates">
+<div class="activity-panel__head"><strong>Portal updates</strong><button class="text-link" id="markRead" type="button">Mark all read</button></div>
+<div id="notificationList"></div>
+</div>
+</div>
+</section>
 </main>
-
-<div id="gate" class="gate">Loading your secure workspace…</div>
-<div id="toast" class="toast" hidden></div>
+<div class="gate" id="gate">Loading your secure workspace…</div>
+<div class="toast" hidden="" id="toast"></div>
 <script src="assets/js/client-navigation.js"></script>
 <script src="assets/js/client-dashboard.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>

@@ -1,151 +1,139 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/client-auth-guard.js"></script>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
 <title>filings4u | My Account</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/client-account.css">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/client-account.css" rel="stylesheet"/>
 </head>
-<body data-portal="client" data-page="account">
+<body data-page="account" data-portal="client">
 <header class="client-header">
-  <a class="client-brand" href="client-dashboard.html">
-    <img src="images/logo.png" alt="filings4u" class="client-logo">
-    <span class="client-brand-divider" aria-hidden="true"></span>
-    <span class="client-portal-label">Client Portal</span>
-  </a>
-
-  <nav class="client-nav" aria-label="Client portal navigation">
-    <a href="client-dashboard.html" data-nav-target="dashboard">Dashboard</a>
-    <a href="client-orders.html" data-nav-target="orders">Orders</a>
-    <a href="client-billing.html" data-nav-target="billing">Billing</a>
-    <a href="client-filings.html" data-nav-target="filings">Filings</a>
-    <a href="client-entities.html" data-nav-target="entities">Entities</a>
-    <a href="client-documents.html" data-nav-target="documents">Documents</a>
-    <a href="client-design.html" data-nav-target="design">Design</a>
-    <a href="client-support.html" data-nav-target="support">Support</a>
-  </nav>
-
-  <div class="client-account">
-    <button class="client-profile" id="clientProfileButton" type="button"
-      aria-haspopup="menu" aria-expanded="false" aria-controls="clientAccountMenu">
-      <span class="avatar" id="clientAvatar">C</span>
-      <strong id="clientName">My Account</strong>
-      <span class="account-chevron" aria-hidden="true">⌄</span>
-    </button>
-
-    <div class="client-account-menu" id="clientAccountMenu" role="menu" hidden>
-      <div class="account-menu-header">
-        <span class="account-menu-avatar" id="clientMenuAvatar">C</span>
-        <div>
-          <strong id="clientMenuName">My Account</strong>
-          <small id="clientMenuCompany">filings4u client</small>
-        </div>
-      </div>
-      <div class="account-menu-links">
-        <a href="client-account.html" data-account-target="account" role="menuitem">
-          <span>My Account</span><small>Profile & contact details</small>
-        </a>
-        <a href="client-notifications.html" data-account-target="notifications" role="menuitem">
-          <span>Notifications</span><small>Portal alerts & updates</small>
-        </a>
-        <a href="client-support.html" data-account-target="support" role="menuitem">
-          <span>Support</span><small>Help with an order or filing</small>
-        </a>
-      </div>
-      <button id="clientSignOut" class="account-menu-signout" type="button" role="menuitem">Sign out</button>
-    </div>
-  </div>
+<a class="client-brand" href="client-dashboard.html">
+<img alt="filings4u" class="client-logo" src="images/logo.png"/>
+<span aria-hidden="true" class="client-brand-divider"></span>
+<span class="client-portal-label">Client Portal</span>
+</a>
+<nav aria-label="Client portal navigation" class="client-nav">
+<a data-nav-target="dashboard" href="client-dashboard.html">Dashboard</a>
+<a data-nav-target="orders" href="client-orders.html">Orders</a>
+<a data-nav-target="billing" href="client-billing.html">Billing</a>
+<a data-nav-target="filings" href="client-filings.html">Filings</a>
+<a data-nav-target="entities" href="client-entities.html">Entities</a>
+<a data-nav-target="documents" href="client-documents.html">Documents</a>
+<a data-nav-target="design" href="client-design.html">Design</a>
+<a data-nav-target="support" href="client-support.html">Support</a>
+</nav>
+<div class="client-account">
+<button aria-controls="clientAccountMenu" aria-expanded="false" aria-haspopup="menu" class="client-profile" id="clientProfileButton" type="button">
+<span class="avatar" id="clientAvatar">C</span>
+<strong id="clientName">My Account</strong>
+<span aria-hidden="true" class="account-chevron">⌄</span>
+</button>
+<div class="client-account-menu" hidden="" id="clientAccountMenu" role="menu">
+<div class="account-menu-header">
+<span class="account-menu-avatar" id="clientMenuAvatar">C</span>
+<div>
+<strong id="clientMenuName">My Account</strong>
+<small id="clientMenuCompany">filings4u client</small>
+</div>
+</div>
+<div class="account-menu-links">
+<a data-account-target="account" href="client-account.html" role="menuitem">
+<span>My Account</span><small>Profile &amp; contact details</small>
+</a>
+<a data-account-target="notifications" href="client-notifications.html" role="menuitem">
+<span>Notifications</span><small>Portal alerts &amp; updates</small>
+</a>
+<a data-account-target="support" href="client-support.html" role="menuitem">
+<span>Support</span><small>Help with an order or filing</small>
+</a>
+</div>
+<button class="account-menu-signout" id="clientSignOut" role="menuitem" type="button">Sign out</button>
+</div>
+</div>
 </header>
-
-<main class="client-main" id="app" hidden>
+<main class="client-main" hidden="" id="app">
 <section class="page-heading">
-  <span class="section-kicker">Account settings</span>
-  <h1>My account</h1>
-  <p>Manage your contact information, company profile, mailing address, and account security.</p>
+<span class="section-kicker">Account settings</span>
+<h1>My account</h1>
+<p>Manage your contact information, company profile, mailing address, and account security.</p>
 </section>
-
 <div class="account-layout">
-  <aside class="account-sidebar">
-    <div class="profile-summary">
-      <div class="profile-avatar" id="largeAvatar">C</div>
-      <h2 id="profileName">My Account</h2>
-      <p id="profileCompany">filings4u client</p>
-      <span class="account-status"><i></i> Active client</span>
-    </div>
-    <nav class="account-tabs" aria-label="Account sections">
-      <button class="is-active" data-tab="profile" type="button">Profile information</button>
-      <button data-tab="address" type="button">Mailing address</button>
-      <button data-tab="security" type="button">Account security</button>
-    </nav>
-  </aside>
-
-  <section class="account-content">
-    <div class="account-panel is-active" data-panel="profile">
-      <div class="panel-heading"><div><span class="section-kicker">Personal details</span><h2>Profile information</h2><p>Keep your contact information current for filings and service updates.</p></div></div>
-      <form id="profileForm">
-        <div class="form-grid">
-          <label>First name<input id="firstName" autocomplete="given-name"></label>
-          <label>Last name<input id="lastName" autocomplete="family-name"></label>
-          <label>Email address<input id="email" type="email" disabled><small>Your login email cannot be changed from this page.</small></label>
-          <label>Phone number<input id="phone" type="tel" autocomplete="tel"></label>
-          <label class="full">Company name<input id="company" autocomplete="organization"></label>
-        </div>
-        <div class="form-actions"><span id="profileSaved" class="saved-message"></span><button class="button button--primary" id="saveProfile" type="submit">Save profile</button></div>
-      </form>
-    </div>
-
-    <div class="account-panel" data-panel="address">
-      <div class="panel-heading"><div><span class="section-kicker">Contact address</span><h2>Mailing address</h2><p>This address is used for account and service correspondence where applicable.</p></div></div>
-      <form id="addressForm">
-        <div class="form-grid">
-          <label class="full">Street address<input id="street" autocomplete="street-address"></label>
-          <label>City<input id="city" autocomplete="address-level2"></label>
-          <label>State<input id="state" maxlength="30" autocomplete="address-level1"></label>
-          <label>ZIP code<input id="zip" autocomplete="postal-code"></label>
-        </div>
-        <div class="form-actions"><span id="addressSaved" class="saved-message"></span><button class="button button--primary" id="saveAddress" type="submit">Save address</button></div>
-      </form>
-    </div>
-
-    <div class="account-panel" data-panel="security">
-      <div class="panel-heading"><div><span class="section-kicker">Login & security</span><h2>Account security</h2><p>Review your login email and update your password securely.</p></div></div>
-      <div class="security-card">
-        <div><span>Login email</span><strong id="securityEmail">—</strong><small>Your Supabase Auth account email.</small></div>
-      </div>
-      <form id="passwordForm" class="password-form">
-        <h3>Change password</h3>
-        <div class="form-grid">
-          <label>Current password<input id="currentPassword" type="password" autocomplete="current-password" required></label>
-          <label>New password<input id="newPassword" type="password" minlength="8" autocomplete="new-password" required></label>
-          <label>Confirm new password<input id="confirmPassword" type="password" minlength="8" autocomplete="new-password" required></label>
-        </div>
-        <p class="security-note">Use at least 8 characters. Your current client session remains active after a successful password update.</p>
-        <div class="form-actions"><span id="passwordSaved" class="saved-message"></span><button class="button button--primary" id="savePassword" type="submit">Update password</button></div>
-      </form>
-    </div>
-  </section>
+<aside class="account-sidebar">
+<div class="profile-summary">
+<div class="profile-avatar" id="largeAvatar">C</div>
+<h2 id="profileName">My Account</h2>
+<p id="profileCompany">filings4u client</p>
+<span class="account-status"><i></i> Active client</span>
+</div>
+<nav aria-label="Account sections" class="account-tabs">
+<button class="is-active" data-tab="profile" type="button">Profile information</button>
+<button data-tab="address" type="button">Mailing address</button>
+<button data-tab="security" type="button">Account security</button>
+</nav>
+</aside>
+<section class="account-content">
+<div class="account-panel is-active" data-panel="profile">
+<div class="panel-heading"><div><span class="section-kicker">Personal details</span><h2>Profile information</h2><p>Keep your contact information current for filings and service updates.</p></div></div>
+<form id="profileForm">
+<div class="form-grid">
+<label>First name<input autocomplete="given-name" id="firstName"/></label>
+<label>Last name<input autocomplete="family-name" id="lastName"/></label>
+<label>Email address<input disabled="" id="email" type="email"/><small>Your login email cannot be changed from this page.</small></label>
+<label>Phone number<input autocomplete="tel" id="phone" type="tel"/></label>
+<label class="full">Company name<input autocomplete="organization" id="company"/></label>
+</div>
+<div class="form-actions"><span class="saved-message" id="profileSaved"></span><button class="button button--primary" id="saveProfile" type="submit">Save profile</button></div>
+</form>
+</div>
+<div class="account-panel" data-panel="address">
+<div class="panel-heading"><div><span class="section-kicker">Contact address</span><h2>Mailing address</h2><p>This address is used for account and service correspondence where applicable.</p></div></div>
+<form id="addressForm">
+<div class="form-grid">
+<label class="full">Street address<input autocomplete="street-address" id="street"/></label>
+<label>City<input autocomplete="address-level2" id="city"/></label>
+<label>State<input autocomplete="address-level1" id="state" maxlength="30"/></label>
+<label>ZIP code<input autocomplete="postal-code" id="zip"/></label>
+</div>
+<div class="form-actions"><span class="saved-message" id="addressSaved"></span><button class="button button--primary" id="saveAddress" type="submit">Save address</button></div>
+</form>
+</div>
+<div class="account-panel" data-panel="security">
+<div class="panel-heading"><div><span class="section-kicker">Login &amp; security</span><h2>Account security</h2><p>Review your login email and update your password securely.</p></div></div>
+<div class="security-card">
+<div><span>Login email</span><strong id="securityEmail">—</strong><small>Your Supabase Auth account email.</small></div>
+</div>
+<form class="password-form" id="passwordForm">
+<h3>Change password</h3>
+<div class="form-grid">
+<label>Current password<input autocomplete="current-password" id="currentPassword" required="" type="password"/></label>
+<label>New password<input autocomplete="new-password" id="newPassword" minlength="8" required="" type="password"/></label>
+<label>Confirm new password<input autocomplete="new-password" id="confirmPassword" minlength="8" required="" type="password"/></label>
+</div>
+<p class="security-note">Use at least 8 characters. Your current client session remains active after a successful password update.</p>
+<div class="form-actions"><span class="saved-message" id="passwordSaved"></span><button class="button button--primary" id="savePassword" type="submit">Update password</button></div>
+</form>
+</div>
+</section>
 </div>
 </main>
-
-<div id="gate" class="gate">Loading your account…</div>
-<div id="toast" class="toast" hidden></div>
+<div class="gate" id="gate">Loading your account…</div>
+<div class="toast" hidden="" id="toast"></div>
 <!-- CUSTOMER PROTECTED PAGE -->
 <script src="assets/js/client-navigation.js"></script>
 <script src="assets/js/client-account.js"></script>

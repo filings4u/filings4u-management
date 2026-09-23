@@ -1,63 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
 <title>filings4u | Client Login</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/client-login.css">
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/client-login.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/client-supabase-client.js"></script>
 <body>
 <main class="login-page">
-  <section class="login-brand">
-    <a href="/" class="login-logo"><img src="images/logo.png" alt="filings4u"></a>
-    <div>
-      <span class="eyebrow"><i></i> Secure client portal</span>
-      <h1>Your business,<br><span>organized.</span></h1>
-      <p>Sign in to access your orders, filings, entities, documents, design projects, support, and account updates.</p>
-    </div>
-    <small>filings4u, LLC · A Subsidiary of Roseland Companies, LLC</small>
-  </section>
-
-  <section class="login-form-side">
-    <div class="login-card">
-      <span class="section-kicker">Client access</span>
-      <h2>Welcome back</h2>
-      <p class="muted">Use the email and password associated with your filings4u account.</p>
-      <div id="message" class="message" hidden></div>
-
-      <form id="loginForm" novalidate>
-        <label>Email address
-          <input id="email" type="email" autocomplete="username" required>
-        </label>
-
-        <label>Password
+<section class="login-brand">
+<a class="login-logo" href="/"><img alt="filings4u" src="images/logo.png"/></a>
+<div>
+<span class="eyebrow"><i></i> Secure client portal</span>
+<h1>Your business,<br/><span>organized.</span></h1>
+<p>Sign in to access your orders, filings, entities, documents, design projects, support, and account updates.</p>
+</div>
+<small>filings4u, LLC · A Subsidiary of Roseland Companies, LLC</small>
+</section>
+<section class="login-form-side">
+<div class="login-card">
+<span class="section-kicker">Client access</span>
+<h2>Welcome back</h2>
+<p class="muted">Use the email and password associated with your filings4u account.</p>
+<div class="message" hidden="" id="message"></div>
+<form id="loginForm" novalidate="">
+<label>Email address
+          <input autocomplete="username" id="email" required="" type="email"/>
+</label>
+<label>Password
           <div class="password-wrap">
-            <input id="password" type="password" autocomplete="current-password" required>
-            <button id="togglePassword" type="button" aria-label="Show password">Show</button>
-          </div>
-        </label>
-
-        <button id="submit" class="button button--primary login-submit" type="submit">Sign in</button>
-      </form>
-
-      <div class="login-links">
-        <a href="forgot-password.html">Forgot password?</a>
-        <a href="https://filings4u.com">Back to filings4u.com</a>
-      </div>
-
-      <button id="signOutExisting" class="existing-session" type="button" hidden>Sign out current session</button>
-    </div>
-  </section>
+<input autocomplete="current-password" id="password" required="" type="password"/>
+<button aria-label="Show password" id="togglePassword" type="button">Show</button>
+</div>
+</label>
+<button class="button button--primary login-submit" id="submit" type="submit">Sign in</button>
+</form>
+<div class="login-links">
+<a href="forgot-password.html">Forgot password?</a>
+<a href="https://filings4u.com">Back to filings4u.com</a>
+</div>
+<button class="existing-session" hidden="" id="signOutExisting" type="button">Sign out current session</button>
+</div>
+</section>
 </main>
-
 <script src="assets/js/turnstile-protection.js"></script>
 <script src="assets/js/client-login.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body>
-</html>
+</head></html>

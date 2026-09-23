@@ -1,70 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
 <title>filings4u Admin | Automations Management</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/automations-manager.css">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/automations-manager.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
 <body class="management-body automations-manager-body" data-management-page="automations">
-
 <header class="management-topbar">
-<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a></div>
+<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a></div>
 <div class="management-topbar__center"><button class="global-search-trigger" id="automationSearchTrigger" type="button"><span>⌕</span><span>Search automations...</span><kbd>/</kbd></button></div>
 <div class="management-topbar__right"><button class="management-create-button" id="newAutomationTop" type="button">+ New automation</button></div>
 </header>
-
 <div class="management-shell">
-<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav class="management-nav" id="managementNavigation" data-management-navigation aria-label="Management navigation"></nav></aside>
+<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation"></nav></aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main automations-main">
 <header class="management-page-head automations-page-head">
 <div><span class="management-kicker">Platform · Workflow</span><h1>Automations Management</h1><p>Create and control operational rules for customer updates, order activity, applications, compliance, support and internal workflows.</p></div>
 <div class="management-page-actions"><button class="management-secondary-button" id="refreshAutomations" type="button">Refresh</button><button class="management-primary-button" id="newAutomationButton" type="button">+ New automation</button></div>
 </header>
-
 <div class="automation-stat-grid">
 <article><small>Total rules</small><strong id="statTotal">—</strong><em>Configured automations</em></article>
 <article><small>Active</small><strong id="statActive">—</strong><em>Enabled workflows</em></article>
 <article><small>Paused</small><strong id="statPaused">—</strong><em>Disabled workflows</em></article>
 <article><small>Event activity</small><strong id="statEvents">—</strong><em>Recent webhook/email events</em></article>
 </div>
-
 <section class="automation-card">
 <div class="automation-toolbar">
-<label class="automation-search"><span>⌕</span><input id="automationSearch" type="search" placeholder="Search automation name, trigger, action or category"></label>
+<label class="automation-search"><span>⌕</span><input id="automationSearch" placeholder="Search automation name, trigger, action or category" type="search"/></label>
 <div><select id="automationCategory"><option value="">All categories</option></select><select id="automationState"><option value="">All states</option><option value="enabled">Enabled</option><option value="disabled">Paused</option></select></div>
 </div>
 <div class="automation-list" id="automationList"><div class="automation-empty">Loading automations…</div></div>
 </section>
 </main>
 </div>
-
-<div class="automation-modal" id="automationModal" hidden>
-<div class="automation-modal__backdrop" data-close-automation></div>
+<div class="automation-modal" hidden="" id="automationModal">
+<div class="automation-modal__backdrop" data-close-automation=""></div>
 <section class="automation-modal__card">
-<header><div><span class="management-kicker">Workflow rule</span><h2 id="automationModalTitle">New automation</h2></div><button data-close-automation type="button">×</button></header>
+<header><div><span class="management-kicker">Workflow rule</span><h2 id="automationModalTitle">New automation</h2></div><button data-close-automation="" type="button">×</button></header>
 <form id="automationForm">
-<input id="automationId" type="hidden">
-<label>Automation name<input id="automationName" required placeholder="Example: Send order confirmation"></label>
-<label>Description<textarea id="automationDescription" rows="3" placeholder="What this automation does"></textarea></label>
+<input id="automationId" type="hidden"/>
+<label>Automation name<input id="automationName" placeholder="Example: Send order confirmation" required=""/></label>
+<label>Description<textarea id="automationDescription" placeholder="What this automation does" rows="3"></textarea></label>
 <div class="form-grid">
 <label>Category<select id="automationEditCategory"><option>Orders</option><option>Applications</option><option>Customers</option><option>Compliance</option><option>Support</option><option>Billing</option><option>Website</option><option>System</option></select></label>
 <label>State<select id="automationEnabled"><option value="true">Enabled</option><option value="false">Paused</option></select></label>
@@ -75,16 +68,15 @@
 <div class="flow-step"><span>2</span><label>Then do this<select id="automationAction"><option value="send_email">Send email</option><option value="create_notification">Create portal notification</option><option value="create_task">Create internal task</option><option value="update_record">Update record status</option><option value="send_webhook">Send webhook</option></select></label></div>
 </div>
 <div class="form-grid">
-<label>Delay in minutes<input id="automationDelay" type="number" min="0" step="1" value="0"></label>
-<label>Recipient / target<input id="automationTarget" placeholder="Customer, admin, email, webhook label"></label>
+<label>Delay in minutes<input id="automationDelay" min="0" step="1" type="number" value="0"/></label>
+<label>Recipient / target<input id="automationTarget" placeholder="Customer, admin, email, webhook label"/></label>
 </div>
-<label>Template or message key<input id="automationTemplate" placeholder="Example: order-confirmation"></label>
+<label>Template or message key<input id="automationTemplate" placeholder="Example: order-confirmation"/></label>
 <label>Internal notes<textarea id="automationNotes" rows="3"></textarea></label>
-<footer><button class="management-secondary-button" id="deleteAutomationButton" type="button" hidden>Delete</button><button class="management-secondary-button" data-close-automation type="button">Cancel</button><button class="management-primary-button" type="submit">Save automation</button></footer>
+<footer><button class="management-secondary-button" hidden="" id="deleteAutomationButton" type="button">Delete</button><button class="management-secondary-button" data-close-automation="" type="button">Cancel</button><button class="management-primary-button" type="submit">Save automation</button></footer>
 </form>
 </section>
 </div>
-
 <script src="assets/js/navigation.js"></script><script src="assets/js/automations-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body></html>

@@ -1,67 +1,55 @@
-<!doctype html>
-<html lang="en"><head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
+<!DOCTYPE html>
 
+<html lang="en"><head>
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
 <title>filings4u Admin | FAQs Management</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/faqs-manager.css">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/faqs-manager.css" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
 <body class="management-body faqs-manager-body" data-management-page="faqs">
 <header class="management-topbar">
-<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a></div>
+<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a></div>
 <div class="management-topbar__center"><button class="global-search-trigger" id="faqSearchTrigger" type="button"><span>⌕</span><span>Search FAQs...</span><kbd>/</kbd></button></div>
-<div class="management-topbar__right"><button class="management-create-button" id="newFaqTop" type="button">+ New FAQ</button><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials>AD</span><span class="management-profile-copy"><strong data-admin-name>Administrator</strong><small data-admin-email>Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" id="managementProfileMenu" hidden><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users & roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
+<div class="management-topbar__right"><button class="management-create-button" id="newFaqTop" type="button">+ New FAQ</button><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials="">AD</span><span class="management-profile-copy"><strong data-admin-name="">Administrator</strong><small data-admin-email="">Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" hidden="" id="managementProfileMenu"><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users &amp; roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
 </header>
 <div class="management-shell">
 <aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div>
-    
-    
-<nav
-  class="management-nav"
-  id="managementNavigation"
-  data-management-navigation
-  aria-label="Management navigation">
+<nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation">
 </nav>
-
-
 </aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
 <main class="management-main faq-main">
 <section id="faqListView">
 <header class="management-page-head faq-page-head"><div><span class="management-kicker">Content · Help Content</span><h1>FAQs Management</h1><p>Manage frequently asked questions, categories, display order and website visibility.</p></div><div class="management-page-actions"><button class="management-secondary-button" id="refreshFaqs" type="button">Refresh</button><button class="management-primary-button" id="newFaqButton" type="button">+ New FAQ</button></div></header>
 <div class="faq-stat-grid"><article><span>?</span><div><small>Total FAQs</small><strong id="statTotal">—</strong><em>All questions</em></div></article><article><span>✓</span><div><small>Published</small><strong id="statPublished">—</strong><em>Visible content</em></div></article><article><span>✎</span><div><small>Drafts</small><strong id="statDraft">—</strong><em>Not yet live</em></div></article><article><span>▧</span><div><small>Categories</small><strong id="statCategories">—</strong><em>FAQ groups</em></div></article></div>
-<section class="faq-table-card"><div class="faq-toolbar"><label class="faq-search"><span>⌕</span><input id="faqSearch" type="search" placeholder="Search question, answer or category"></label><div><select id="categoryFilter"><option value="">All categories</option></select><select id="statusFilter"><option value="">All statuses</option></select><select id="faqSort"><option value="order">Display order</option><option value="updated">Recently updated</option><option value="question">Question A–Z</option></select></div></div>
+<section class="faq-table-card"><div class="faq-toolbar"><label class="faq-search"><span>⌕</span><input id="faqSearch" placeholder="Search question, answer or category" type="search"/></label><div><select id="categoryFilter"><option value="">All categories</option></select><select id="statusFilter"><option value="">All statuses</option></select><select id="faqSort"><option value="order">Display order</option><option value="updated">Recently updated</option><option value="question">Question A–Z</option></select></div></div>
 <div class="faq-table-wrap"><table class="faq-table"><thead><tr><th>Question</th><th>Category</th><th>Order</th><th>Status</th><th>Updated</th><th></th></tr></thead><tbody id="faqTableBody"><tr><td colspan="6"><div class="faq-empty">Loading FAQs…</div></td></tr></tbody></table></div><footer class="faq-table-footer"><span id="faqResultCount">—</span></footer></section>
 </section>
-
-<section id="faqEditor" hidden>
-<div class="faq-editor-toolbar"><button class="faq-back" id="faqBack" type="button">← FAQs</button><div><span id="saveState" class="save-state">Draft</span><button class="management-secondary-button" id="deleteFaq" type="button">Delete</button><button class="management-secondary-button" id="saveFaq" type="button">Save</button><button class="management-primary-button" id="publishFaq" type="button">Publish</button></div></div>
+<section hidden="" id="faqEditor">
+<div class="faq-editor-toolbar"><button class="faq-back" id="faqBack" type="button">← FAQs</button><div><span class="save-state" id="saveState">Draft</span><button class="management-secondary-button" id="deleteFaq" type="button">Delete</button><button class="management-secondary-button" id="saveFaq" type="button">Save</button><button class="management-primary-button" id="publishFaq" type="button">Publish</button></div></div>
 <div class="faq-editor-grid">
-<section class="faq-editor-card faq-content-card"><span class="management-kicker">FAQ Content</span><h2>Edit question & answer</h2><label>Question<textarea id="faqQuestion" rows="3" placeholder="Enter the customer question"></textarea></label><label>Answer<textarea id="faqAnswer" rows="14" placeholder="Enter the answer"></textarea></label></section>
+<section class="faq-editor-card faq-content-card"><span class="management-kicker">FAQ Content</span><h2>Edit question &amp; answer</h2><label>Question<textarea id="faqQuestion" placeholder="Enter the customer question" rows="3"></textarea></label><label>Answer<textarea id="faqAnswer" placeholder="Enter the answer" rows="14"></textarea></label></section>
 <aside class="faq-editor-side">
-<section class="faq-editor-card"><span class="management-kicker">Organization</span><h2>FAQ settings</h2><label>Category<input id="faqCategory"></label><label>Display order<input id="faqOrder" type="number" min="0"></label><label>Status<select id="faqStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></label><label class="check-row"><span>Featured FAQ</span><input id="faqFeatured" type="checkbox"></label></section>
+<section class="faq-editor-card"><span class="management-kicker">Organization</span><h2>FAQ settings</h2><label>Category<input id="faqCategory"/></label><label>Display order<input id="faqOrder" min="0" type="number"/></label><label>Status<select id="faqStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></label><label class="check-row"><span>Featured FAQ</span><input id="faqFeatured" type="checkbox"/></label></section>
 <section class="faq-editor-card"><span class="management-kicker">Preview</span><h2>Website preview</h2><div class="faq-preview"><strong id="previewQuestion">Question</strong><p id="previewAnswer">Answer</p></div></section>
 </aside></div>
 </section>
 </main></div>
-
-<div class="faq-modal" id="newFaqModal" hidden><div class="faq-modal__backdrop" data-close-new></div><section class="faq-modal__card"><header><div><span class="management-kicker">Help content</span><h2>New FAQ</h2></div><button data-close-new type="button">×</button></header><form id="newFaqForm"><label>Question<textarea name="question" rows="3" required></textarea></label><label>Category<input name="category"></label><footer><button class="management-secondary-button" data-close-new type="button">Cancel</button><button class="management-primary-button" type="submit">Create & edit</button></footer></form></section></div>
-
+<div class="faq-modal" hidden="" id="newFaqModal"><div class="faq-modal__backdrop" data-close-new=""></div><section class="faq-modal__card"><header><div><span class="management-kicker">Help content</span><h2>New FAQ</h2></div><button data-close-new="" type="button">×</button></header><form id="newFaqForm"><label>Question<textarea name="question" required="" rows="3"></textarea></label><label>Category<input name="category"/></label><footer><button class="management-secondary-button" data-close-new="" type="button">Cancel</button><button class="management-primary-button" type="submit">Create &amp; edit</button></footer></form></section></div>
 <script src="assets/js/navigation.js"></script><script src="assets/js/faqs-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body></html>

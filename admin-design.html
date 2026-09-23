@@ -1,139 +1,125 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
 <title>filings4u Admin | Design Projects Management</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/design-manager.css?v=20260917-admin-workspace">
-  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/design-manager.css?v=20260917-admin-workspace" rel="stylesheet"/>
+<link href="assets/css/popup-horizontal.css?v=20260919-4" rel="stylesheet"/>
 </head>
 <body class="management-body design-manager-body" data-management-page="design">
 <header class="management-topbar">
-  <div class="management-topbar__left">
-    <button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
-    <button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
-    <a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a>
-  </div>
-  <div class="management-topbar__center"><button class="global-search-trigger" id="designSearchTrigger" type="button"><span>⌕</span><span>Search customers or design projects...</span><kbd>/</kbd></button></div>
-  <div class="management-topbar__right"><button class="management-create-button" id="newProjectTop" type="button">+ New project</button><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials>AD</span><span class="management-profile-copy"><strong data-admin-name>Administrator</strong><small data-admin-email>Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" id="managementProfileMenu" hidden><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users & roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
+<div class="management-topbar__left">
+<button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
+<button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
+<a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a>
+</div>
+<div class="management-topbar__center"><button class="global-search-trigger" id="designSearchTrigger" type="button"><span>⌕</span><span>Search customers or design projects...</span><kbd>/</kbd></button></div>
+<div class="management-topbar__right"><button class="management-create-button" id="newProjectTop" type="button">+ New project</button><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials="">AD</span><span class="management-profile-copy"><strong data-admin-name="">Administrator</strong><small data-admin-email="">Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" hidden="" id="managementProfileMenu"><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users &amp; roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
 </header>
-
 <div class="management-shell">
-<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav class="management-nav" id="managementNavigation" data-management-navigation aria-label="Management navigation"></nav></aside>
+<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation"></nav></aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main design-main">
-
 <!-- CUSTOMER DIRECTORY -->
 <section id="designCustomerView">
-  <header class="management-page-head business-page-head">
-    <div><span class="management-kicker">Business · Creative</span><h1>Design Projects</h1><p>Select a customer to manage their logo and website design work, review links, proofs, approvals and client feedback.</p></div>
-    <div class="management-page-actions"><button class="management-secondary-button" id="refreshDesign" type="button">Refresh</button><button class="management-primary-button" id="newProjectButton" type="button">+ New project</button></div>
-  </header>
-
-  <div class="design-stat-grid">
-    <article><span>◎</span><div><small>Customers</small><strong id="statCustomers">—</strong><em>With design access</em></div></article>
-    <article><span>✦</span><div><small>Total projects</small><strong id="statProjects">—</strong><em>Logo & website work</em></div></article>
-    <article><span>◷</span><div><small>In review</small><strong id="statReview">—</strong><em>Needs client action</em></div></article>
-    <article><span>✓</span><div><small>Completed</small><strong id="statCompleted">—</strong><em>Approved / delivered</em></div></article>
-  </div>
-
-  <section class="design-table-card">
-    <div class="design-toolbar">
-      <label class="design-search-field"><span>⌕</span><input id="customerSearch" type="search" placeholder="Search customer, company or email"></label>
-      <div><select id="customerProjectFilter"><option value="">All customers</option><option value="with-projects">With projects</option><option value="website">Website projects</option><option value="logo">Logo projects</option></select></div>
-    </div>
-    <div class="design-table-wrap"><table class="design-table customer-design-table"><thead><tr><th>Customer</th><th>Company</th><th>Projects</th><th>Website</th><th>Logo</th><th>Latest activity</th><th></th></tr></thead><tbody id="customerTableBody"><tr><td colspan="7"><div class="design-empty">Loading customers…</div></td></tr></tbody></table></div>
-    <footer class="design-table-footer"><span id="customerResultCount">—</span><span>Click a customer to open their design workspace.</span></footer>
-  </section>
+<header class="management-page-head business-page-head">
+<div><span class="management-kicker">Business · Creative</span><h1>Design Projects</h1><p>Select a customer to manage their logo and website design work, review links, proofs, approvals and client feedback.</p></div>
+<div class="management-page-actions"><button class="management-secondary-button" id="refreshDesign" type="button">Refresh</button><button class="management-primary-button" id="newProjectButton" type="button">+ New project</button></div>
+</header>
+<div class="design-stat-grid">
+<article><span>◎</span><div><small>Customers</small><strong id="statCustomers">—</strong><em>With design access</em></div></article>
+<article><span>✦</span><div><small>Total projects</small><strong id="statProjects">—</strong><em>Logo &amp; website work</em></div></article>
+<article><span>◷</span><div><small>In review</small><strong id="statReview">—</strong><em>Needs client action</em></div></article>
+<article><span>✓</span><div><small>Completed</small><strong id="statCompleted">—</strong><em>Approved / delivered</em></div></article>
+</div>
+<section class="design-table-card">
+<div class="design-toolbar">
+<label class="design-search-field"><span>⌕</span><input id="customerSearch" placeholder="Search customer, company or email" type="search"/></label>
+<div><select id="customerProjectFilter"><option value="">All customers</option><option value="with-projects">With projects</option><option value="website">Website projects</option><option value="logo">Logo projects</option></select></div>
+</div>
+<div class="design-table-wrap"><table class="design-table customer-design-table"><thead><tr><th>Customer</th><th>Company</th><th>Projects</th><th>Website</th><th>Logo</th><th>Latest activity</th><th></th></tr></thead><tbody id="customerTableBody"><tr><td colspan="7"><div class="design-empty">Loading customers…</div></td></tr></tbody></table></div>
+<footer class="design-table-footer"><span id="customerResultCount">—</span><span>Click a customer to open their design workspace.</span></footer>
 </section>
-
+</section>
 <!-- CUSTOMER WORKSPACE -->
-<section id="designClientView" hidden>
-  <div class="design-record-toolbar"><button class="design-back-button" id="clientBackButton" type="button">← All customers</button><div><button class="management-primary-button" id="clientNewProjectButton" type="button">+ New project</button></div></div>
-  <section class="design-client-hero">
-    <div class="design-client-avatar" id="clientWorkspaceInitials">C</div>
-    <div class="design-client-copy"><span class="management-kicker">Customer design workspace</span><h1 id="clientWorkspaceName">Customer</h1><p id="clientWorkspaceMeta">—</p></div>
-    <div class="design-client-summary"><div><small>Total projects</small><strong id="clientProjectCount">0</strong></div><div><small>Website</small><strong id="clientWebsiteCount">0</strong></div><div><small>Logo</small><strong id="clientLogoCount">0</strong></div></div>
-  </section>
-  <div class="client-project-toolbar"><div><h2>Design projects</h2><p>Open a project to manage client-facing creative work.</p></div><select id="clientProjectTypeFilter"><option value="">All project types</option><option value="website">Website</option><option value="logo">Logo</option><option value="brand">Brand</option><option value="other">Other</option></select></div>
-  <div class="client-project-grid" id="clientProjectGrid"></div>
+<section hidden="" id="designClientView">
+<div class="design-record-toolbar"><button class="design-back-button" id="clientBackButton" type="button">← All customers</button><div><button class="management-primary-button" id="clientNewProjectButton" type="button">+ New project</button></div></div>
+<section class="design-client-hero">
+<div class="design-client-avatar" id="clientWorkspaceInitials">C</div>
+<div class="design-client-copy"><span class="management-kicker">Customer design workspace</span><h1 id="clientWorkspaceName">Customer</h1><p id="clientWorkspaceMeta">—</p></div>
+<div class="design-client-summary"><div><small>Total projects</small><strong id="clientProjectCount">0</strong></div><div><small>Website</small><strong id="clientWebsiteCount">0</strong></div><div><small>Logo</small><strong id="clientLogoCount">0</strong></div></div>
 </section>
-
+<div class="client-project-toolbar"><div><h2>Design projects</h2><p>Open a project to manage client-facing creative work.</p></div><select id="clientProjectTypeFilter"><option value="">All project types</option><option value="website">Website</option><option value="logo">Logo</option><option value="brand">Brand</option><option value="other">Other</option></select></div>
+<div class="client-project-grid" id="clientProjectGrid"></div>
+</section>
 <!-- PROJECT WORKSPACE -->
-<section id="designRecordView" hidden>
-  <div class="design-record-toolbar"><button class="design-back-button" id="designBackButton" type="button">← Customer projects</button><div><button class="management-secondary-button" id="openClientPortalButton" type="button">Preview client portal</button><button class="management-primary-button" id="editProjectButton" type="button">Edit project</button></div></div>
-  <section class="design-record-hero">
-    <div class="design-record-identity"><div class="design-record-icon">✦</div><div><div class="design-record-title-line"><h1 id="recordTitle">Design Project</h1><span id="recordStatus" class="status-pill">—</span></div><p id="recordType">—</p><div class="design-record-meta"><span id="recordCustomer">—</span><b>•</b><span id="recordTracking">—</span><b>•</b><span id="recordCreated">—</span></div></div></div>
-    <div class="design-record-summary"><div><small>Proofs</small><strong id="recordProofs">0</strong></div><div><small>Comments</small><strong id="recordComments">0</strong></div><div><small>Decision</small><strong id="recordDecision">—</strong></div><div><small>Last update</small><strong id="recordUpdated">—</strong></div></div>
-  </section>
-
-  <nav class="design-record-tabs">
-    <button class="is-active" data-tab="overview">Overview</button>
-    <button data-tab="website" id="websiteTabButton">Website</button>
-    <button data-tab="proofs">Proofs <span id="tabProofCount">0</span></button>
-    <button data-tab="feedback">Feedback <span id="tabFeedbackCount">0</span></button>
-    <button data-tab="intake">Client intake</button>
-    <button data-tab="activity">Activity</button>
-  </nav>
-
-  <div class="design-record-panels">
-    <section class="design-record-panel is-active" data-panel="overview">
-      <div class="design-overview-grid">
-        <article class="design-detail-card"><div class="card-head"><div><span class="management-kicker">Project</span><h2>Project details</h2></div><button class="text-action" data-edit-project>Edit</button></div><dl id="projectDetails"></dl></article>
-        <article class="design-detail-card"><div class="card-head"><div><span class="management-kicker">Client</span><h2>Customer details</h2></div></div><dl id="customerDetails"></dl></article>
-        <article class="design-detail-card wide"><div class="card-head"><div><span class="management-kicker">Creative pipeline</span><h2>Project progress</h2></div></div><div id="projectProgress" class="design-progress"></div></article>
-      </div>
-    </section>
-
-    <section class="design-record-panel" data-panel="website">
-      <div class="website-admin-grid">
-        <article class="design-detail-card"><div class="card-head"><div><span class="management-kicker">Client preview</span><h2>Website review link</h2></div></div>
-          <form id="websiteLinkForm" class="website-link-form">
-            <label>Preview label<input id="previewLabel" name="preview_label" placeholder="Current website build"></label>
-            <label>Review / staging URL<input id="reviewUrl" name="review_url" type="url" placeholder="https://staging.example.com"></label>
-            <p>This URL is embedded securely inside the customer's Design Center for review and revisions.</p>
-            <label>Final live website URL<input id="finalUrl" name="final_url" type="url" placeholder="https://customerwebsite.com"></label>
-            <p>The final URL appears in the customer's portal as their live website after launch.</p>
-            <div class="website-link-actions"><button type="button" class="management-secondary-button" id="openReviewUrl">Open review site</button><button type="button" class="management-secondary-button" id="openFinalUrl">Open live site</button><button class="management-primary-button" type="submit">Save website links</button></div>
-          </form>
-        </article>
-        <article class="design-detail-card website-status-card"><div class="card-head"><div><span class="management-kicker">Portal visibility</span><h2>Client website status</h2></div></div><div id="websiteStatusSummary" class="website-status-summary"></div></article>
-      </div>
-    </section>
-
-    <section class="design-record-panel" data-panel="proofs">
-      <div class="section-head-row"><div class="section-head"><span class="management-kicker">Creative review</span><h2>Design proofs</h2></div><button class="management-primary-button" id="uploadProofButton" type="button">+ Upload proof</button></div>
-      <div class="design-card-grid" id="proofList"></div>
-    </section>
-    <section class="design-record-panel" data-panel="feedback"><div class="section-head"><span class="management-kicker">Client feedback</span><h2>Comments & revisions</h2></div><div class="feedback-workspace"><div class="activity-list" id="feedbackList"></div><form id="adminCommentForm" class="admin-comment-form"><textarea id="adminCommentText" rows="3" maxlength="5000" placeholder="Reply to the customer…" required></textarea><button class="management-primary-button" type="submit">Send reply</button></form></div></section>
-    <section class="design-record-panel" data-panel="intake"><div class="section-head"><span class="management-kicker">Discovery</span><h2>Completed client intake</h2></div><div id="intakeDetails" class="intake-details-admin"></div></section>
-    <section class="design-record-panel" data-panel="activity"><div class="section-head"><span class="management-kicker">Timeline</span><h2>Project activity</h2></div><div class="activity-list" id="activityList"></div></section>
-  </div>
+<section hidden="" id="designRecordView">
+<div class="design-record-toolbar"><button class="design-back-button" id="designBackButton" type="button">← Customer projects</button><div><button class="management-secondary-button" id="openClientPortalButton" type="button">Preview client portal</button><button class="management-primary-button" id="editProjectButton" type="button">Edit project</button></div></div>
+<section class="design-record-hero">
+<div class="design-record-identity"><div class="design-record-icon">✦</div><div><div class="design-record-title-line"><h1 id="recordTitle">Design Project</h1><span class="status-pill" id="recordStatus">—</span></div><p id="recordType">—</p><div class="design-record-meta"><span id="recordCustomer">—</span><b>•</b><span id="recordTracking">—</span><b>•</b><span id="recordCreated">—</span></div></div></div>
+<div class="design-record-summary"><div><small>Proofs</small><strong id="recordProofs">0</strong></div><div><small>Comments</small><strong id="recordComments">0</strong></div><div><small>Decision</small><strong id="recordDecision">—</strong></div><div><small>Last update</small><strong id="recordUpdated">—</strong></div></div>
+</section>
+<nav class="design-record-tabs">
+<button class="is-active" data-tab="overview">Overview</button>
+<button data-tab="website" id="websiteTabButton">Website</button>
+<button data-tab="proofs">Proofs <span id="tabProofCount">0</span></button>
+<button data-tab="feedback">Feedback <span id="tabFeedbackCount">0</span></button>
+<button data-tab="intake">Client intake</button>
+<button data-tab="activity">Activity</button>
+</nav>
+<div class="design-record-panels">
+<section class="design-record-panel is-active" data-panel="overview">
+<div class="design-overview-grid">
+<article class="design-detail-card"><div class="card-head"><div><span class="management-kicker">Project</span><h2>Project details</h2></div><button class="text-action" data-edit-project="">Edit</button></div><dl id="projectDetails"></dl></article>
+<article class="design-detail-card"><div class="card-head"><div><span class="management-kicker">Client</span><h2>Customer details</h2></div></div><dl id="customerDetails"></dl></article>
+<article class="design-detail-card wide"><div class="card-head"><div><span class="management-kicker">Creative pipeline</span><h2>Project progress</h2></div></div><div class="design-progress" id="projectProgress"></div></article>
+</div>
+</section>
+<section class="design-record-panel" data-panel="website">
+<div class="website-admin-grid">
+<article class="design-detail-card"><div class="card-head"><div><span class="management-kicker">Client preview</span><h2>Website review link</h2></div></div>
+<form class="website-link-form" id="websiteLinkForm">
+<label>Preview label<input id="previewLabel" name="preview_label" placeholder="Current website build"/></label>
+<label>Review / staging URL<input id="reviewUrl" name="review_url" placeholder="https://staging.example.com" type="url"/></label>
+<p>This URL is embedded securely inside the customer's Design Center for review and revisions.</p>
+<label>Final live website URL<input id="finalUrl" name="final_url" placeholder="https://customerwebsite.com" type="url"/></label>
+<p>The final URL appears in the customer's portal as their live website after launch.</p>
+<div class="website-link-actions"><button class="management-secondary-button" id="openReviewUrl" type="button">Open review site</button><button class="management-secondary-button" id="openFinalUrl" type="button">Open live site</button><button class="management-primary-button" type="submit">Save website links</button></div>
+</form>
+</article>
+<article class="design-detail-card website-status-card"><div class="card-head"><div><span class="management-kicker">Portal visibility</span><h2>Client website status</h2></div></div><div class="website-status-summary" id="websiteStatusSummary"></div></article>
+</div>
+</section>
+<section class="design-record-panel" data-panel="proofs">
+<div class="section-head-row"><div class="section-head"><span class="management-kicker">Creative review</span><h2>Design proofs</h2></div><button class="management-primary-button" id="uploadProofButton" type="button">+ Upload proof</button></div>
+<div class="design-card-grid" id="proofList"></div>
+</section>
+<section class="design-record-panel" data-panel="feedback"><div class="section-head"><span class="management-kicker">Client feedback</span><h2>Comments &amp; revisions</h2></div><div class="feedback-workspace"><div class="activity-list" id="feedbackList"></div><form class="admin-comment-form" id="adminCommentForm"><textarea id="adminCommentText" maxlength="5000" placeholder="Reply to the customer…" required="" rows="3"></textarea><button class="management-primary-button" type="submit">Send reply</button></form></div></section>
+<section class="design-record-panel" data-panel="intake"><div class="section-head"><span class="management-kicker">Discovery</span><h2>Completed client intake</h2></div><div class="intake-details-admin" id="intakeDetails"></div></section>
+<section class="design-record-panel" data-panel="activity"><div class="section-head"><span class="management-kicker">Timeline</span><h2>Project activity</h2></div><div class="activity-list" id="activityList"></div></section>
+</div>
 </section>
 </main></div>
-
 <!-- EDIT PROJECT -->
-<div class="design-modal" id="editProjectModal" hidden><div class="design-modal__backdrop" data-close-edit></div><section class="design-modal__card"><header><div><span class="management-kicker">Design project</span><h2>Edit project</h2></div><button data-close-edit type="button">×</button></header><form id="editProjectForm"><div class="design-form-grid"><label class="full">Project title<input name="title" required></label><label>Project type<select name="project_type"><option value="logo">Logo</option><option value="website">Website</option><option value="brand">Brand</option><option value="other">Other</option></select></label><label>Status<select name="status"><option value="intake">Intake</option><option value="in_progress">In progress</option><option value="awaiting_feedback">Awaiting feedback</option><option value="changes_requested">Changes requested</option><option value="approved">Approved</option><option value="completed">Completed</option><option value="delivered">Delivered</option><option value="cancelled">Cancelled</option></select></label><label>Tracking number<input name="tracking_number"></label><label>Intake status<select name="intake_status"><option value="required">Required</option><option value="completed">Completed</option><option value="waived">Waived</option></select></label><label class="full">Internal admin notes<textarea name="admin_notes" rows="4"></textarea></label></div><footer><button class="management-secondary-button" data-close-edit type="button">Cancel</button><button class="management-primary-button" type="submit">Save project</button></footer></form></section></div>
-
+<div class="design-modal" hidden="" id="editProjectModal"><div class="design-modal__backdrop" data-close-edit=""></div><section class="design-modal__card"><header><div><span class="management-kicker">Design project</span><h2>Edit project</h2></div><button data-close-edit="" type="button">×</button></header><form id="editProjectForm"><div class="design-form-grid"><label class="full">Project title<input name="title" required=""/></label><label>Project type<select name="project_type"><option value="logo">Logo</option><option value="website">Website</option><option value="brand">Brand</option><option value="other">Other</option></select></label><label>Status<select name="status"><option value="intake">Intake</option><option value="in_progress">In progress</option><option value="awaiting_feedback">Awaiting feedback</option><option value="changes_requested">Changes requested</option><option value="approved">Approved</option><option value="completed">Completed</option><option value="delivered">Delivered</option><option value="cancelled">Cancelled</option></select></label><label>Tracking number<input name="tracking_number"/></label><label>Intake status<select name="intake_status"><option value="required">Required</option><option value="completed">Completed</option><option value="waived">Waived</option></select></label><label class="full">Internal admin notes<textarea name="admin_notes" rows="4"></textarea></label></div><footer><button class="management-secondary-button" data-close-edit="" type="button">Cancel</button><button class="management-primary-button" type="submit">Save project</button></footer></form></section></div>
 <!-- NEW PROJECT -->
-<div class="design-modal" id="newProjectModal" hidden><div class="design-modal__backdrop" data-close-new></div><section class="design-modal__card"><header><div><span class="management-kicker">Creative</span><h2>New design project</h2></div><button data-close-new type="button">×</button></header><form id="newProjectForm"><div class="design-form-grid"><label class="full">Customer<select name="client_profile_id" id="newProjectClient" required><option value="">Select customer</option></select></label><label class="full">Project title<input name="title" required placeholder="Acme Logistics — Website Design"></label><label>Project type<select name="project_type"><option value="website">Website</option><option value="logo">Logo</option><option value="brand">Brand</option><option value="other">Other</option></select></label><label>Status<select name="status"><option value="intake">Intake</option><option value="in_progress">In progress</option><option value="awaiting_feedback">Awaiting feedback</option></select></label><label>Tracking number<input name="tracking_number"></label><label>Intake status<select name="intake_status"><option value="required">Required</option><option value="completed">Completed</option><option value="waived">Waived</option></select></label><label class="full">Internal admin notes<textarea name="admin_notes" rows="4"></textarea></label></div><footer><button class="management-secondary-button" data-close-new type="button">Cancel</button><button class="management-primary-button" type="submit">Create project</button></footer></form></section></div>
-
+<div class="design-modal" hidden="" id="newProjectModal"><div class="design-modal__backdrop" data-close-new=""></div><section class="design-modal__card"><header><div><span class="management-kicker">Creative</span><h2>New design project</h2></div><button data-close-new="" type="button">×</button></header><form id="newProjectForm"><div class="design-form-grid"><label class="full">Customer<select id="newProjectClient" name="client_profile_id" required=""><option value="">Select customer</option></select></label><label class="full">Project title<input name="title" placeholder="Acme Logistics — Website Design" required=""/></label><label>Project type<select name="project_type"><option value="website">Website</option><option value="logo">Logo</option><option value="brand">Brand</option><option value="other">Other</option></select></label><label>Status<select name="status"><option value="intake">Intake</option><option value="in_progress">In progress</option><option value="awaiting_feedback">Awaiting feedback</option></select></label><label>Tracking number<input name="tracking_number"/></label><label>Intake status<select name="intake_status"><option value="required">Required</option><option value="completed">Completed</option><option value="waived">Waived</option></select></label><label class="full">Internal admin notes<textarea name="admin_notes" rows="4"></textarea></label></div><footer><button class="management-secondary-button" data-close-new="" type="button">Cancel</button><button class="management-primary-button" type="submit">Create project</button></footer></form></section></div>
 <!-- UPLOAD PROOF -->
-<div class="design-modal" id="proofModal" hidden><div class="design-modal__backdrop" data-close-proof></div><section class="design-modal__card"><header><div><span class="management-kicker">Client review</span><h2>Upload design proof</h2></div><button data-close-proof type="button">×</button></header><form id="proofUploadForm"><div class="design-form-grid"><label class="full">Proof title<input name="proof_title" required placeholder="Homepage concept / Logo concept A"></label><label class="full">Proof file<input name="proof_file" type="file" required accept="image/png,image/jpeg,image/webp,image/gif,application/pdf"></label></div><p class="proof-upload-note">PNG, JPG, WEBP, GIF or PDF · maximum 50 MB. The file is stored in the private design proof bucket and shown securely in the client portal.</p><footer><button class="management-secondary-button" data-close-proof type="button">Cancel</button><button class="management-primary-button" type="submit">Upload for review</button></footer></form></section></div>
-
+<div class="design-modal" hidden="" id="proofModal"><div class="design-modal__backdrop" data-close-proof=""></div><section class="design-modal__card"><header><div><span class="management-kicker">Client review</span><h2>Upload design proof</h2></div><button data-close-proof="" type="button">×</button></header><form id="proofUploadForm"><div class="design-form-grid"><label class="full">Proof title<input name="proof_title" placeholder="Homepage concept / Logo concept A" required=""/></label><label class="full">Proof file<input accept="image/png,image/jpeg,image/webp,image/gif,application/pdf" name="proof_file" required="" type="file"/></label></div><p class="proof-upload-note">PNG, JPG, WEBP, GIF or PDF · maximum 50 MB. The file is stored in the private design proof bucket and shown securely in the client portal.</p><footer><button class="management-secondary-button" data-close-proof="" type="button">Cancel</button><button class="management-primary-button" type="submit">Upload for review</button></footer></form></section></div>
 <script src="assets/js/navigation.js"></script>
 <script src="assets/js/design-manager.js?v=20260922-intake-assets"></script>
 <script src="assets/js/filings4u-ui.js"></script>

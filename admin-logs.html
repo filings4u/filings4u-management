@@ -1,59 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="images/fav.png">
-  <link rel="shortcut icon" type="image/png" href="images/fav.png">
-  <link rel="apple-touch-icon" href="images/fav.png">
-
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="images/fav.png" rel="shortcut icon" type="image/png"/>
+<link href="images/fav.png" rel="apple-touch-icon"/>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/>
 <title>filings4u Admin | System Logs</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-management.css"><link rel="stylesheet" href="assets/css/logs-manager.css">
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/><link href="assets/css/logs-manager.css" rel="stylesheet"/>
 </head>
 <body class="management-body logs-manager-body" data-management-page="logs">
 <header class="management-topbar">
-<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a></div>
+<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website &amp; Operations</small></span></a></div>
 <div class="management-topbar__center"><button class="global-search-trigger" id="logSearchTrigger" type="button"><span>⌕</span><span>Search system logs...</span><kbd>/</kbd></button></div>
 <div class="management-topbar__right"><button class="management-create-button" id="refreshLogsTop" type="button">Refresh logs</button></div>
 </header>
-
 <div class="management-shell">
-<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav class="management-nav" id="managementNavigation" data-management-navigation aria-label="Management navigation"></nav></aside>
+<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav aria-label="Management navigation" class="management-nav" data-management-navigation="" id="managementNavigation"></nav></aside>
 <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
-
 <main class="management-main logs-main">
 <header class="management-page-head logs-page-head"><div><span class="management-kicker">Platform · Diagnostics</span><h1>System Logs Management</h1><p>Inspect administrative, system and trigger events from one searchable diagnostic workspace.</p></div><div class="management-page-actions"><button class="management-secondary-button" id="refreshLogs" type="button">Refresh</button></div></header>
-
 <div class="log-stat-grid">
 <article><small>Total logs</small><strong id="statTotal">—</strong><em>Loaded records</em></article>
 <article><small>Errors</small><strong id="statErrors">—</strong><em>Error / critical</em></article>
 <article><small>Today</small><strong id="statToday">—</strong><em>Events today</em></article>
 <article><small>Sources</small><strong id="statSources">—</strong><em>Log streams</em></article>
 </div>
-
 <section class="logs-card">
 <div class="logs-toolbar">
-<label class="logs-search"><span>⌕</span><input id="logsSearch" type="search" placeholder="Search actor, action, category, tracking number or message"></label>
+<label class="logs-search"><span>⌕</span><input id="logsSearch" placeholder="Search actor, action, category, tracking number or message" type="search"/></label>
 <div><select id="logsSource"><option value="">All sources</option><option value="admin_system_logs">Admin system</option><option value="system_event_logs">System events</option><option value="trigger_logs">Trigger logs</option></select><select id="logsSeverity"><option value="">All severity</option><option>INFO</option><option>WARNING</option><option>ERROR</option><option>CRITICAL</option></select></div>
 </div>
 <div class="logs-table-wrap"><table class="logs-table"><thead><tr><th>Event</th><th>Source</th><th>Actor</th><th>Severity</th><th>Timestamp</th><th></th></tr></thead><tbody id="logsTableBody"><tr><td colspan="6"><div class="logs-empty">Loading system logs…</div></td></tr></tbody></table></div>
 </section>
 </main>
 </div>
-
-<div class="logs-modal" id="logModal" hidden><div class="logs-modal__backdrop" data-close-log></div><section class="logs-modal__card"><header><div><span class="management-kicker">Diagnostic record</span><h2 id="logModalTitle">Log details</h2></div><button data-close-log type="button">×</button></header><div id="logModalBody"></div></section></div>
-
+<div class="logs-modal" hidden="" id="logModal"><div class="logs-modal__backdrop" data-close-log=""></div><section class="logs-modal__card"><header><div><span class="management-kicker">Diagnostic record</span><h2 id="logModalTitle">Log details</h2></div><button data-close-log="" type="button">×</button></header><div id="logModalBody"></div></section></div>
 <script src="assets/js/navigation.js"></script><script src="assets/js/logs-manager.js"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body></html>

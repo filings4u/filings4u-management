@@ -1,75 +1,71 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/admin-supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/admin-auth-guard.js"></script>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10b981">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/>
+<meta content="#10b981" name="theme-color"/>
 <title>Client CRM | filings4u Administration</title>
-<link href="images/fav.png" rel="icon" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin-clients.css">
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-clients.css" rel="stylesheet"/>
 <script src="assets/js/admin-navigation.js"></script>
 </head>
 <body data-page="clients">
 <div id="adminNavigationMount"></div>
 <main>
-  <div id="gate" class="gate">Verifying administrator access…</div>
-  <section id="app" hidden>
-    <div class="head">
-      <div>
-        <label>RELATIONSHIP MANAGEMENT</label>
-        <h1>Client CRM</h1>
-        <p>Every customer relationship across portal accounts, free activity, purchases, filings, billing and support.</p>
-      </div>
-      <button id="refresh" class="primary">Refresh clients</button>
-    </div>
-
-    <div id="stats" class="stats"></div>
-
-    <section class="panel">
-      <div class="filters">
-        <input id="q" placeholder="Search name, email, company, phone or customer ID">
-        <select id="account">
-          <option value="">All customers</option>
-          <option value="portal">Portal accounts</option>
-          <option value="paid">Paid customers</option>
-          <option value="free">Free / no paid orders</option>
-          <option value="open">Open invoices</option>
-        </select>
-        <button id="clear">Clear</button>
-      </div>
-      <div class="table">
-        <table>
-          <thead><tr><th>Customer</th><th>Company</th><th>Relationship</th><th>Orders</th><th>Lifetime value</th><th>Filings</th><th>Last activity</th><th></th></tr></thead>
-          <tbody id="rows"></tbody>
-        </table>
-      </div>
-    </section>
-  </section>
-</main>
-
-<div id="shade" class="shade" hidden></div>
-<section id="drawer" class="drawer crm-drawer">
-  <div class="drawerHead">
-    <div><label>CLIENT 360° RECORD</label><h2 id="drawerTitle">Customer</h2><p id="drawerSubtitle"></p></div>
-    <button id="close" aria-label="Close customer record">×</button>
-  </div>
-  <div id="detail" class="detailBody"></div>
+<div class="gate" id="gate">Verifying administrator access…</div>
+<section hidden="" id="app">
+<div class="head">
+<div>
+<label>RELATIONSHIP MANAGEMENT</label>
+<h1>Client CRM</h1>
+<p>Every customer relationship across portal accounts, free activity, purchases, filings, billing and support.</p>
+</div>
+<button class="primary" id="refresh">Refresh clients</button>
+</div>
+<div class="stats" id="stats"></div>
+<section class="panel">
+<div class="filters">
+<input id="q" placeholder="Search name, email, company, phone or customer ID"/>
+<select id="account">
+<option value="">All customers</option>
+<option value="portal">Portal accounts</option>
+<option value="paid">Paid customers</option>
+<option value="free">Free / no paid orders</option>
+<option value="open">Open invoices</option>
+</select>
+<button id="clear">Clear</button>
+</div>
+<div class="table">
+<table>
+<thead><tr><th>Customer</th><th>Company</th><th>Relationship</th><th>Orders</th><th>Lifetime value</th><th>Filings</th><th>Last activity</th><th></th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
 </section>
-<div id="toast" class="toast" hidden></div>
+</section>
+</main>
+<div class="shade" hidden="" id="shade"></div>
+<section class="drawer crm-drawer" id="drawer">
+<div class="drawerHead">
+<div><label>CLIENT 360° RECORD</label><h2 id="drawerTitle">Customer</h2><p id="drawerSubtitle"></p></div>
+<button aria-label="Close customer record" id="close">×</button>
+</div>
+<div class="detailBody" id="detail"></div>
+</section>
+<div class="toast" hidden="" id="toast"></div>
 <script src="assets/js/admin-clients.js?v=20260909-1"></script>
 <script src="assets/js/filings4u-ui.js"></script>
 </body>

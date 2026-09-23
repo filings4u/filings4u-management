@@ -1,21 +1,21 @@
-<!doctype html><html lang="en"><head>
-
+<!DOCTYPE html>
+<html lang="en"><head>
 <!-- filings4u protected-page anti-flicker lock -->
 <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
 <script>document.documentElement.classList.add('f4u-auth-pending');</script>
-<link rel="stylesheet" href="assets/css/auth-lock.css">
-<link rel="stylesheet" href="assets/css/session-security.css">
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/session-security.js"></script>
 <script src="assets/js/client-auth-guard.js"></script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981"><title>filings4u | Messages</title>
-<link href="images/fav.png" rel="icon" type="image/png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/client-messages.css"></head>
-<body data-portal="client" data-page="messages"><header class="client-header"><a class="client-brand" href="client-dashboard.html"><img src="images/logo.png" alt="filings4u" class="client-logo"><span class="client-brand-divider"></span><span class="client-portal-label">Client Portal</span></a>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="robots"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="googlebot"/><meta content="noindex,nofollow,noarchive,nosnippet,noimageindex" name="bingbot"/><meta content="#10b981" name="theme-color"/><title>filings4u | Messages</title>
+<link href="images/fav.png" rel="icon" type="image/png"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/client-messages.css" rel="stylesheet"/></head>
+<body data-page="messages" data-portal="client"><header class="client-header"><a class="client-brand" href="client-dashboard.html"><img alt="filings4u" class="client-logo" src="images/logo.png"/><span class="client-brand-divider"></span><span class="client-portal-label">Client Portal</span></a>
 <nav class="client-nav"><a href="client-dashboard.html">Dashboard</a><a href="client-orders.html">Orders</a><a href="client-filings.html">Filings</a><a href="client-entities.html">Entities</a><a href="client-documents.html">Documents</a><a href="client-design.html">Design</a><a href="client-support.html">Support</a><a class="is-active" href="client-messages.html">Messages</a></nav>
 <div class="client-account"><button class="client-profile" id="clientProfileButton"><span class="avatar" id="clientAvatar">C</span><strong id="clientName">My Account</strong></button></div></header>
-<main id="app" hidden><section class="page-heading"><div><span class="kicker">SECURE COMMUNICATION</span><h1>Messages</h1><p>Review messages, documents and images sent by your filings4u team, and reply securely without leaving your account.</p></div></section>
-<section class="messageShell"><div id="messages" class="messages"></div><div id="selectedFiles" class="selectedFiles" hidden></div><div class="composer"><textarea id="reply" placeholder="Write a reply…"></textarea><div class="composerActions"><label for="files" class="secondary">Attach files</label><input id="files" type="file" multiple accept="image/*,.pdf,.doc,.docx,.txt" hidden><button id="send" class="primary">Send reply</button></div></div></section></main>
-<div id="gate" class="gate">Loading your secure messages…</div><div id="toast" class="toast" hidden></div><script src="assets/js/client-navigation.js"></script><script src="assets/js/client-messages.js"></script><script src="assets/js/filings4u-ui.js"></script>
+<main hidden="" id="app"><section class="page-heading"><div><span class="kicker">SECURE COMMUNICATION</span><h1>Messages</h1><p>Review messages, documents and images sent by your filings4u team, and reply securely without leaving your account.</p></div></section>
+<section class="messageShell"><div class="messages" id="messages"></div><div class="selectedFiles" hidden="" id="selectedFiles"></div><div class="composer"><textarea id="reply" placeholder="Write a reply…"></textarea><div class="composerActions"><label class="secondary" for="files">Attach files</label><input accept="image/*,.pdf,.doc,.docx,.txt" hidden="" id="files" multiple="" type="file"/><button class="primary" id="send">Send reply</button></div></div></section></main>
+<div class="gate" id="gate">Loading your secure messages…</div><div class="toast" hidden="" id="toast"></div><script src="assets/js/client-navigation.js"></script><script src="assets/js/client-messages.js"></script><script src="assets/js/filings4u-ui.js"></script>
 </body></html>
