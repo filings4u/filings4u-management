@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="images/fav.png">
+  <link rel="shortcut icon" type="image/png" href="images/fav.png">
+  <link rel="apple-touch-icon" href="images/fav.png">
+  <style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
+  <script>document.documentElement.classList.add('f4u-auth-pending');</script>
+  <link rel="stylesheet" href="assets/css/auth-lock.css">
+  <link rel="stylesheet" href="assets/css/session-security.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/admin-supabase-client.js"></script>
+  <script src="assets/js/session-security.js"></script>
+  <script src="assets/js/admin-auth-guard.js"></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10b981">
+  <title>filings4u Admin | Contacts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/admin-management.css">
+  <link rel="stylesheet" href="assets/css/contacts-manager.css?v=20260923-1">
+  <link rel="stylesheet" href="assets/css/popup-horizontal.css?v=20260919-4">
+</head>
+<body class="management-body contacts-body" data-management-page="contacts">
+<header class="management-topbar">
+  <div class="management-topbar__left">
+    <button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button>
+    <button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button>
+    <a class="management-brand" href="admin-management.html#home"><img src="images/logo.png" alt="filings4u" class="management-logo"><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a>
+  </div>
+  <div class="management-topbar__center"><button class="global-search-trigger" id="contactSearchTrigger" type="button"><span>⌕</span><span>Search contacts...</span><kbd>/</kbd></button></div>
+  <div class="management-topbar__right"><button class="management-create-button" id="refreshContactsTop" type="button">Refresh contacts</button><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials>AD</span><span class="management-profile-copy"><strong data-admin-name>Administrator</strong><small data-admin-email>Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" id="managementProfileMenu" hidden><a href="admin-settings.html">My profile</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
+</header>
+<div class="management-shell">
+  <aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav class="management-nav" id="managementNavigation" data-management-navigation aria-label="Management navigation"></nav></aside>
+  <button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
+  <main class="management-main contacts-main">
+    <header class="management-page-head contacts-page-head"><div><span class="management-kicker">Business · CRM</span><h1>Contacts</h1><p>All client and customer relationships in one place. Open a contact for quick management or expand into the full customer profile.</p></div><div class="management-page-actions"><button class="management-secondary-button" id="refreshContacts" type="button">Refresh</button></div></header>
+
+    <div class="contact-stat-grid">
+      <article><small>Total contacts</small><strong id="statContacts">—</strong><em>Customer and client records</em></article>
+      <article><small>Portal members</small><strong id="statPortal">—</strong><em>Client portal accounts</em></article>
+      <article><small>Paid customers</small><strong id="statPaid">—</strong><em>At least one paid order</em></article>
+      <article><small>Open invoices</small><strong id="statOpenInvoices">—</strong><em>Balances requiring attention</em></article>
+    </div>
+
+    <section class="contacts-card">
+      <div class="contacts-toolbar">
+        <label class="contacts-search"><span>⌕</span><input id="contactSearch" type="search" placeholder="Search name, email, company, phone or customer ID"></label>
+        <div class="contacts-filters"><select id="contactTypeFilter"><option value="">All contacts</option><option value="portal">Portal members</option><option value="paid">Paid customers</option><option value="free">Free / no paid orders</option><option value="open">Open invoices</option></select><select id="contactSort"><option value="activity">Recent activity</option><option value="name">Name A–Z</option><option value="orders">Most orders</option><option value="spend">Highest value</option></select></div>
+      </div>
+      <div class="contacts-table-wrap"><table class="contacts-table"><thead><tr><th>Contact</th><th>Email</th><th>Phone</th><th>Member status</th><th>Relationship</th><th>Orders</th><th>Lifetime value</th><th></th></tr></thead><tbody id="contactsRows"><tr><td colspan="8"><div class="contacts-empty">Loading contacts…</div></td></tr></tbody></table></div>
+      <footer class="contacts-footer"><span id="contactResultCount">—</span><div><button id="contactPrev" type="button">Previous</button><span id="contactPageLabel">Page 1</span><button id="contactNext" type="button">Next</button></div></footer>
+    </section>
+  </main>
+</div>
+
+<div class="contact-shade" id="contactShade" hidden></div>
+<aside class="contact-drawer" id="contactDrawer" aria-hidden="true">
+  <header class="contact-drawer-head">
+    <div class="contact-head-identity"><div class="contact-avatar" id="drawerAvatar">CU</div><div><span class="contact-member-badge" id="drawerMemberBadge">CONTACT</span><h2 id="drawerName">Customer</h2><p id="drawerEmail">—</p></div></div>
+    <div class="contact-head-actions"><button id="drawerExpand" type="button" title="Open full profile" aria-label="Open full profile">↗</button><button id="drawerClose" type="button" aria-label="Close">×</button></div>
+  </header>
+  <div class="contact-quick-actions">
+    <button id="drawerEdit" type="button"><span>✎</span><b>Edit</b></button>
+    <button id="drawerOrder" type="button"><span>▤</span><b>Order</b></button>
+    <button id="drawerInvoice" type="button"><span>$</span><b>Invoice</b></button>
+    <button id="drawerEmailAction" type="button"><span>✉</span><b>Email</b></button>
+  </div>
+  <nav class="contact-drawer-tabs"><button class="is-active" data-drawer-tab="overview">Overview</button><button data-drawer-tab="activity">Activity</button></nav>
+  <div class="contact-drawer-body">
+    <section class="drawer-panel is-active" data-drawer-panel="overview">
+      <div class="contact-info-card"><div class="contact-card-title"><h3>Purchase stats</h3><span id="drawerLastActivity">—</span></div><div class="purchase-stats"><div><span>Orders</span><strong id="drawerOrders">0</strong></div><div><span>Total amount</span><strong id="drawerSpend">$0.00</strong></div><div><span>Open invoices</span><strong id="drawerOpenInvoices">0</strong></div></div></div>
+      <div class="contact-info-card"><div class="contact-card-title"><h3>Contact info</h3><button id="drawerEditSmall" type="button">Edit</button></div><dl id="drawerContactInfo"></dl></div>
+      <div class="contact-info-card"><div class="contact-card-title"><h3>Client account</h3></div><dl id="drawerAccountInfo"></dl></div>
+      <div class="contact-info-card"><div class="contact-card-title"><h3>Relationship</h3></div><div class="contact-chip-grid" id="drawerRelationship"></div></div>
+      <div class="drawer-profile-cta"><button id="drawerExpandBottom" class="management-primary-button" type="button">Open Full Customer Profile ↗</button></div>
+    </section>
+    <section class="drawer-panel" data-drawer-panel="activity"><div class="drawer-activity" id="drawerActivity"><div class="contacts-empty">Select a contact to load activity.</div></div></section>
+  </div>
+</aside>
+
+<div class="contact-edit-modal" id="contactEditModal" hidden><div class="contact-edit-backdrop" data-close-contact-edit></div><section class="contact-edit-card"><header><div><span class="management-kicker">Contact</span><h2>Edit contact</h2></div><button data-close-contact-edit type="button">×</button></header><form id="contactEditForm"><div class="contact-edit-grid"><label>First name<input name="first_name"></label><label>Last name<input name="last_name"></label><label class="full">Company<input name="company_name"></label><label>Email<input name="email_address" type="email" readonly></label><label>Phone<input name="phone_number"></label><label class="full">Street address<input name="street_address"></label><label>City<input name="city"></label><label>State<input name="state" maxlength="2"></label><label>ZIP<input name="zip_code"></label></div><footer><button class="management-secondary-button" data-close-contact-edit type="button">Cancel</button><button class="management-primary-button" type="submit">Save contact</button></footer></form></section></div>
+
+<div class="contacts-toast" id="contactsToast" hidden></div>
+<script src="assets/js/navigation.js"></script>
+<script src="assets/js/contacts-manager.js?v=20260923-1"></script>
+<script src="assets/js/filings4u-ui.js"></script>
+</body></html>

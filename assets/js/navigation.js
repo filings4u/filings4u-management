@@ -25,6 +25,7 @@
       label: "Business",
       items: [
         // Original navigation — unchanged.
+        ["contacts", "◎", "Contacts", "admin-contacts.html"],
         ["prospects", "◉", "Prospects", "admin-prospects.html"],
         ["customers", "◎", "Customers", "admin-customers.html"],
         ["orders", "▤", "Orders", "admin-orders.html"],
@@ -84,6 +85,7 @@
   ];
 
   const fileToKey = {
+    "admin-contacts.html": "contacts",
     "admin-prospects.html": "prospects",
     "admin-customers.html": "customers",
     "admin-orders.html": "orders",
