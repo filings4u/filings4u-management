@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="images/fav.png" rel="icon" type="image/png"/>
+<style>html.f4u-auth-pending body{visibility:hidden!important;opacity:0!important;pointer-events:none!important}html.f4u-auth-ready body{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style>
+<script>document.documentElement.classList.add('f4u-auth-pending');</script>
+<link href="assets/css/auth-lock.css" rel="stylesheet"/>
+<link href="assets/css/session-security.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/admin-supabase-client.js"></script>
+<script src="assets/js/session-security.js"></script>
+<script src="assets/js/admin-auth-guard.js"></script>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"/><meta name="theme-color" content="#10b981"/>
+<title>filings4u Admin | Filing Workflow</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
+<link href="assets/css/admin-management.css" rel="stylesheet"/>
+<link href="assets/css/filing-workflow.css" rel="stylesheet"/>
+</head>
+<body class="management-body filing-workflow-body" data-management-page="filing-workflow">
+<header class="management-topbar">
+<div class="management-topbar__left"><button class="management-icon-button management-mobile-toggle" id="managementMobileToggle" type="button">☰</button><button class="management-icon-button management-desktop-toggle" id="managementDesktopToggle" type="button">☰</button><a class="management-brand" href="admin-management.html#home"><img alt="filings4u" class="management-logo" src="images/logo.png"/><span class="management-brand-divider"></span><span class="management-brand-copy"><strong>Management</strong><small>Website & Operations</small></span></a></div>
+<div class="management-topbar__center"><button class="global-search-trigger" id="workflowSearchTrigger" type="button"><span>⌕</span><span>Search filing workflow...</span><kbd>/</kbd></button></div>
+<div class="management-topbar__right"><div class="management-account"><button class="management-profile-button" id="managementProfileButton" type="button"><span class="management-avatar" data-admin-initials="">AD</span><span class="management-profile-copy"><strong data-admin-name="">Administrator</strong><small data-admin-email="">Admin account</small></span><span>⌄</span></button><div class="management-profile-menu" hidden id="managementProfileMenu"><a href="admin-settings.html">My profile</a><a href="admin-management.html#users">Users & roles</a><button id="managementSignOut" type="button">Sign out</button></div></div></div>
+</header>
+<div class="management-shell">
+<aside class="management-sidebar" id="managementSidebar"><div class="management-sidebar__intro"><span><i></i> filings4u</span><strong>Management System</strong><small>Control the website, portals and business operations.</small></div><nav aria-label="Management navigation" class="management-nav" data-management-navigation id="managementNavigation"></nav></aside>
+<button class="management-sidebar-backdrop" id="managementSidebarBackdrop" type="button"></button>
+<main class="management-main workflow-main">
+<header class="management-page-head business-page-head"><div><span class="management-kicker">Business · Fulfillment</span><h1>Filing Workflow</h1><p>Move customer filings from order received through processing, agency filing, approval and completion. Customer portal updates and branded email notifications are sent from the same workflow action.</p></div><div class="management-page-actions"><button class="management-secondary-button" id="refreshWorkflow" type="button">Refresh</button></div></header>
+
+<section class="workflow-stats">
+<article><span>▧</span><div><small>Active filings</small><strong id="statActive">—</strong><em>Open workflow records</em></div></article>
+<article><span>◷</span><div><small>Processing</small><strong id="statProcessing">—</strong><em>Being prepared</em></div></article>
+<article><span>↑</span><div><small>Filed</small><strong id="statFiled">—</strong><em>Submitted to agency</em></div></article>
+<article><span>✓</span><div><small>Completed</small><strong id="statCompleted">—</strong><em>Finished filings</em></div></article>
+</section>
+
+<section class="workflow-card">
+<div class="workflow-toolbar">
+<label class="workflow-search"><span>⌕</span><input id="workflowSearch" type="search" placeholder="Search customer, business, tracking, service or state"/></label>
+<div class="workflow-filters"><select id="workflowStatusFilter"><option value="">All statuses</option></select><select id="workflowSort"><option value="updated">Recently updated</option><option value="oldest">Oldest activity</option><option value="customer">Customer A–Z</option><option value="status">Status</option></select></div>
+</div>
+<div class="workflow-table-wrap"><table class="workflow-table"><thead><tr><th>Filing</th><th>Customer</th><th>Service</th><th>Jurisdiction</th><th>Status</th><th>Last update</th><th></th></tr></thead><tbody id="workflowTableBody"><tr><td colspan="7"><div class="workflow-empty">Loading filing workflow…</div></td></tr></tbody></table></div>
+<footer class="workflow-footer"><span id="workflowResultCount">—</span><span>Customer notifications are logged in the workflow history.</span></footer>
+</section>
+</main>
+</div>
+
+<div class="workflow-drawer" id="workflowDrawer" aria-hidden="true"><button class="workflow-drawer__backdrop" id="workflowDrawerBackdrop" type="button"></button><section class="workflow-drawer__panel" role="dialog" aria-modal="true" aria-labelledby="workflowDrawerTitle"><header><div><span class="management-kicker">Filing record</span><h2 id="workflowDrawerTitle">Filing</h2><p id="workflowDrawerMeta">—</p></div><button class="workflow-close" id="workflowClose" type="button" aria-label="Close">×</button></header><div class="workflow-drawer__body">
+<section class="workflow-current"><div><small>Current status</small><strong id="workflowCurrentStatus">—</strong></div><div><small>Customer</small><strong id="workflowCustomer">—</strong></div><div><small>Service</small><strong id="workflowService">—</strong></div><div><small>Tracking</small><strong id="workflowTracking">—</strong></div></section>
+<section class="workflow-update-card"><div class="workflow-section-head"><span class="management-kicker">Update workflow</span><h3>Change filing status</h3><p>This updates the client portal immediately. Leave customer notification enabled to create a portal alert and send a branded email.</p></div><form id="workflowUpdateForm"><label>Status<select id="workflowNewStatus" required></select></label><label class="workflow-full">Customer-visible update<textarea id="workflowPublicNote" rows="4" placeholder="Example: Your filing has been submitted to the Secretary of State and is awaiting agency review."></textarea></label><label class="workflow-full">Internal note<textarea id="workflowInternalNote" rows="3" placeholder="Internal staff note — not shown to the customer."></textarea></label><label class="workflow-notify"><input id="workflowNotify" type="checkbox" checked/><span><strong>Notify customer</strong><small>Create a portal notification and send the branded filing-status email.</small></span></label><button class="management-primary-button workflow-save" id="workflowSave" type="submit">Update status</button></form></section>
+<section class="workflow-history-card"><div class="workflow-section-head"><span class="management-kicker">Audit trail</span><h3>Status history</h3></div><div id="workflowHistory"></div></section>
+</div></section></div>
+<div class="workflow-toast" id="workflowToast" hidden></div>
+<script src="assets/js/navigation.js"></script>
+<script src="assets/js/filing-workflow.js"></script>
+<script src="assets/js/filings4u-ui.js"></script>
+</body></html>

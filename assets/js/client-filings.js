@@ -3,7 +3,7 @@ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const dt=v=>v?new Date(v).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}):'—';
 const dtm=v=>v?new Date(v).toLocaleString():'—';
 
-let db,user,profile,applications=[],tracking=[],legacy=[],filtered=[];
+let db,user,profile,applications=[],tracking=[],workflowEvents=[],legacy=[],filtered=[];
 let toastTimer;
 
 async function boot(){
@@ -45,10 +45,16 @@ async function boot(){
 
   const appIds=applications.map(a=>a.id);
   if(appIds.length){
-    const trackingResult=await db.from('application_tracking')
-      .select('id,application_id,step_order,title,is_completed,completed_at,created_at')
-      .in('application_id',appIds)
-      .order('step_order',{ascending:true});
+    const [trackingResult,workflowResult]=await Promise.all([
+      db.from('application_tracking')
+        .select('id,application_id,step_order,title,is_completed,completed_at,created_at')
+        .in('application_id',appIds)
+        .order('step_order',{ascending:true}),
+      db.from('filing_workflow_events')
+        .select('id,application_id,from_status,to_status,public_note,created_at')
+        .in('application_id',appIds)
+        .order('created_at',{ascending:false})
+    ]);
 
     if(trackingResult.error){
       console.warn('Application milestones could not be loaded.',trackingResult.error.message);
@@ -56,6 +62,12 @@ async function boot(){
       toast('Filings loaded, but detailed milestone tracking is temporarily unavailable.');
     }else{
       tracking=trackingResult.data||[];
+    }
+    if(workflowResult.error){
+      console.warn('Filing workflow history could not be loaded.',workflowResult.error.message);
+      workflowEvents=[];
+    }else{
+      workflowEvents=workflowResult.data||[];
     }
   }
 
@@ -66,6 +78,8 @@ async function boot(){
   applyFilters();
   renderCompleted();
   renderLegacy();
+  const requested=new URLSearchParams(location.search).get('filing');
+  if(requested&&applications.some(a=>a.id===requested))openFiling(requested);
 }
 
 function hydrateProfile(){
@@ -78,6 +92,10 @@ function hydrateProfile(){
   if($('clientMenuName'))$('clientMenuName').textContent=name;
   if($('clientMenuCompany'))$('clientMenuCompany').textContent=company;
   if($('clientMenuAvatar'))$('clientMenuAvatar').textContent=initial;
+}
+
+function eventsFor(appId){
+  return workflowEvents.filter(e=>e.application_id===appId);
 }
 
 function stepsFor(appId){
@@ -220,6 +238,18 @@ function openFiling(id){
             <small>${step.is_completed?`Completed ${dtm(step.completed_at)}`:'Pending'}</small>
           </div>
         </div>`).join('')}</div>`:'<div class="empty-state">No detailed processing milestones have been added yet.</div>'}
+    </section>
+    <section class="detail-section">
+      <h3>Status history</h3>
+      ${eventsFor(id).length?`<div class="timeline">${eventsFor(id).map(event=>`
+        <div class="timeline-step done">
+          <span class="timeline-dot">✓</span>
+          <div>
+            <b>${esc(event.to_status||'Status update')}</b>
+            ${event.public_note?`<small>${esc(event.public_note)}</small>`:''}
+            <small>${dtm(event.created_at)}</small>
+          </div>
+        </div>`).join('')}</div>`:'<div class="empty-state">No workflow status history has been recorded yet.</div>'}
     </section>`;
 
   $('drawer').setAttribute('aria-hidden','false');
